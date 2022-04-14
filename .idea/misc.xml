@@ -3,13 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26" />
-        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/btn_darknavi.xml" value="0.335" />
-        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.3515625" />
-        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/home.xml" value="0.2708333333333333" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2465" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/buttonex.xml" value="0.2465" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2465" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/button.xml" value="0.303125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/home.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_distance_list.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_home.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_list.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/userinfo_home.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
       </map>
     </option>
+  </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/button.xml" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
