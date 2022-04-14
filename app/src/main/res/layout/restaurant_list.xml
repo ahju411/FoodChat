@@ -9,16 +9,16 @@
     <!--    콤퓨터 다시한번무야호오-->
     <!--    노트북 또무야호-->
 
-    <Button
+    <TextView
         android:id="@+id/angry_btn"
         android:layout_width="249dp"
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/buttonex"
         android:text="인천광역시 계양구 계산동 "
         android:textColor="#000000"
-        android:textSize="15sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
