@@ -23,10 +23,16 @@ public class MainActivity extends AppCompatActivity {
         registerstorebtn = findViewById(R.id.registstore);
 
 
+
+
         //로그인 버튼 클릭시 이벤트 설정
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //유은철 식당목록 테스트좀할려고 넣음 삭제예정
+                Intent intent = new Intent(view.getContext(), restaurant_list.class);
+                startActivity(intent);
 
             }
         });
@@ -56,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
     }
 }
