@@ -13,13 +13,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private Button registerbtn;
     private EditText email,pwd,pwdconfirm;
-    private TextView confirmemail,chkpwd,confirmpwd;
+    private TextView confirmemail,falsechkpwd,truechkpwd,confirmpwd;
     private static String useremail,userpwd,userpwdconfirm;
 
 
@@ -31,7 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
         pwd = findViewById(R.id.pwdregi);
         pwdconfirm = findViewById(R.id.pwdconfirm);
         confirmemail = findViewById(R.id.confirmemail);
-        chkpwd = findViewById(R.id.chkpwd);
+        falsechkpwd = findViewById(R.id.falsechkpwd);
+        truechkpwd = findViewById(R.id.truechkpwd);
         confirmpwd = findViewById(R.id.confirmpwd);
 
 
@@ -70,6 +72,12 @@ public class RegisterActivity extends AppCompatActivity {
             //이 부분이 변화를 확인하고 if문으로 체크해준다.
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (isValidPwd(pwd.getText().toString())){
+                    confirmpwd.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    confirmpwd.setVisibility(View.VISIBLE);
+                }
 
             }
 
@@ -92,11 +100,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(pwd.getText().toString().equals(pwdconfirm.getText().toString()))
                 {
-                    //일치한다
+                    falsechkpwd.setVisibility(View.INVISIBLE);
+                    truechkpwd.setVisibility(View.VISIBLE);
 
                 }else{
-
-                    //일치하지 않는다.
+                    falsechkpwd.setVisibility(View.VISIBLE);
+                    truechkpwd.setVisibility(View.INVISIBLE);
                 }
             }
 
@@ -127,5 +136,14 @@ public class RegisterActivity extends AppCompatActivity {
     //이메일 체크 메소드
     public static boolean isValidEmail(CharSequence target){
         return(!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    //비밀번호 정규식
+    public static final Pattern VALID_PASSWOLD_REGEX_ALPHA_NUM = Pattern.compile( "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[$@$!%*#?&])[A-Za-z[0-9]$@$!%*#?&]{8,16}$"); // 8자리 ~ 16자리까지 가능
+
+    //비밀번호 체크 메소드
+    public static boolean isValidPwd(CharSequence target){
+        Matcher matcher = VALID_PASSWOLD_REGEX_ALPHA_NUM.matcher(target);
+        return(!TextUtils.isEmpty(target) && matcher.matches());
     }
 }
