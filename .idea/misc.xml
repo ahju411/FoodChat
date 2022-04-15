@@ -3,18 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/btn_darknavi.xml" value="0.335" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/buttonex.xml" value="0.1955" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/edit_text_bg.xml" value="0.169" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.3515625" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2465" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/buttonex.xml" value="0.2465" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2465" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/button.xml" value="0.303125" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/home.xml" value="0.14722222222222223" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_distance_list.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_home.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_list.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/userinfo_home.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/home.xml" value="0.2708333333333333" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/register.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_list.xml" value="0.1875" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/userinfo_home.xml" value="0.1875" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1955" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1955" />
       </map>
     </option>
   </component>
