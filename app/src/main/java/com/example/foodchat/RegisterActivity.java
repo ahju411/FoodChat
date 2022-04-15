@@ -21,6 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
     private Button registerbtn;
     private EditText email,pwd,pwdconfirm;
     private TextView confirmemail,falsechkpwd,truechkpwd,confirmpwd;
+    //나중에 회원 입력 정보 받아서 DB에 넣는 용
     private static String useremail,userpwd,userpwdconfirm;
 
 
