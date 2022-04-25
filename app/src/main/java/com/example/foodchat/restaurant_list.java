@@ -21,7 +21,7 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
     private int page = 0;                           // 페이징변수. 초기 값은 0 이다.
     private final int OFFSET = 20;                  // 한 페이지마다 로드할 데이터 갯수.
     private ProgressBar progressBar;                // 데이터 로딩중을 표시할 프로그레스바
-    private boolean mLockListView = false;          // 데이터 불러올때 중복안되게 하기위한 변수
+    private boolean mLockListView = false;          // 데이터 불러올때 중복안되게 하기위한 변수a
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
