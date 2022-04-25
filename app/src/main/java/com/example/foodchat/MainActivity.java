@@ -4,15 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+
+import com.kakao.sdk.auth.model.OAuthToken;
+import com.kakao.sdk.user.UserApiClient;
 
 import java.util.List;
 
+import kotlin.Unit;
+import kotlin.jvm.functions.Function2;
+
 public class MainActivity extends AppCompatActivity {
     Button loginbtn, registerbtn, guestloginbtn, registerstorebtn;
+    ImageButton kakaologin;
     private UserDao mUserDao;
 
     @Override
@@ -23,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         //일단 버튼 누르면 이동하게 정의하기
 
         loginbtn = findViewById(R.id.login);
+        kakaologin = findViewById(R.id.kakao);
         registerbtn = findViewById(R.id.goregister);
         guestloginbtn = findViewById(R.id.guestlogin);
         registerstorebtn = findViewById(R.id.registstore);
@@ -65,7 +75,35 @@ public class MainActivity extends AppCompatActivity {
         mUserDao.DeleteUser(user3);
 
 
-       //로그인 버튼 클릭시 이벤트 설정
+        // 카카오가 설치되어 있는지 확인 하는 메서드또한 카카오에서 제공 콜백 객체를 이용함
+        Function2<OAuthToken, Throwable, Unit> callback = new Function2<OAuthToken, Throwable, Unit>() {
+            @Override
+            public Unit invoke(OAuthToken oAuthToken, Throwable throwable) {
+                // 이때 토큰이 전달이 되면 로그인이 성공한 것이고 토큰이 전달되지 않았다면 로그인 실패
+                if (oAuthToken != null) {
+
+                }
+                if (throwable != null) {
+
+                }
+                updateKakaoLoginUi();
+                return null;
+            }
+        };
+
+        //카카오 로그인 버튼 클릭
+        kakaologin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(UserApiClient.getInstance().isKakaoTalkLoginAvailable(MainActivity.this)){
+                    UserApiClient.getInstance().loginWithKakaoTalk(MainActivity.this,callback);
+                }else{
+                    UserApiClient.getInstance().loginWithKakaoAccount(MainActivity.this,callback);
+                }
+            }
+        });
+
+        //로그인 버튼 클릭시 이벤트 설정
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
