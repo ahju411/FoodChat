@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 if (throwable != null) {
 
                 }
-                updateKakaoLoginUi();
+               // updateKakaoLoginUi();
                 return null;
             }
         };
