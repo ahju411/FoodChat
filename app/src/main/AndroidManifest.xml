@@ -46,9 +46,9 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="a7dd5271a9e9de5da9ffaf556ef49f18"/>
 
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".NicknameActivity"/>
 
-        </activity>
 
         <activity android:name="restaurant_list" />
 

@@ -1,5 +1,6 @@
 package com.example.foodchat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -121,13 +122,15 @@ public class RegisterActivity extends AppCompatActivity {
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), NicknameActivity.class);
+                startActivity(intent);
 
 
                 //DB에 데이터를 넣기 구현할 것
                 //if(success) 회원가입 성공시
                 //else 실패시 Toast띄우기
                 //회원가입 종료
-                finish();
+                //finish();
 
 
             }
