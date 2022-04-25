@@ -1,14 +1,19 @@
 package com.example.foodchat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     Button loginbtn, registerbtn, guestloginbtn, registerstorebtn;
+    private UserDao mUserDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +27,45 @@ public class MainActivity extends AppCompatActivity {
         guestloginbtn = findViewById(R.id.guestlogin);
         registerstorebtn = findViewById(R.id.registstore);
 
+        //DB파트
+        UserDB database = Room.databaseBuilder(getApplicationContext(), UserDB.class, "FoodChat_db")
+                .fallbackToDestructiveMigration() //스키마 버전 변경 가능
+                .allowMainThreadQueries() // Main Thread에서 DB에 IO를 가능하게 함
+                .build();
+
+        mUserDao = database.userDao(); //인터페이스 객체 할당
+
+        // 데이터 삽입
+//        User user = new User(); //객체 인스턴스 생성
+//        user.setName("은철");
+//        user.setAge("24");
+//        user.setPhone("01012341234");
+//        mUserDao.InsertUser(user);
+
+        List<User> userList = mUserDao.getUserAll();
+        //데이터 조회
+        for (int i = 0; i < userList.size(); i++) {
+            Log.d("Test", userList.get(i).getName() + "\n"
+                    + userList.get(i).getAge() + "\n"
+                    + userList.get(i).getPhone() + "\n");
+
+        }
+
+        //데이터 수정
+//        User user2 = new User(); //객체 인스턴스 생성
+//        user2.setId(1);
+//        user2.setName("김치");
+//        user2.setAge("22");
+//        user2.setPhone("01045671234");
+//        mUserDao.UpdateUser(user2);
+
+        //데이터 삭제
+        User user3 = new User();
+        user3.setId(3);
+        mUserDao.DeleteUser(user3);
 
 
-
-        //로그인 버튼 클릭시 이벤트 설정
+       //로그인 버튼 클릭시 이벤트 설정
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
     }
