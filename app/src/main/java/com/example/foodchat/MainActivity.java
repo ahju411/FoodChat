@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginbtn, registerbtn, guestloginbtn, registerstorebtn;
     ImageButton kakaologin;
     private UserDao mUserDao;
+    private final static String TAG = "유저";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 if (throwable != null) {
 
                 }
-               // updateKakaoLoginUi();
+                updateKakaoLoginUI();
                 return null;
             }
         };
@@ -95,13 +96,14 @@ public class MainActivity extends AppCompatActivity {
         kakaologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(UserApiClient.getInstance().isKakaoTalkLoginAvailable(MainActivity.this)){
-                    UserApiClient.getInstance().loginWithKakaoTalk(MainActivity.this,callback);
-                }else{
-                    UserApiClient.getInstance().loginWithKakaoAccount(MainActivity.this,callback);
+                if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(MainActivity.this)) {
+                    UserApiClient.getInstance().loginWithKakaoTalk(MainActivity.this, callback);
+                } else {
+                    UserApiClient.getInstance().loginWithKakaoAccount(MainActivity.this, callback);
                 }
             }
         });
+        updateKakaoLoginUI();
 
         //로그인 버튼 클릭시 이벤트 설정
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +143,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private void updateKakaoLoginUI() {
+        //카카오 UI 가져오는 메소드
+        UserApiClient.getInstance().me(new Function2<com.kakao.sdk.user.model.User, Throwable, Unit>() {
+            @Override
+            public Unit invoke(com.kakao.sdk.user.model.User user, Throwable throwable) {
+                if (user != null) {
+                    //잘 전달된 경우
+                    Log.i(TAG, "id" + user.getId()); //유저의 고유 아이디 불러오기
+                    Log.i(TAG, "nickname=" + user.getKakaoAccount().getProfile().getNickname());
 
+
+                    //후에 어떤 일을 할지 적기
+                    Intent intent = new Intent(MainActivity.this, NicknameActivity.class);
+                    intent.putExtra("닉네임",user.getKakaoAccount().getProfile().getNickname());
+                    startActivity(intent);
+
+                }
+                if (throwable != null) {
+                    //오류 났을 때
+                    Log.w(TAG, "invoke:" + throwable.getLocalizedMessage());
+                }
+
+                return null;
+            }
+        });
     }
 }
+
+
+
+
+
