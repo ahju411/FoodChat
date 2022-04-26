@@ -25,4 +25,13 @@ public interface UserDao {
     @Query("select * from user") //DB요청 명령문
     List<User> getUserAll();
 
+    @Query("select id from user")
+    boolean SelectId();
+
+    @Query("select name from user where id= :userid")
+    boolean UserNick(int userid);
+
+    @Query("delete from user")
+    void DeleteAll();
+
 }

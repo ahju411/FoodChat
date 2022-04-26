@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class User {
-    @PrimaryKey(autoGenerate = true) //자동으로 id가 생성 카운팅된다.
-    private int id = 0; //하나의 사용자에 대한 고유 ID 값
+    @PrimaryKey() //자동으로 id가 생성 카운팅된다.
+    private int id; //하나의 사용자에 대한 고유 ID 값
     private String name;
     private String age;
     private String phone;
