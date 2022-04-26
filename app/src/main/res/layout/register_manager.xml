@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        app:layout_constraintVertical_bias="0.1"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </ImageView>
+
+
+    <EditText
+        android:id="@+id/emailregimanager"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="이메일 주소 입력"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:background="@drawable/edit_text_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.299"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <EditText
+        android:id="@+id/manager_certificate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edit_text_bg"
+        android:hint="사업자 등록증"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/emailregimanager"
+        app:layout_constraintTop_toBottomOf="@+id/emailregimanager"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <Button
+        android:id="@+id/search_certificate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/btn_darknavi"
+        android:text="찾기"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/manager_certificate"
+        app:layout_constraintEnd_toEndOf="@+id/emailregimanager"
+        app:layout_constraintStart_toEndOf="@+id/manager_certificate"
+        app:layout_constraintTop_toTopOf="@+id/manager_certificate" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tv_explain"
+        android:paddingLeft="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="1.어떤 설명을 써야할 것\n 2.추가적으로 설명할 부분\n 3.이것도 마찬가지"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/emailregimanager"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@id/emailregimanager"
+        app:layout_constraintTop_toBottomOf="@+id/manager_certificate"
+        app:layout_constraintVertical_bias="0.2"
+         />
+
+
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="180dp"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_darknavi"
+        android:text="제출하기"
+        android:textColor="@color/white"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
