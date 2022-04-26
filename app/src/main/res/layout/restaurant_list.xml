@@ -10,18 +10,28 @@
     <!--ListView를 정의한다.-->
 
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="99dp"
+        tools:layout_editor_absoluteY="268dp">
+
+    </FrameLayout>
 
     <ListView
         android:id="@+id/listview"
-        android:layout_width="505dp"
-        android:layout_height="703dp"
+        android:layout_width="382dp"
+        android:layout_height="552dp"
         android:layout_above="@+id/progressbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.415"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.721" />
+        app:layout_constraintVertical_bias="0.721">
+
+    </ListView>
 
     <ProgressBar
         android:id="@+id/progressbar"
