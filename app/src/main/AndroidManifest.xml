@@ -48,6 +48,10 @@
 
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".NicknameActivity"/>
+        <activity android:name=".UserMenuHomeActivity"/>
+        <activity android:name=".UserMenuFavoritesActivity"/>
+        <activity android:name=".UserMenuReservationActivity"/>
+        <activity android:name=".UserMenuReviewActivity"/>
 
 
 

@@ -1,9 +1,11 @@
 package com.example.foodchat;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -22,6 +24,7 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
     private final int OFFSET = 20;                  // 한 페이지마다 로드할 데이터 갯수.
     private ProgressBar progressBar;                // 데이터 로딩중을 표시할 프로그레스바
     private boolean mLockListView = false;          // 데이터 불러올때 중복안되게 하기위한 변수a
+    ImageView menubtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,17 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
 
         listView.setOnScrollListener(this);
         getItem();
+
+        menubtn = (ImageView) findViewById(R.id.menubtn);
+        menubtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //나의 메뉴로 이동
+                Intent intent = new Intent(view.getContext(), UserMenuHomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
@@ -75,6 +89,7 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
         // 다음 20개의 데이터를 불러와서 리스트에 저장한다.
         for(int i = 0; i < 20; i++){
             String label = "Label " + ((page * OFFSET) + i);
+            System.out.println(page);
             list.add(label);
         }
 
