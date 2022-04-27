@@ -50,6 +50,8 @@
         <activity android:name=".Restaurant_Reservation"/>
         <activity android:name=".RegisterActivity"/>
         <activity android:name=".NicknameActivity"/>
+        <activity android:name=".RegisterManagerActivity"/>
+        <activity android:name=".ManagerhomeActivity"/>
         <activity android:name=".UserMenuHomeActivity"/>
         <activity android:name=".UserMenuFavoritesActivity"/>
         <activity android:name=".UserMenuReservationActivity"/>
