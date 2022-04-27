@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.media.Image;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +18,8 @@ import android.widget.ImageButton;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import kotlin.Unit;
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+
 
         //일단 버튼 누르면 이동하게 정의하기
 
@@ -150,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     private void updateKakaoLoginUI() {
         //카카오 UI 가져오는 메소드
         UserApiClient.getInstance().me(new Function2<com.kakao.sdk.user.model.User, Throwable, Unit>() {
@@ -160,31 +168,37 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG, "id" + user.getId()); //유저의 고유 아이디 불러오기
                     Log.i(TAG, "nickname=" + user.getKakaoAccount().getProfile().getNickname());
 
+                    User userdb = new User(); //객체 인스턴스 생성
+                    userdb.setId(Long.valueOf(user.getId()).intValue());
+                    //userdb.setName(user.getKakaoAccount().getProfile().getNickname());
+                    mUserDao.InsertUser(userdb);
                     //데이터 삽입 if문으로 이미 있으면 다시 안 되게 만들기
-                    if (mUserDao.SelectId()) {//이미 id가 있다면
+                    if (mUserDao.SelectId(Long.valueOf(user.getId()).intValue())) {//이미 id가 있다면
                         Log.d("Test","id가 있다면");
                         //닉네임까지 설정한 경우
-//                        if (mUserDao.SelectName()) {
-//                            Log.d("Test","닉네임 설정 했을 때");
-//                            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-//                            startActivity(intent);
-//                        } else {
-//                            Intent intent = new Intent(MainActivity.this, NicknameActivity.class);
-//                            intent.putExtra("닉네임", user.getKakaoAccount().getProfile().getNickname());
-//                            Log.d("Test","닉네임 설정 안 했을 때");
-//
-//                            startActivity(intent);
-//                        }
+                        if (mUserDao.UserNick(Long.valueOf(user.getId()).intValue())) {
+                            Log.d("Test","닉네임 설정 했을 때");
+                            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(MainActivity.this, NicknameActivity.class);
+                            intent.putExtra("닉네임", user.getKakaoAccount().getProfile().getNickname());
+                            intent.putExtra("id",user.getId().toString());
+                            Log.d("Test","닉네임 설정 안 했을 때");
+                            Log.d("idtest", String.valueOf(Long.valueOf(user.getId()).intValue()));
+
+                            startActivity(intent);
+                        }
                         //Boolean nick = mUserDao.UserNick(Long.valueOf(user.getId()).intValue());
                         Boolean nick = mUserDao.UserNick(1234);
                         Log.d("TEst",nick.toString());
 
                     } else {
                         //처음 카카오 로그인한 경우
-                        User userdb = new User(); //객체 인스턴스 생성
-                        userdb.setId(Long.valueOf(user.getId()).intValue());
+                        User userdb2 = new User(); //객체 인스턴스 생성
+                        userdb2.setId(Long.valueOf(user.getId()).intValue());
                         //userdb.setName(user.getKakaoAccount().getProfile().getNickname());
-                        mUserDao.InsertUser(userdb);
+                        mUserDao.InsertUser(userdb2);
                     }
                     //후에 어떤 일을 할지 적기
                     //if문으로 db파서 이 유저가 이미 가입되어있으면 스킵하고 바로 메인으로 가기.
