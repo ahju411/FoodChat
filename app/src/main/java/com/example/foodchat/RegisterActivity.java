@@ -122,6 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 Intent intent = new Intent(view.getContext(), NicknameActivity.class);
                 startActivity(intent);
 

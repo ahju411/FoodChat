@@ -27,6 +27,7 @@ public class NicknameActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 Intent intent = new Intent(view.getContext(), restaurant_list.class);
                 startActivity(intent);
             }
