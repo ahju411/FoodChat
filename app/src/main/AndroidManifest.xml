@@ -56,6 +56,8 @@
         <activity android:name=".UserMenuFavoritesActivity"/>
         <activity android:name=".UserMenuReservationActivity"/>
         <activity android:name=".UserMenuReviewActivity"/>
+        <activity android:name=".StoreregisterActivity"/>
+        <activity android:name=".AddmenuActivity"/>
 
 
 

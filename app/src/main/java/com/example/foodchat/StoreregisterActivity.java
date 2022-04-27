@@ -8,20 +8,21 @@ import android.widget.Button;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ManagerhomeActivity extends AppCompatActivity {
-    private Button store_registerbtn;
+public class StoreregisterActivity extends AppCompatActivity {
+    private Button addmenubtn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manager_home);
+        setContentView(R.layout.store_register);
 
-        store_registerbtn = findViewById(R.id.store_register);
-        store_registerbtn.setOnClickListener(new View.OnClickListener() {
+        addmenubtn = findViewById(R.id.addmenu);
+        addmenubtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), StoreregisterActivity.class);
+                Intent intent = new Intent(view.getContext(), AddmenuActivity.class);
                 startActivity(intent);
             }
         });
+
     }
 }
