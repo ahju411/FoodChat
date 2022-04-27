@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Test", userList.get(i).getName() + "\n"
                     + userList.get(i).getAge() + "\n"
                     + userList.get(i).getPhone() + "\n");
-
         }
 
         //데이터 수정
@@ -168,44 +167,44 @@ public class MainActivity extends AppCompatActivity {
                     Log.i(TAG, "id" + user.getId()); //유저의 고유 아이디 불러오기
                     Log.i(TAG, "nickname=" + user.getKakaoAccount().getProfile().getNickname());
 
-                    User userdb = new User(); //객체 인스턴스 생성
-                    userdb.setId(Long.valueOf(user.getId()).intValue());
-                    //userdb.setName(user.getKakaoAccount().getProfile().getNickname());
-                    mUserDao.InsertUser(userdb);
                     //데이터 삽입 if문으로 이미 있으면 다시 안 되게 만들기
                     if (mUserDao.SelectId(Long.valueOf(user.getId()).intValue())) {//이미 id가 있다면
                         Log.d("Test","id가 있다면");
                         //닉네임까지 설정한 경우
-                        if (mUserDao.UserNick(Long.valueOf(user.getId()).intValue())) {
+                        int chkuserint = (Long.valueOf(user.getId()).intValue());
+                        Log.d("idtest", String.valueOf(chkuserint));
+                        int chknick = mUserDao.UserNick(Long.valueOf(user.getId()).intValue());
+                        Log.d("유저아이디에 따른 닉넴있냐",String.valueOf(chknick));
+                        if (mUserDao.UserNick(Long.valueOf(user.getId()).intValue()) > 0) {
                             Log.d("Test","닉네임 설정 했을 때");
-                            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                            Intent intent = new Intent(MainActivity.this, restaurant_list.class);
                             startActivity(intent);
                         } else {
                             Intent intent = new Intent(MainActivity.this, NicknameActivity.class);
                             intent.putExtra("닉네임", user.getKakaoAccount().getProfile().getNickname());
-                            intent.putExtra("id",user.getId().toString());
+                            intent.putExtra("id",Long.valueOf(user.getId()).intValue());
                             Log.d("Test","닉네임 설정 안 했을 때");
-                            Log.d("idtest", String.valueOf(Long.valueOf(user.getId()).intValue()));
+
 
                             startActivity(intent);
                         }
                         //Boolean nick = mUserDao.UserNick(Long.valueOf(user.getId()).intValue());
-                        Boolean nick = mUserDao.UserNick(1234);
-                        Log.d("TEst",nick.toString());
+                        int nick = mUserDao.UserNick((Long.valueOf(user.getId()).intValue()));
+                        Log.d("TEst",String.valueOf(nick));
 
                     } else {
                         //처음 카카오 로그인한 경우
-                        User userdb2 = new User(); //객체 인스턴스 생성
-                        userdb2.setId(Long.valueOf(user.getId()).intValue());
+                        User userdb = new User(); //객체 인스턴스 생성
+                        userdb.setId(Long.valueOf(user.getId()).intValue());
                         //userdb.setName(user.getKakaoAccount().getProfile().getNickname());
-                        mUserDao.InsertUser(userdb2);
+                        mUserDao.InsertUser(userdb);
                     }
                     //후에 어떤 일을 할지 적기
                     //if문으로 db파서 이 유저가 이미 가입되어있으면 스킵하고 바로 메인으로 가기.
 
 
-                } else {
-
+                } else {//로그인 실패
+                    Log.d("loginfail","로그인 실패");
                 }
                 if (throwable != null) {
                     //오류 났을 때

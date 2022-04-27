@@ -32,8 +32,8 @@ public interface UserDao {
     @Query("update user set name =:username where id =:userid")
     void UserChangeNick(String username,int userid);
 
-    @Query("select name from user where id= :userid")
-    boolean UserNick(int userid);
+    @Query("select count(name) from user where id=:userid")
+    int UserNick(int userid);
 
 
     @Query("delete from user")

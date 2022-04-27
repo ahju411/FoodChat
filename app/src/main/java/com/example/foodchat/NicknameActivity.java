@@ -14,7 +14,7 @@ import androidx.room.Room;
 public class NicknameActivity extends AppCompatActivity {
     private Button start;
     private EditText nickname;
-    private String userid;
+    private int userid;
     private String usernick;
     private UserDao mUserDao;
     @Override
@@ -23,7 +23,7 @@ public class NicknameActivity extends AppCompatActivity {
         setContentView(R.layout.nickname);
         Intent nicknameintent = getIntent();
         String firstnick = nicknameintent.getStringExtra("닉네임");
-        userid = nicknameintent.getStringExtra("id");
+        userid = nicknameintent.getIntExtra("id",0);
 
 
         UserDB database = Room.databaseBuilder(getApplicationContext(), UserDB.class, "FoodChat_db")
@@ -47,7 +47,7 @@ public class NicknameActivity extends AppCompatActivity {
                 usernick = nickname.getText().toString();
                 Log.d("id", String.valueOf(userid));
                 Log.d("wantnick",usernick);
-                mUserDao.UserChangeNick(usernick,Integer.parseInt(userid));
+                mUserDao.UserChangeNick(usernick,userid);
                 Intent intent = new Intent(view.getContext(), restaurant_list.class);
                 startActivity(intent);
                 finish();
