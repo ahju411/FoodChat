@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -25,6 +26,7 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
     private ProgressBar progressBar;                // 데이터 로딩중을 표시할 프로그레스바
     private boolean mLockListView = false;          // 데이터 불러올때 중복안되게 하기위한 변수a
     ImageView menubtn;
+    Button LV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,16 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
             public void onClick(View view) {
                 //나의 메뉴로 이동
                 Intent intent = new Intent(view.getContext(), UserMenuHomeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // 임시 식당 상세페이지 들어가기
+        LV = (Button) findViewById(R.id.address);
+        LV.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //임시 식당 상세페이지 들어가기
+                Intent intent = new Intent(view.getContext(), Restaurant_Info.class);
                 startActivity(intent);
             }
         });
