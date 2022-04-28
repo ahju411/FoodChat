@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
         //데이터 조회
         for (int i = 0; i < userList.size(); i++) {
             Log.d("Test", userList.get(i).getName() + "\n"
-                    + userList.get(i).getAge() + "\n"
                     + userList.get(i).getPhone() + "\n");
         }
 
@@ -171,10 +170,6 @@ public class MainActivity extends AppCompatActivity {
                     if (mUserDao.SelectId(Long.valueOf(user.getId()).intValue())) {//이미 id가 있다면
                         Log.d("Test","id가 있다면");
                         //닉네임까지 설정한 경우
-                        int chkuserint = (Long.valueOf(user.getId()).intValue());
-                        Log.d("idtest", String.valueOf(chkuserint));
-                        int chknick = mUserDao.UserNick(Long.valueOf(user.getId()).intValue());
-                        Log.d("유저아이디에 따른 닉넴있냐",String.valueOf(chknick));
                         if (mUserDao.UserNick(Long.valueOf(user.getId()).intValue()) > 0) {
                             Log.d("Test","닉네임 설정 했을 때");
                             Intent intent = new Intent(MainActivity.this, restaurant_list.class);

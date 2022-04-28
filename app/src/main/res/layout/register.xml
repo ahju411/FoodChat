@@ -133,5 +133,50 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/registeremail"
+        android:layout_width="180dp"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_darknavi"
+        android:text="가입하기"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/registerpw"
+        android:layout_width="180dp"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_darknavi"
+        android:text="가입하기"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/registerpwconfirm"
+        android:layout_width="180dp"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_darknavi"
+        android:text="가입하기"
+        android:visibility="invisible"
+        android:textColor="@color/white"
+        android:layout_marginBottom="80dp"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

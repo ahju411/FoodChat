@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private Button registerbtn;
+    private Button registerbtn, registeremailbtn, registerpwbtn, registerpwconfirmbtn;
     private EditText email,pwd,pwdconfirm;
     private TextView confirmemail,falsechkpwd,truechkpwd,confirmpwd;
     //나중에 회원 입력 정보 받아서 DB에 넣는 용
@@ -37,6 +38,10 @@ public class RegisterActivity extends AppCompatActivity {
         falsechkpwd = findViewById(R.id.falsechkpwd);
         truechkpwd = findViewById(R.id.truechkpwd);
         confirmpwd = findViewById(R.id.confirmpwd);
+        registerbtn = findViewById(R.id.register);
+        registeremailbtn = findViewById(R.id.registeremail);
+        registerpwbtn = findViewById(R.id.registerpw);
+        registerpwconfirmbtn = findViewById(R.id.registerpwconfirm);
 
 
 
@@ -51,8 +56,10 @@ public class RegisterActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (isValidEmail(email.getText().toString())){
                     confirmemail.setVisibility(View.INVISIBLE);
+                    registeremailbtn.setVisibility(View.INVISIBLE);
                 }else{
                     confirmemail.setVisibility(View.VISIBLE);
+                    registeremailbtn.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -76,9 +83,11 @@ public class RegisterActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (isValidPwd(pwd.getText().toString())){
                     confirmpwd.setVisibility(View.INVISIBLE);
+                    registerpwbtn.setVisibility(View.INVISIBLE);
                 }
                 else{
                     confirmpwd.setVisibility(View.VISIBLE);
+                    registerpwbtn.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -104,10 +113,12 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     falsechkpwd.setVisibility(View.INVISIBLE);
                     truechkpwd.setVisibility(View.VISIBLE);
+                    registerpwconfirmbtn.setVisibility(View.INVISIBLE);
 
                 }else{
                     falsechkpwd.setVisibility(View.VISIBLE);
                     truechkpwd.setVisibility(View.INVISIBLE);
+                    registerpwconfirmbtn.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -117,23 +128,41 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        registerbtn = findViewById(R.id.register);
         //가입하기 버튼 클릭시 이벤트
         registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                Intent intent = new Intent(view.getContext(), NicknameActivity.class);
-                startActivity(intent);
+                if(email.getText().toString().length() > 0) {
+                    finish();
+                    Intent intent = new Intent(view.getContext(), NicknameActivity.class);
+                    startActivity(intent);
+                }else{
 
-
+                }
                 //DB에 데이터를 넣기 구현할 것
                 //if(success) 회원가입 성공시
                 //else 실패시 Toast띄우기
                 //회원가입 종료
                 //finish();
+            }
+        });
 
-
+        registeremailbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"이메일을 확인해주세요",Toast.LENGTH_SHORT).show();
+            }
+        });
+        registerpwbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"비밀번호를 확인해주세요",Toast.LENGTH_SHORT).show();
+            }
+        });
+        registerpwconfirmbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"비밀번호가 일치하는지 확인해주세요",Toast.LENGTH_SHORT).show();
             }
         });
     }
