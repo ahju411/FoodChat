@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button loginbtn, registerbtn, guestloginbtn, registerstorebtn;
     ImageButton kakaologin;
     private UserDao mUserDao;
+    private ManagerDao mManagerDao;
     private final static String TAG = "유저";
 
     @Override
@@ -52,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         mUserDao = database.userDao(); //인터페이스 객체 할당
+        mManagerDao = database.managerDao();
+
+
+
 
          //데이터 삽입
 //        User user = new User(); //객체 인스턴스 생성
@@ -60,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
 //        user.setAge("24");
 //        user.setPhone("01012341234");
 //        mUserDao.InsertUser(user);
+//        Manager manager = new Manager();
+//        manager.setId(1234);
+//        manager.setPw("1234");
+//        mManagerDao.InsertManager(manager);
 
 
         List<User> userList = mUserDao.getUserAll();
@@ -70,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //데이터 수정
-        User user2 = new User(); //객체 인스턴스 생성
+//        User user2 = new User(); //객체 인스턴스 생성
 //        user2.setId(1234);
 //        user2.setName("ㅇㅇ");
 //        user2.setAge("22");
