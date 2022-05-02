@@ -65,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
 //        user.setAge("24");
 //        user.setPhone("01012341234");
 //        mUserDao.InsertUser(user);
-//        Manager manager = new Manager();
-//        manager.setId(1234);
-//        manager.setPw("1234");
-//        mManagerDao.InsertManager(manager);
+        Manager manager = new Manager();
+        manager.setId(1234);
+        manager.setPw("1234");
+        mManagerDao.InsertManager(manager);
 
 
         List<User> userList = mUserDao.getUserAll();
