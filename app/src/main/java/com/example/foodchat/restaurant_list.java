@@ -27,6 +27,7 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
     private boolean mLockListView = false;          // 데이터 불러올때 중복안되게 하기위한 변수a
     ImageView menubtn;
     Button LV;
+    ImageView IV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,16 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
             public void onClick(View view) {
                 //임시 식당 상세페이지 들어가기
                 Intent intent = new Intent(view.getContext(), Restaurant_Info.class);
+                startActivity(intent);
+            }
+        });
+
+        // 임시 웹서버 DB연결테스트 삭제 예정
+        IV = (ImageView) findViewById(R.id.searchbtn);
+        IV.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //임시 웹 서버DB연결테스트 삭제 예정
+                Intent intent = new Intent(view.getContext(), dbtest.class);
                 startActivity(intent);
             }
         });

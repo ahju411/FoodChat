@@ -25,15 +25,20 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
 
-
+    implementation 'com.android.volley:volley:1.2.1' // 웹서버 DB관련
     implementation "com.kakao.sdk:v2-user:2.9.0" // 카카오 로그인
     implementation "com.kakao.sdk:v2-talk:2.9.0" // 친구, 메시지(카카오톡)
     implementation "com.github.bumptech.glide:glide:4.11.0"
     implementation 'androidx.room:room-runtime:2.4.2'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     // For control over item selection of both touch and mouse driven selection

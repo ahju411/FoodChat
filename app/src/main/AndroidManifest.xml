@@ -4,16 +4,18 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+        android:name=".KaKaoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".KaKaoApplication"
-        android:theme="@style/Theme.FoodChat">
+        android:theme="@style/Theme.FoodChat"
+        android:usesCleartextTraffic="true" >// HttpURL 웹서버 접근허용
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/actions" />
@@ -27,40 +29,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
-                <data android:host="oauth"
+                <data
+                    android:host="oauth"
                     android:scheme="kakaoa7dd5271a9e9de5da9ffaf556ef49f18" />
             </intent-filter>
         </activity>
-        <activity android:name=".restaurant_list"></activity>
+        <activity android:name=".restaurant_list" />
+
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="a7dd5271a9e9de5da9ffaf556ef49f18"/>
-        <activity android:name=".Restaurant_Info"/>
-        <activity android:name=".Restaurant_Review"/>
-        <activity android:name=".Restaurant_Reservation"/>
-        <activity android:name=".RegisterActivity"/>
-        <activity android:name=".NicknameActivity"/>
-        <activity android:name=".RegisterManagerActivity"/>
-        <activity android:name=".ManagerhomeActivity"/>
-        <activity android:name=".UserMenuHomeActivity"/>
-        <activity android:name=".UserMenuFavoritesActivity"/>
-        <activity android:name=".UserMenuReservationActivity"/>
-        <activity android:name=".UserMenuReviewActivity"/>
-        <activity android:name=".StoreregisterActivity"/>
-        <activity android:name=".AddmenuActivity"/>
-
-
-
+            android:value="a7dd5271a9e9de5da9ffaf556ef49f18" />
+        <activity android:name=".dbtest" />
+        <activity android:name=".Restaurant_Info" />
+        <activity android:name=".Restaurant_Review" />
+        <activity android:name=".Restaurant_Reservation" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".NicknameActivity" />
+        <activity android:name=".RegisterManagerActivity" />
+        <activity android:name=".ManagerhomeActivity" />
+        <activity android:name=".UserMenuHomeActivity" />
+        <activity android:name=".UserMenuFavoritesActivity" />
+        <activity android:name=".UserMenuReservationActivity" />
+        <activity android:name=".UserMenuReviewActivity" />
+        <activity android:name=".StoreregisterActivity" />
+        <activity android:name=".AddmenuActivity" />
     </application>
 
 </manifest>

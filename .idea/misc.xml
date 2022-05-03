@@ -32,12 +32,22 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/buttonex.xml" value="0.2465" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2465" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_yoo_dbtest.xml" value="0.17806484295845998" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/button.xml" value="0.303125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/content_yoo_dbtest.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/dbtest.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/fragment_second.xml" value="0.17806484295845998" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/home.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/manager_home.xml" value="0.17806484295845998" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/register.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_distance_list.xml" value="0.358695652173913" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_home.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_info.xml" value="0.17806484295845998" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_list.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_reservation.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_review.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_rowui_list.xml" value="0.17806484295845998" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_addreview_list.xml" value="0.26313405797101447" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/userinfo_home.xml" value="0.358695652173913" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/usermenu_favorites.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/usermenu_home.xml" value="0.25" />
