@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="20dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -69,52 +70,65 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-
         <ImageView
-            android:id="@+id/menu_img"
+            android:id="@+id/review_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxHeight="100dp"
-            android:maxWidth="130dp"
-            android:src="@drawable/logo"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
             android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="130dp"
+            android:maxHeight="100dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintVertical_bias="0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nickname_review" />
+            app:layout_constraintTop_toBottomOf="@+id/nickname_review"
+            app:layout_constraintVertical_bias="0" />
 
         <TextView
-            android:id="@+id/menu_explain"
+            android:id="@+id/review_user"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_gravity="top"
             android:maxLength="100"
             android:paddingStart="5sp"
-            android:text="메뉴설명입니다."
+            android:text="리뷰내용."
             android:textSize="12sp"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toEndOf="@+id/menu_img"
-            app:layout_constraintTop_toTopOf="@+id/menu_img" />
+            app:layout_constraintStart_toEndOf="@+id/review_img"
+            app:layout_constraintTop_toTopOf="@+id/review_img" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:id="@+id/editText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:hint="리뷰 답변"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/review_img"
+            app:layout_constraintWidth_percent="0.7" />
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/reviewAnswer_btn"
+            android:layout_width="48dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="7dp"
             android:background="@drawable/btn_darknavi"
             android:text="등록"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/editText"
+            app:layout_constraintTop_toTopOf="@+id/editText" />
 
 
 
