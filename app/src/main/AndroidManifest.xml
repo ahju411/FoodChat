@@ -49,6 +49,7 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="a7dd5271a9e9de5da9ffaf556ef49f18" />
         <activity android:name=".dbtest" />
+        <activity android:name=".dbinputtest" />
         <activity android:name=".Restaurant_Info" />
         <activity android:name=".Restaurant_Review" />
         <activity android:name=".Restaurant_Reservation" />

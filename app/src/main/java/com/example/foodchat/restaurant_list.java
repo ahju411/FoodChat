@@ -71,6 +71,16 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
         IV.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //임시 웹 서버DB연결테스트 삭제 예정
+                Intent intent = new Intent(view.getContext(), dbinputtest.class);
+                startActivity(intent);
+            }
+        });
+
+        // 임시 웹서버 DB연결테스트2 삭제 예정
+        IV = (ImageView) findViewById(R.id.rangebtn);
+        IV.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //임시 웹 서버DB연결테스트2 삭제 예정
                 Intent intent = new Intent(view.getContext(), dbtest.class);
                 startActivity(intent);
             }

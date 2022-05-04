@@ -41,7 +41,7 @@ public class dbtest extends Activity {
 
     public void login() {
         //php url 입력
-        String URL = "http://foodchat.dothome.co.kr/test4.php";
+        String URL = "http://foodchat.dothome.co.kr/load_UserDB.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
