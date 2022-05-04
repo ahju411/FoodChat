@@ -3,6 +3,7 @@ package com.example.foodchat;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,28 +51,48 @@ public class dbtest extends Activity {
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //응답이 되었을때 response로 값이 들어옴
-                textview1.setText(response);
-                Toast.makeText(getApplicationContext(), "응답:" + response, Toast.LENGTH_SHORT).show();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.v("작동대냐","응?");
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("webnautes");
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            String item = jsonObject.getString("Data1");
+                            String item2 = jsonObject.getString("Data2");
+                            String item3 = jsonObject.getString("Data3");
+
+                            Log.v("불러왔니?",item);
+                            Log.v("불러왓니?2",item2);
+                            Log.v("불러왔니?3",item3);
+                            textview1.setText("불러왔니 첫번째 : "+item+" 두번째는? :"+ item2 + " 세번째는? " + item3);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //에러나면 error로 나옴
-                Toast.makeText(getApplicationContext(), "에러:" + error.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
-
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> param = new HashMap<String, String>();
-                //php로 설정값을 보낼 수 있음
-                return param;
+                Map<String,String> params = new HashMap<String,String>();
+                return params;
             }
         };
-
-
         request.setShouldCache(false);
         requestQueue.add(request);
     }
