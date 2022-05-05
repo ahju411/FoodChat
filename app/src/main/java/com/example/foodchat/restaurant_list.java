@@ -24,15 +24,18 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
     private int page = 0;                           // 페이징변수. 초기 값은 0 이다.
     private final int OFFSET = 20;                  // 한 페이지마다 로드할 데이터 갯수.
     private ProgressBar progressBar;                // 데이터 로딩중을 표시할 프로그레스바
-    private boolean mLockListView = false;          // 데이터 불러올때 중복안되게 하기위한 변수a
+    private boolean mLockListView = false;// 데이터 불러올때 중복안되게 하기위한 변수a
     ImageView menubtn;
     Button LV;
     ImageView IV;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_list);
+
+
 
         listView = (ListView) findViewById(R.id.listview);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
@@ -71,7 +74,7 @@ public class restaurant_list extends AppCompatActivity implements AbsListView.On
         IV.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //임시 웹 서버DB연결테스트 삭제 예정
-                Intent intent = new Intent(view.getContext(), dbinputtest.class);
+                Intent intent = new Intent(view.getContext(), store_register.class);
                 startActivity(intent);
             }
         });

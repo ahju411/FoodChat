@@ -51,6 +51,29 @@ public class PHPRequest {
                 }
         }
 
+        public String res_inputDB(final String data1, final String data2,final String data3,final String data4) {
+                try {
+                        String postData = "res_name=" + data1 + "&" + "res_address=" + data2 + "&" + "res_time=" + data3+ "&" + "res_mension=" + data4;
+                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                        conn.setRequestMethod("POST");
+                        conn.setConnectTimeout(5000);
+                        conn.setDoOutput(true);
+                        conn.setDoInput(true);
+                        OutputStream outputStream = conn.getOutputStream();
+                        outputStream.write(postData.getBytes("UTF-8"));
+                        outputStream.flush();
+                        outputStream.close();
+                        String result = readStream(conn.getInputStream());
+                        conn.disconnect();
+                        return result;
+                }
+                catch (Exception e) {
+                        Log.i("PHPRequest", "request was failed.");
+                        return null;
+                }
+        }
+
 
 
 }
