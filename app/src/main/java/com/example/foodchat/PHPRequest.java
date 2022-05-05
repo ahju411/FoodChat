@@ -51,9 +51,12 @@ public class PHPRequest {
                 }
         }
 
-        public String res_inputDB(final String data1, final String data2,final String data3,final String data4) {
+        public String res_inputDB(final String data1, final String data2,final String data3,
+                                  final String data4,final String data5) {
                 try {
-                        String postData = "res_name=" + data1 + "&" + "res_address=" + data2 + "&" + "res_time=" + data3+ "&" + "res_mension=" + data4;
+                        String postData = "res_name=" + data1 + "&" + "res_address=" + data2 + "&" +
+                                "res_time=" + data3+ "&"  + "&" + "res_image=" + data4
+                                + "&" + "res_mension=" + data5;
                         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
                         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                         conn.setRequestMethod("POST");
