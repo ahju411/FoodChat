@@ -1,9 +1,9 @@
 package com.example.foodchat;
 
-public class ItemManageReview {
+public class ItemManageReview extends ItemData{
      String nickname_review,review_date,review_user;
      int review_img,revisitdecision_img;
-     public ItemManageReview(String nickname_review,String review_date, String review_user, int review_img, int revisitdecision_img){
+     public ItemManageReview(String nickname_review, String review_date, String review_user, int review_img, int revisitdecision_img){
           this.nickname_review = nickname_review;
           this.review_date = review_date;
           this.review_user = review_user;
