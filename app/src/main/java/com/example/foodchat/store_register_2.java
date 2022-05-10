@@ -88,6 +88,7 @@ public class store_register_2 extends AppCompatActivity {
                     public void onResponse(String response)
                     {
                         Toast.makeText(getApplication(),"들어감",Toast.LENGTH_SHORT).show();
+                        Log.v("들어감","들어감");
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -95,6 +96,7 @@ public class store_register_2 extends AppCompatActivity {
                     {
 
                         Toast.makeText(getApplication(),"안들어감",Toast.LENGTH_SHORT).show();
+                        Log.v("안들어감","안들어감");
                     }
                 })
                 {
@@ -157,14 +159,16 @@ public class store_register_2 extends AppCompatActivity {
 
     private String encodeBitmapImage(Bitmap bitmap)
     {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        ByteArrayOutputStream b = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 1, b);
 
-        byte[] bytesOfImage = byteArrayOutputStream.toByteArray();
+        byte[] bytesOfImage = b.toByteArray();
+        System.out.println("바이트값"+bytesOfImage);
         String encodeImageString = Base64.encodeToString(bytesOfImage, Base64.DEFAULT);
         return encodeImageString;
 
     }
+
 
 
 
