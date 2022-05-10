@@ -4,6 +4,7 @@ package com.example.foodchat;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -14,30 +15,51 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
-public class store_register extends AppCompatActivity {
+public class store_register_2 extends AppCompatActivity {
     private EditText res_name, res_address, res_time,res_mension;
+    private String name,address,time,mension;
     String res_image;
     private Button btn_submit;
     private ImageButton btn_uploadIMG;
     private static final int REQUEST_CODE = 0;
     private ImageView imageView;
+
+
+
+
+
+    String url = "http://foodchat.dothome.co.kr/input_storenew.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.store_register);
         dbNetworkUtil.setNetworkPolicy();
         res_name = (EditText)findViewById(R.id.rest_name);
+
         res_address = (EditText)findViewById(R.id.rest_addr);
         res_time = (EditText)findViewById(R.id.rest_time);
         res_mension = (EditText)findViewById(R.id.rest_mention);
         btn_submit = (Button)findViewById(R.id.store_submit);
+
+
 
         btn_uploadIMG = (ImageButton)findViewById((R.id.btn_loadIMG));
         imageView = (ImageView)findViewById((R.id.img1));
@@ -60,21 +82,40 @@ public class store_register extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                try {
-                    PHPRequest request = new PHPRequest("http://foodchat.dothome.co.kr/input_resDBNEW.php"); // 주소
-                    String result = request.res_inputDB(String.valueOf(res_name.getText()),
-                            String.valueOf(res_address.getText()),String.valueOf(res_time.getText())
-                            ,res_image
-                            ,String.valueOf(res_mension.getText())); // 전달할 데이터들
-                    if(result.equals("1")){ // DB에 들어갔다면
+
+                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response)
+                    {
                         Toast.makeText(getApplication(),"들어감",Toast.LENGTH_SHORT).show();
                     }
-                    else{ // DB에 안들어갔다면
-                        Toast.makeText(getApplication(),"안 들어감",Toast.LENGTH_SHORT).show();
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+
+                        Toast.makeText(getApplication(),"안들어감",Toast.LENGTH_SHORT).show();
                     }
-                }catch (MalformedURLException e){
-                    e.printStackTrace();
-                }
+                })
+                {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError
+                    {
+                        Map<String, String> map = new HashMap<>();
+                        // 1번 인자는 PHP 파일의 $_POST['']; 부분과 똑같이 해줘야 한다
+                        map.put("res_name", String.valueOf(res_name.getText()));
+                        map.put("res_address", String.valueOf(res_address.getText()));
+                        map.put("res_time", String.valueOf(res_time.getText()));
+                        map.put("res_image", res_image);
+                        map.put("res_mension", String.valueOf(res_mension.getText()));
+
+
+                        return map;
+                    }
+                };
+
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+                queue.add(request);
             }
         });
 
@@ -83,31 +124,27 @@ public class store_register extends AppCompatActivity {
 
     }
 
+
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                try {
-                    InputStream in = getContentResolver().openInputStream(data.getData());
-                    Bitmap img = BitmapFactory.decodeStream(in);
-                    in.close();
-                    res_image = BitmapToString(img);
-                    imageView.setImageBitmap(img); // 액티비티에 이미지 표시
-                    System.out.println("값"+res_image);
-                    System.out.println("길이"+res_image.length());
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK )
+        {
 
-
-
-
-
-                } catch (Exception e) {
-
-                }
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
+            try {
+                InputStream in = getContentResolver().openInputStream(data.getData());
+                Bitmap img = BitmapFactory.decodeStream(in);
+                in.close();
+                imageView.setImageBitmap(img); // 액티비티에 이미지 표시
+                res_image = encodeBitmapImage(img);
+                Log.v("값:",res_image);
+                System.out.println("길이"+res_image.length());
+            }   catch (Exception e) {
+                e.printStackTrace();
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     public static String BitmapToString(Bitmap bitmap) {
@@ -116,6 +153,17 @@ public class store_register extends AppCompatActivity {
         byte[] bytes = baos.toByteArray();
         String temp = Base64.encodeToString(bytes, Base64.DEFAULT);
         return temp;
+    }
+
+    private String encodeBitmapImage(Bitmap bitmap)
+    {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+
+        byte[] bytesOfImage = byteArrayOutputStream.toByteArray();
+        String encodeImageString = Base64.encodeToString(bytesOfImage, Base64.DEFAULT);
+        return encodeImageString;
+
     }
 
 
@@ -136,7 +184,7 @@ public class store_register extends AppCompatActivity {
 
     public static byte[] BitmapToByteArray(Bitmap bitmap) { // 이미지 > Byte 변환
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
         return baos.toByteArray();
     }
 

@@ -49,7 +49,9 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="a7dd5271a9e9de5da9ffaf556ef49f18" />
         <activity android:name=".dbtest" />
+        <activity android:name=".dbtest_loda_image" />
         <activity android:name=".store_register" />
+        <activity android:name=".store_register_2" />
         <activity android:name=".dbinputtest" />
         <activity android:name=".Restaurant_Info" />
         <activity android:name=".Restaurant_Review" />
