@@ -55,12 +55,12 @@ public class PHPRequest {
                                   final String data4,final String data5) {
                 try {
                         String postData = "res_name=" + data1 + "&" + "res_address=" + data2 + "&" +
-                                "res_time=" + data3+ "&"  + "&" + "res_image=" + data4
+                                "res_time=" + data3+ "&"  +  "res_image=" + data4
                                 + "&" + "res_mension=" + data5;
                         HttpURLConnection conn = (HttpURLConnection)url.openConnection();
                         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                         conn.setRequestMethod("POST");
-                        conn.setConnectTimeout(5000);
+                        conn.setConnectTimeout(10000);
                         conn.setDoOutput(true);
                         conn.setDoInput(true);
                         OutputStream outputStream = conn.getOutputStream();
