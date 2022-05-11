@@ -11,20 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AddmenuActivity extends AppCompatActivity {
-    private ImageButton backbtn;
-    private AddmenuAdapter adpt;
-    private ArrayList<ItemManageMenu> itemManageMenus;
+public class ManageReservationActivity extends AppCompatActivity {
     private RecyclerView rv;
-
+    private ManageReservationAdapter adpt;
+    private ArrayList<ItemManageReservation> itemManageReservations;
+    private ImageButton backbtn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.store_addmenu);
-        rv = findViewById(R.id.recycler_menu);
-
-        backbtn = findViewById(R.id.store_menu_backbtn);
+        setContentView(R.layout.store_reservation);
+        rv = findViewById(R.id.recycler_storeReservation);
+        backbtn = findViewById(R.id.store_reservation_backbtn);
 
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,29 +31,19 @@ public class AddmenuActivity extends AppCompatActivity {
             }
         });
 
-        getItem();
 
-        //어댑터 세팅
-        adpt = new AddmenuAdapter();
-        //레이아웃 방식 지정
+
+        adpt = new ManageReservationAdapter();
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
 
         rv.setAdapter(adpt);
         rv.setLayoutManager(manager);
 
-
-
-        adpt.setItemManageMenus(itemManageMenus);
-
-
-
-    }
-
-    private void getItem() {
-        itemManageMenus = new ArrayList<>();
-
-        itemManageMenus.add(new ItemManageMenu("짜장면","누구나 즐길 수 있는 짜장면","5000원",R.drawable.imgfood));
-
+        itemManageReservations = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            itemManageReservations.add(new ItemManageReservation("은철","010-1234-1234","2022-05-09-13:00","성인1명"));
+        }
+        adpt.setItemManageReservations(itemManageReservations);
     }
 }

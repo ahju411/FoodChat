@@ -67,7 +67,7 @@
         <activity android:name=".StoreregisterActivity" />
         <activity android:name=".AddmenuActivity" />
         <activity android:name=".ManagereviewActivity"/>
-        <activity android:name=".ManagereservationActivity"/>
+        <activity android:name=".ManageReservationActivity"/>
     </application>
 
 </manifest>

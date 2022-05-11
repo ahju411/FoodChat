@@ -38,7 +38,7 @@ public class ManagerhomeActivity extends AppCompatActivity {
         manage_reservationbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), ManagereservationActivity.class);
+                Intent intent = new Intent(view.getContext(), ManageReservationActivity.class);
                 startActivity(intent);
             }
         });

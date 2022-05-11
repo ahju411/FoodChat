@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class ManageReservationAdapter extends RecyclerView.Adapter<ManageReservationAdapter.ViewHolder> {
 
-    ArrayList<ItemManageReview> itemManageReviews = new ArrayList<>();
+    ArrayList<ItemManageReservation> itemManageReservations = new ArrayList<>();
 
     public ManageReservationAdapter(){
 
@@ -26,7 +26,7 @@ public class ManageReservationAdapter extends RecyclerView.Adapter<ManageReserva
     public ManageReservationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //원하는 layout띄우기
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.store_addreview_list,parent,false);
+        View view = inflater.inflate(R.layout.store_addreservation_list,parent,false);
         return new ViewHolder(view);
     }
 
@@ -36,26 +36,39 @@ public class ManageReservationAdapter extends RecyclerView.Adapter<ManageReserva
     public void onBindViewHolder(@NonNull ManageReservationAdapter.ViewHolder holder, int position) {
         //ItemViewHolder가 생성되고 넣어야할 코드들을 넣어줍다.
         // 보통 onBind 함수 안에 모두 넣어줍니다.
-        holder.onBind(itemManageReviews.get(position));
+        holder.onBind(itemManageReservations.get(position));
 
 
+    }
+    public void setItemManageReservations(ArrayList<ItemManageReservation> list){
+        this.itemManageReservations = list;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return itemManageReviews.size();
+        return itemManageReservations.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView name;
-        EditText editText;
-        ImageView img;
-        Button btn;
+        TextView reser_name,reser_phone,reser_numberres,reser_date;
+        Button btn_accept,btn_reject;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            reser_name = itemView.findViewById(R.id.reservation_name);
+            reser_date = itemView.findViewById(R.id.reservation_date);
+            reser_numberres = itemView.findViewById(R.id.reservation_numberReservation);
+            reser_phone = itemView.findViewById(R.id.reservation_phone);
+            btn_accept = itemView.findViewById(R.id.reservation_accept_btn);
+            btn_reject = itemView.findViewById(R.id.reservation_reject_btn);
+
         }
-        void onBind(ItemManageReview item){
+        void onBind(ItemManageReservation item){
+            reser_name.setText(item.getReservation_name());
+            reser_phone.setText(item.getReservation_phone());
+            reser_numberres.setText(item.getReservation_numberReservation());
+            reser_date.setText(item.getReservation_date());
 
         }
     }
