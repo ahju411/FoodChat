@@ -56,6 +56,8 @@ public class AddmenuActivity extends AppCompatActivity {
         itemManageMenus = new ArrayList<>();
 
         itemManageMenus.add(new ItemManageMenu("짜장면","누구나 즐길 수 있는 짜장면","5000원",R.drawable.imgfood));
-
+        itemManageMenus.add(new ItemManageMenu("짬뽕","누구나 즐길 수 있는 짬뽕","6000원",R.drawable.jjambbong));
+        itemManageMenus.add(new ItemManageMenu("탕수육","누구나 즐길 수 있는 탕수육","9000원",R.drawable.tangsu));
+        itemManageMenus.add(new ItemManageMenu("볶음밥","누구나 즐길 수 있는 볶음밥","5000원",R.drawable.friedrice));
     }
 }
