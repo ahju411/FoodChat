@@ -56,7 +56,7 @@ public class dbtest extends Activity {
                     JSONObject jsonObject = new JSONObject(response);
                     Log.v("작동대냐","응?");
 
-                    JSONArray jsonArray = jsonObject.getJSONArray("webnautes");
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
                     for (int i=0; i < jsonArray.length(); i++)
                     {
                         try {

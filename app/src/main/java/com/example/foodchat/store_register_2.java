@@ -46,7 +46,7 @@ public class store_register_2 extends AppCompatActivity {
 
 
 
-    String url = "http://foodchat.dothome.co.kr/input_storenew.php";
+    String url = "http://10.200.42.99/input_res.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +94,7 @@ public class store_register_2 extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-
+                        error.printStackTrace();
                         Toast.makeText(getApplication(),"안들어감",Toast.LENGTH_SHORT).show();
                         Log.v("안들어감","안들어감");
                     }
@@ -175,16 +175,16 @@ public class store_register_2 extends AppCompatActivity {
 
 
 
-//    public static Bitmap StringToBitmap(String encodedString) {
-//        try {
-//            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-//            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-//            return bitmap;
-//        } catch (Exception e) {
-//            e.getMessage();
-//            return null;
-//        }
-//    }
+    public static Bitmap StringToBitmap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
 
     public static byte[] BitmapToByteArray(Bitmap bitmap) { // 이미지 > Byte 변환
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
