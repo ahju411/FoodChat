@@ -40,10 +40,6 @@ public class ManageReservationAdapter extends RecyclerView.Adapter<ManageReserva
 
 
     }
-    public void setItemManageReviews(ArrayList<ItemManageReview> list){
-        this.itemManageReviews = list;
-        notifyDataSetChanged();
-    }
 
     @Override
     public int getItemCount() {
@@ -51,31 +47,15 @@ public class ManageReservationAdapter extends RecyclerView.Adapter<ManageReserva
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView nicknamereview_tv,revisit_tv,review_date,review_user;
-        EditText review_answer_et;
-        ImageView review_img,revisitdecision_img;
-        Button reviewanswer_btn;
+        TextView name;
+        EditText editText;
+        ImageView img;
+        Button btn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nicknamereview_tv = itemView.findViewById(R.id.nickname_review);
-            revisit_tv = itemView.findViewById(R.id.revisit);
-            review_user = itemView.findViewById(R.id.review_user);
-            review_answer_et = itemView.findViewById(R.id.review_answer);
-            review_img = itemView.findViewById(R.id.review_img);
-            review_date = itemView.findViewById(R.id.review_date);
-            revisitdecision_img = itemView.findViewById(R.id.revisit_decision);
-            reviewanswer_btn = itemView.findViewById(R.id.reviewAnswer_btn);
-
         }
         void onBind(ItemManageReview item){
-            nicknamereview_tv.setText(item.getNickname_review());
-            revisitdecision_img.setImageResource(item.getRevisitdecision_img());
-            review_img.setImageResource(item.getReview_img());
-            review_user.setText(item.getReview_user());
-            review_date.setText(item.getReview_date());
-
-
 
         }
     }

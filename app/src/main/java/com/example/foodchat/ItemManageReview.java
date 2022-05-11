@@ -2,21 +2,12 @@ package com.example.foodchat;
 
 public class ItemManageReview {
      String nickname_review,review_date,review_user;
-     int review_img,revisitdecision_img;
-     public ItemManageReview(String nickname_review,String review_date, String review_user, int review_img, int revisitdecision_img){
+     int review_img;
+     public ItemManageReview(String nickname_review,String review_date, String review_user, int review_img){
           this.nickname_review = nickname_review;
           this.review_date = review_date;
           this.review_user = review_user;
           this.review_img = review_img;
-          this.revisitdecision_img = revisitdecision_img;
-     }
-
-     public int getRevisitdecision_img() {
-          return revisitdecision_img;
-     }
-
-     public void setRevisitdecision_img(int revisitdecision_img) {
-          this.revisitdecision_img = revisitdecision_img;
      }
 
      public String getNickname_review() {
