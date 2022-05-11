@@ -22,7 +22,7 @@ public class ManagerhomeActivity extends AppCompatActivity {
         store_registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), StoreregisterActivity.class);
+                Intent intent = new Intent(view.getContext(), store_register_2.class);
                 startActivity(intent);
             }
         });

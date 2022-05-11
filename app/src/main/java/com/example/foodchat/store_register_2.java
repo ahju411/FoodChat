@@ -37,16 +37,17 @@ public class store_register_2 extends AppCompatActivity {
     private EditText res_name, res_address, res_time,res_mension;
     private String name,address,time,mension;
     String res_image;
-    private Button btn_submit;
+    private Button btn_submit,btn_uploadMENU;
     private ImageButton btn_uploadIMG;
+
     private static final int REQUEST_CODE = 0;
     private ImageView imageView;
 
 
 
 
-
-    String url = "http://10.200.42.99/input_res.php";
+    //http://218.236.123.14:9090 서버
+    String url = "http://218.236.123.14:9090/input_res.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +63,15 @@ public class store_register_2 extends AppCompatActivity {
 
 
         btn_uploadIMG = (ImageButton)findViewById((R.id.btn_loadIMG));
+        btn_uploadMENU =(Button)findViewById((R.id.addmenu));
+        btn_uploadMENU.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AddmenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
         imageView = (ImageView)findViewById((R.id.img1));
 
 

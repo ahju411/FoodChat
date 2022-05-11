@@ -55,7 +55,8 @@ public class dbtest_loda_image extends Activity {
 
     public void login() {
         //php url 입력
-        String URL = "http://10.200.42.99/load_res.php";
+        String URL = "http://218.236.123.14:9090/load_res.php";
+        //http://218.236.123.14:9090 서버
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
