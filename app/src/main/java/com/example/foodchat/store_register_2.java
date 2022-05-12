@@ -46,7 +46,7 @@ public class store_register_2 extends AppCompatActivity {
 
 
 
-    //http://218.236.123.14:9090 서버
+    //http://218.236.123.14:9090 웹서버입니다 (외부접속전용)
     String url = "http://218.236.123.14:9090/input_res.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
