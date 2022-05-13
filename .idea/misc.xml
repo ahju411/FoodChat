@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.3515625" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/dbtest.xml" value="0.2869791666666667" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/home.xml" value="0.33" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/manager_home.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/nickname.xml" value="0.33" />
@@ -20,6 +21,8 @@
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_addreview_list.xml" value="0.5" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_reservation.xml" value="0.15501519756838905" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_review.xml" value="0.15501519756838905" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/testmap.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/xml/network_security_config.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2465" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/buttonex.xml" value="0.2465" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2465" />
