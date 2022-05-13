@@ -51,6 +51,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/buttonex"
         android:text="주소 "
+        android:fontFamily="@font/bhannaair"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"

@@ -67,7 +67,7 @@ public class ManageReservationAdapter extends RecyclerView.Adapter<ManageReserva
         void onBind(ItemManageReservation item){
             reser_name.setText(item.getReservation_name());
             reser_phone.setText(item.getReservation_phone());
-            reser_numberres.setText(item.getReservation_numberReservation());
+            reser_numberres.setText(item.getReservation_number());
             reser_date.setText(item.getReservation_date());
 
         }
