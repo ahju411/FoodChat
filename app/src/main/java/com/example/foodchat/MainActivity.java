@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //유은철 식당목록 테스트좀할려고 넣음 삭제예정
-                Intent intent = new Intent(view.getContext(), restaurant_list.class);
+                Intent intent = new Intent(view.getContext(), Restaurant_List_test.class);
                 startActivity(intent);
 
             }
