@@ -5,10 +5,15 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,49 +22,95 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import net.daum.android.map.coord.MapCoordLatLng;
+import net.daum.mf.map.api.CameraUpdate;
+import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapReverseGeoCoder;
 import net.daum.mf.map.api.MapView;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class Testmap extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapReverseGeoCoder.ReverseGeoCodingResultListener {
     private MapView mapView;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION};
+    private Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+    private Button button;
+    private EditText editText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.testmap);
+        setContentView(R.layout.maptest2);
 
-        mapView = (MapView) findViewById(R.id.map_view);
+        editText = findViewById(R.id.editTextmap);
+        button = findViewById(R.id.buttonmap);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str = editText.getText().toString();
+                List<Address> addressList = null;
+                try{
+                    // editText에 입력한 거를 지오 코딩을 통해서 경도 위도로 바꾸기
+                    addressList = geocoder.getFromLocationName(
+                            str, 10
+                    );
+
+                }catch (IOException e){
+                    e.printStackTrace();
+                }
+                String []splitStr = addressList.get(0).toString().split(",");
+                String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1,splitStr[0].length()-2); //주소 부분이다
+                String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); //위도
+                String longtitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); //경도
+
+                //MapCoordLatLng point = new MapCoordLatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude));
+
+                MapPOIItem marker = new MapPOIItem();
+                MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(latitude), Double.parseDouble(longtitude));
+                marker.setItemName("Default Makrer");
+                marker.setTag(0);
+                marker.setMapPoint(mapPoint); //위에 mappoint 위도 경도를 따서 표시함
+                marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본 블루핀
+                marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); //클릭 시 레드핀
+                mapView.addPOIItem(marker);
+                mapView.moveCamera(CameraUpdateFactory.newMapPoint(mapPoint,2));
+
+            }
+        });
+
+        mapView = (MapView) findViewById(R.id.maptest2view);
         mapView.setCurrentLocationEventListener(this);
 
         mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithMarkerHeadingWithoutMapMoving);
 
-        MapPOIItem marker = new MapPOIItem();
 
-        MapPoint mapPoint = MapPoint.mapPointWithCONGCoord(37.44803757240317,126.657723043371894);
-        marker.setItemName("Default Makrer");
-        marker.setTag(0);
-        marker.setMapPoint(mapPoint); //위에 mappoint 위도 경도를 따서 표시함
-        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본 블루핀
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); //클릭 시 레드핀
 
-        mapView.addPOIItem(marker);
+
+
+
         if(!checkLocationServicesStatus()){
             showDialogForLocationServiceSetting();
         }else{
             checkRunTimePermission();
         }
 
+    }
 
 
 
 
+
+    private void getLatLong(String address){
 
     }
+
 
     @Override
     protected void onDestroy() {
@@ -172,6 +223,7 @@ public class Testmap extends AppCompatActivity implements MapView.CurrentLocatio
 
 
             // 3.  위치 값을 가져올 수 있음
+            Log.d("testLoc","내 주소 받아짐");
             mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
 
 
