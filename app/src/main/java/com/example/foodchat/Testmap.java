@@ -66,6 +66,10 @@ public class Testmap extends AppCompatActivity implements MapView.CurrentLocatio
                     e.printStackTrace();
                 }
                 String []splitStr = addressList.get(0).toString().split(",");
+                for (int i = 0; i < splitStr.length; i++) {
+                    Log.d("내가 검색한 거",splitStr[i]);
+                }
+
                 String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1,splitStr[0].length()-2); //주소 부분이다
                 String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); //위도
                 String longtitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); //경도
