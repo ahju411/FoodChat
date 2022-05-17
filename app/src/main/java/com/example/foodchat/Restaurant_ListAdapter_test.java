@@ -67,10 +67,8 @@ public class Restaurant_ListAdapter_test extends RecyclerView.Adapter<Restaurant
         }
         void onBind(Restaurant_List_Item_test item){
             name_tv.setText(item.getRes_name());
-            Log.v("네임밑에찍히냐","네");
             info_tv.setText(item.getRes_info());
-            Log.v("인포밑에찍히냐","네");
-            logo_iv.setImageResource(item.getLogo_img());
+            logo_iv.setImageBitmap(item.getLogo_img());
             chat_iv.setImageResource(item.getChat_img());
             star_iv.setImageResource(item.getStar_img());
 

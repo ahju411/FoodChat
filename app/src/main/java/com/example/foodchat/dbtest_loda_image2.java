@@ -22,11 +22,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class dbtest_loda_image extends Activity {
+public class dbtest_loda_image2 extends Activity {
     static RequestQueue requestQueue;
     TextView textview1,textview2,textview3,textview4;
     ImageView ImageView1;
@@ -79,7 +78,7 @@ public class dbtest_loda_image extends Activity {
                             Bitmap bit = StringToBitmaps(item4);
 
                             String item5 = jsonObject.getString("res_mension");
-
+                            System.out.println("jsonArray 길이:" + jsonArray.length());
 
                             textview1.setText(item);
                             textview2.setText(item2);
@@ -93,7 +92,7 @@ public class dbtest_loda_image extends Activity {
                             Log.v("작동실패","안들어옴");
                         }
                     }
-                    System.out.println("jsonArray 길이:" + jsonArray.length());
+
 
 
                 } catch (JSONException e) {

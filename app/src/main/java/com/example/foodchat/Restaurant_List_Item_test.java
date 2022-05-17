@@ -1,14 +1,17 @@
 package com.example.foodchat;
 
+import android.graphics.Bitmap;
+
 public class Restaurant_List_Item_test {
 
     String res_name,res_info;
-    int logo_img,chat_img,star_img;
+    int chat_img,star_img;
+    Bitmap logo_img;
 
 
 
 
-    public Restaurant_List_Item_test(String res_name,String res_info,int logo_img,int chat_img,int star_img){
+    public Restaurant_List_Item_test(String res_name,String res_info,Bitmap logo_img,int chat_img,int star_img){
         this.res_name = res_name;
         this.res_info = res_info;
         this.logo_img = logo_img;
@@ -41,11 +44,11 @@ public class Restaurant_List_Item_test {
         this.res_info = res_info;
     }
 
-    public int getLogo_img() {
+    public Bitmap getLogo_img() {
         return logo_img;
     }
 
-    public void setLogo_img(int logo_img) {
+    public void setLogo_img(Bitmap logo_img) {
         this.logo_img = logo_img;
     }
 
@@ -62,7 +65,7 @@ public class Restaurant_List_Item_test {
     }
 
     public void setStar_img(int star_img) {
-        this.logo_img = star_img;
+        this.star_img = star_img;
     }
 
 }
