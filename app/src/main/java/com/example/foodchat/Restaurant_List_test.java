@@ -62,7 +62,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         // ProgressDialog 생성
         //로딩창 객체 생성
         loadingDialogBar = new LoadingDialogBar(this);
-        loadingDialogBar.ShowDilaog("할로");
+        loadingDialogBar.ShowDilaog("불러오는중입니다.");
 
 
         if(requestQueue == null){
@@ -71,16 +71,17 @@ public class Restaurant_List_test extends AppCompatActivity {
 
 
         getItem(); // 리사이클러뷰 아이템넣기
-        
-        new Handler().postDelayed(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                loadingDialogBar.HideDialog();
-            }
-        }, 2000);// 2초 딜레이 준후 로딩창 종료
 
+//
+//        new Handler().postDelayed(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                loadingDialogBar.HideDialog();
+//            }
+//        }, 2000);// 2초 딜레이 준후 로딩창 종료
+//
 
 
 
@@ -172,6 +173,7 @@ public class Restaurant_List_test extends AppCompatActivity {
                             adpt.notifyDataSetChanged();
 
                             adpt.setRes_list_item(res_items);
+                            loadingDialogBar.HideDialog();;
                             System.out.println("data1 :"+item);
 
                             Log.v("여긴작동하나용","네에");
