@@ -59,6 +59,12 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_list2);
+        Intent getintent = getIntent();
+        String id = getintent.getStringExtra("id");
+        String nickname = getintent.getStringExtra("nickname");
+        System.out.println(id+nickname);
+
+
         // ProgressDialog 생성
         //로딩창 객체 생성
         loadingDialogBar = new LoadingDialogBar(this);

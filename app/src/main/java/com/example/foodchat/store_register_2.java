@@ -87,7 +87,7 @@ public class store_register_2 extends AppCompatActivity {
         });
 
 
-        btn_submit.setOnClickListener(new View.OnClickListener() { // 등록하기 누르면 서버로 입력한값 전달하기 (이미지 제외)
+        btn_submit.setOnClickListener(new View.OnClickListener() { // 등록하기 누르면 서버로 입력한값 전달하기
             @Override
             public void onClick(View v) {
 

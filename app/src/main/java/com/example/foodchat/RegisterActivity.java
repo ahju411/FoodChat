@@ -1,10 +1,12 @@
 package com.example.foodchat;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -15,16 +17,33 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
-
+    static RequestQueue requestQueue;
     private Button registerbtn, registeremailbtn, registerpwbtn, registerpwconfirmbtn;
     private EditText email,pwd,pwdconfirm;
     private TextView confirmemail,falsechkpwd,truechkpwd,confirmpwd;
     //나중에 회원 입력 정보 받아서 DB에 넣는 용
     private static String useremail,userpwd,userpwdconfirm;
+    private String[] ids= new String[3];
+    private int check;
+    String URL = "http://218.236.123.14:9090/load_users.php";
 
 
     @Override
@@ -42,6 +61,12 @@ public class RegisterActivity extends AppCompatActivity {
         registeremailbtn = findViewById(R.id.registeremail);
         registerpwbtn = findViewById(R.id.registerpw);
         registerpwconfirmbtn = findViewById(R.id.registerpwconfirm);
+        if(requestQueue == null){
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
+        System.out.println("체크체크");
+        login();
+        System.out.println("체크체크2");
 
 
 
@@ -133,11 +158,37 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(email.getText().toString().length() > 0) {
-                    finish();
-                    Intent intent = new Intent(view.getContext(), NicknameActivity.class);
-                    startActivity(intent);
-                }else{
+//                    finish();
+//                    Intent intent = new Intent(view.getContext(), NicknameActivity.class);
+//                    startActivity(intent);
 
+                    check = 0;
+                    for(int j =0;j< ids.length;j++){
+                        System.out.println("ids"+j+"값:"+ids[j]);
+                        if(email.getText().toString()==ids[j]){
+                            check=1;
+                            break;
+                        }
+                    }
+                    check=0;
+                    if(check==1){
+
+                        Toast.makeText(getApplication(),"아이디가 중복입니다. 다시입력해주세요",Toast.LENGTH_SHORT).show();
+
+                    }
+                    else{
+                        Intent intent = new Intent(view.getContext(), NicknameActivity.class);
+                        intent.putExtra("id", email.getText().toString());
+                        intent.putExtra("pw",pwd.getText().toString());
+                        startActivity(intent);
+
+                    }
+
+
+
+
+            }else{
+                    Toast.makeText(getApplication(),"정보를 입력해주세요",Toast.LENGTH_SHORT).show();
                 }
                 //DB에 데이터를 넣기 구현할 것
                 //if(success) 회원가입 성공시
@@ -167,6 +218,14 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+
+
+
+
+
+
+
+
     //이메일 체크 메소드
     public static boolean isValidEmail(CharSequence target){
         return(!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
@@ -180,4 +239,61 @@ public class RegisterActivity extends AppCompatActivity {
         Matcher matcher = VALID_PASSWOLD_REGEX_ALPHA_NUM.matcher(target);
         return(!TextUtils.isEmpty(target) && matcher.matches());
     }
+
+
+    public void login() {
+        //php url 입력
+
+        //http://218.236.123.14:9090 서버
+
+        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.v("작동대냐","응?22");
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    Log.v("작동대냐","응?");
+
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            String item = jsonObject.getString("user_id");
+                            ids[i]=item;
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.v("작동실패","안들어옴");
+                        }
+                    }
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<String,String>();
+                return params;
+            }
+        };
+        request.setShouldCache(false);
+        requestQueue.add(request);
+    }
+
+
+
+
+
 }
