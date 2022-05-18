@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Base64;
@@ -16,6 +18,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,8 +37,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,17 +58,23 @@ public class Restaurant_List_test extends AppCompatActivity {
     static String[] data1 = new String[20];
     static String[] data2 = new String[20];
     static Bitmap[] data3 = new Bitmap[20];
+    private Context ct;
+    private double latitude,longtitue;//위도 경도
+    private GpsTracker gpsTracker;
     LoadingDialogBar loadingDialogBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        ct = getApplicationContext();
         setContentView(R.layout.restaurant_list2);
         Intent getintent = getIntent();
         String id = getintent.getStringExtra("id");
         String nickname = getintent.getStringExtra("nickname");
         System.out.println(id+nickname);
+
+        setAddress();
 
 
         // ProgressDialog 생성
@@ -231,6 +243,53 @@ public class Restaurant_List_test extends AppCompatActivity {
     }
 
 
+    private void setAddress(){
+        gpsTracker = new GpsTracker(ct);
+
+        latitude = gpsTracker.getLatitude();
+        longtitue = gpsTracker.getLongitude();
+        String city = getCurrentAddress(latitude,longtitue);
+        LV = findViewById(R.id.address);
+        LV.setText(city);
+    }
+
+    public String getCurrentAddress(double latitude, double longitude) {
+
+        //지오코더 GPS를 주소로 변환함.
+        Geocoder geocoder = new Geocoder(ct, Locale.KOREA);
+
+        List<Address> addresses;
+
+        try {
+
+            addresses = geocoder.getFromLocation(
+                    latitude,
+                    longitude,
+                    1);
+        } catch (IOException ioException) {
+            //네트워크 문제
+            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ct, "지오코더 서비스 사용불가", Toast.LENGTH_LONG).show();
+            return "지오코더 서비스 사용불가";
+        } catch (IllegalArgumentException illegalArgumentException) {
+            Toast.makeText(ct, "잘못된 GPS 좌표", Toast.LENGTH_LONG).show();
+            return "잘못된 GPS 좌표";
+
+        }
+
+
+        if (addresses == null || addresses.size() == 0) {
+            Toast.makeText(ct, "주소 미발견", Toast.LENGTH_LONG).show();
+            return "주소 미발견";
+
+        }
+
+        Address address = addresses.get(0);
+        String add = address.getAddressLine(0).toString();
+        String add2 = add.substring(4); //대한민국 문자열 자르기
+        return add2;
+
+    }
 
 
 
