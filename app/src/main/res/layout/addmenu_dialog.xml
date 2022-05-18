@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/menuname_dialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="메뉴명"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.239"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <EditText
+        android:id="@+id/menuprice_dialog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="메뉴가격(원)"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuname_dialog"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <EditText
+        android:id="@+id/menuexplain_dialog"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:hint="메뉴에 대한 설명"
+        android:background="@drawable/edit_text_manager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuprice_dialog"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintWidth_percent="0.5" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="메뉴사진 추가"
+        app:layout_constraintBottom_toBottomOf="@+id/menuimg_explain"
+        app:layout_constraintEnd_toStartOf="@+id/menuimg_explain"
+        app:layout_constraintStart_toStartOf="@+id/menuexplain_dialog"
+        app:layout_constraintTop_toBottomOf="@+id/menuexplain_dialog" />
+
+    <ImageButton
+        android:id="@+id/menuimg_explain"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/addcircle"
+        android:background="@color/white"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/menuexplain_dialog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuexplain_dialog"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintVertical_bias="0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

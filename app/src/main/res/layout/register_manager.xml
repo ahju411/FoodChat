@@ -62,7 +62,7 @@
         android:background="@drawable/btn_skyblue"
         android:text="찾아보기"
         android:fontFamily="@font/bdohyeon"
-        android:textSize="13sp"
+        android:textSize="11sp"
         android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/manager_certificate"

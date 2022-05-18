@@ -1,11 +1,13 @@
 package com.example.foodchat;
 
+import android.graphics.Bitmap;
+
 public class ItemManageMenu {
     String menu_name, menu_explain, menu_price;
-    int menu_img;
+    Bitmap menu_img;
 
 
-    public ItemManageMenu(String menu_name, String menu_explain, String menu_price, int menu_img) {
+    public ItemManageMenu(String menu_name, String menu_explain, String menu_price, Bitmap menu_img) {
         this.menu_name = menu_name;
         this.menu_price = menu_price;
         this.menu_explain = menu_explain;
@@ -36,11 +38,11 @@ public class ItemManageMenu {
         this.menu_price = menu_price;
     }
 
-    public int getMenu_img() {
+    public Bitmap getMenu_img() {
         return menu_img;
     }
 
-    public void setMenu_img(int menu_img) {
+    public void setMenu_img(Bitmap menu_img) {
         this.menu_img = menu_img;
     }
 }

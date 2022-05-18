@@ -16,6 +16,7 @@
             android:id="@+id/menu_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:scaleType="fitCenter"
             android:src="@drawable/logo"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -25,48 +26,50 @@
 
         <TextView
             android:id="@+id/menu_explain"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_gravity="top"
+            android:fontFamily="@font/bhannaair"
             android:maxLength="100"
             android:paddingStart="5sp"
+            android:paddingRight="5sp"
             android:text="메뉴설명입니다."
-            android:fontFamily="@font/bhannaair"
             android:textSize="15sp"
-            app:layout_constraintHorizontal_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/menu_name"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/menu_img"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/menu_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="메뉴이름"
             android:fontFamily="@font/bjua"
-            android:textSize="15sp"
+            android:text="메뉴이름"
             android:textAlignment="textEnd"
+            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_bias="1"
 
-            app:layout_constraintStart_toEndOf="@+id/menu_explain"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0" />
 
         <TextView
             android:id="@+id/menu_price"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="메뉴가격"
             android:fontFamily="@font/bjua"
+            android:text="메뉴가격"
             android:textAlignment="textEnd"
-            android:textSize="15sp"
+            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/menu_explain"
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/menu_name"
             app:layout_constraintVertical_bias="0.0" />
 

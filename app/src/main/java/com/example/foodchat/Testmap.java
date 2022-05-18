@@ -100,6 +100,7 @@ public class Testmap extends AppCompatActivity implements MapView.CurrentLocatio
 
 
         if(!checkLocationServicesStatus()){
+            checkRunTimePermission();
             showDialogForLocationServiceSetting();
         }else{
             checkRunTimePermission();

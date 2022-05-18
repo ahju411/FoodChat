@@ -36,7 +36,7 @@
 
     <Button
         android:id="@+id/address"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="30dp"
@@ -50,8 +50,8 @@
 
     <ImageView
         android:id="@+id/searchbtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,8 +60,8 @@
 
     <ImageView
         android:id="@+id/menubtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toStartOf="@+id/searchbtn"
@@ -70,8 +70,8 @@
 
     <ImageView
         android:id="@+id/rangebtn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toStartOf="@+id/menubtn"

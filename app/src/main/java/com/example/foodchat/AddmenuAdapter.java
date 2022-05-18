@@ -66,7 +66,7 @@ public class AddmenuAdapter extends RecyclerView.Adapter<AddmenuAdapter.ViewHold
             menu_name.setText(item.getMenu_name());
             menu_explain.setText(item.getMenu_explain());
             menu_price.setText(item.getMenu_price());
-            menu_img.setImageResource(item.getMenu_img());
+            menu_img.setImageBitmap(item.getMenu_img());
 
         }
     }
