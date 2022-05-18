@@ -1,14 +1,18 @@
 package com.example.foodchat;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -48,7 +52,8 @@ public class Restaurant_List_test extends AppCompatActivity {
     static String[] data1 = new String[20];
     static String[] data2 = new String[20];
     static Bitmap[] data3 = new Bitmap[20];
-    ProgressDialog customProgressDialog;
+    LoadingDialogBar loadingDialogBar;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -56,15 +61,29 @@ public class Restaurant_List_test extends AppCompatActivity {
         setContentView(R.layout.restaurant_list2);
         // ProgressDialog 생성
         //로딩창 객체 생성
-        customProgressDialog = new ProgressDialog(this);
-        //로딩창을 투명하게
-        customProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        customProgressDialog.show();
+        loadingDialogBar = new LoadingDialogBar(this);
+        loadingDialogBar.ShowDilaog("할로");
+
 
         if(requestQueue == null){
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
-        getItem();
+
+
+        getItem(); // 리사이클러뷰 아이템넣기
+        
+        new Handler().postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                loadingDialogBar.HideDialog();
+            }
+        }, 2000);// 2초 딜레이 준후 로딩창 종료
+
+
+
+
 //어댑터 세팅
         adpt = new Restaurant_ListAdapter_test();
 //레이아웃 방식 지정
@@ -75,11 +94,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         rv.setLayoutManager(manager);
 
 
-        adpt.setRes_list_item(res_items);
 
-        for(int d = 0 ; d< data1.length;d++) {
-            res_items.add(new Restaurant_List_Item_test(data1[d],data2[d],data3[d], R.drawable.chat, R.drawable.starimg));
-        }
         menubtn = (ImageView) findViewById(R.id.menubtn);
         menubtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -120,7 +135,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         });
     }
 
-    private void getItem() {
+    private void getItem() { // 식당 리스트 UI수정하는거
 
         res_items = new ArrayList<>();
 
@@ -153,15 +168,10 @@ public class Restaurant_List_test extends AppCompatActivity {
                             String item4 = jsonObject.getString("res_image");
                             Bitmap bit = StringToBitmaps(item4);
 
-                            Log.v("item값:",item);
-                            Log.v("item값2:",item2);
+                            res_items.add(new Restaurant_List_Item_test(item,item2,bit, R.drawable.chat, R.drawable.starimg)); //리스트 식당호출
+                            adpt.notifyDataSetChanged();
 
-                            data1[i] = item;
-                            data2[i] = item2;
-                            data3[i] = bit;
-
-//                            res_items.add(new Restaurant_List_Item_test(item,item2,bit, R.drawable.chat, R.drawable.starimg));
-
+                            adpt.setRes_list_item(res_items);
                             System.out.println("data1 :"+item);
 
                             Log.v("여긴작동하나용","네에");
@@ -195,89 +205,11 @@ public class Restaurant_List_test extends AppCompatActivity {
         request.setShouldCache(false);
         requestQueue.add(request);
 
-
-
-
-
-
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점2","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점3","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점4","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점5","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점6","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점7","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점88","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점9","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점10","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점11","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
-//        res_items.add(new Restaurant_List_Item_test("홍콩반점12","리뷰및따봉순",R.drawable.hong,R.drawable.chat,R.drawable.starimg));
     }
 
-    public void get_store_data() {
-        //php url 입력
-        String URL = "http://218.236.123.14:9090/load_res.php";
-        //http://218.236.123.14:9090 서버
-
-        StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.v("작동대냐","응?22");
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    Log.v("작동대냐","응?");
-
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    for (int i=0; i < jsonArray.length(); i++)
-                    {
-                        try {
-                            jsonObject = jsonArray.getJSONObject(i);
-                            // Pulling items from the array
-                            String item = jsonObject.getString("res_name");
-                            String item2 = jsonObject.getString("res_address");
-                            String item3 = jsonObject.getString("res_time");
-                            String item4 = jsonObject.getString("res_image");
-                            Bitmap bit = StringToBitmaps(item4);
-
-                            String item5 = jsonObject.getString("res_mension");
-                            System.out.println("jsonArray 길이:" + jsonArray.length());
-
-//                            textview1.setText(item);
-//                            textview2.setText(item2);
-//                            textview3.setText(item3);
-//                            textview4.setText(item5);
-//
-//                            ImageView1.setImageBitmap(bit);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.v("작동실패","안들어옴");
-                        }
-                    }
 
 
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String,String>();
-                return params;
-            }
-        };
-        request.setShouldCache(false);
-        requestQueue.add(request);
-    }
-
-    public static Bitmap StringToBitmaps(String image) {
+    public static Bitmap StringToBitmaps(String image) { // 서버에서 이미지 가져온거 비트맵으로 전환하는 함수
         try {
             byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
             // Base64 코드를 디코딩하여 바이트 형태로 저장
