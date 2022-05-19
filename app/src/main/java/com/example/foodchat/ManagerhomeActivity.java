@@ -14,6 +14,10 @@ public class ManagerhomeActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.manager_home);
+        Intent getintent = getIntent();
+        String logining_ceo_id = getintent.getStringExtra("logining_ceo_id");
+        String logining_ceo_pw = getintent.getStringExtra("logining_ceo_pw");
+        System.out.println("아이디 :"+logining_ceo_id +"비번 :"+logining_ceo_pw);
 
         store_registerbtn = findViewById(R.id.store_register);
         manage_reservationbtn = findViewById(R.id.manage_reservation);

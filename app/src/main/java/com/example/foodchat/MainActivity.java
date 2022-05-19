@@ -157,20 +157,50 @@ public class MainActivity extends AppCompatActivity {
                             System.out.println("hongchul" + response);
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
-                            if (success) { // 로그인에 성공한 경우
+                            if (success) { // 유저로그인에 성공한 경우
                                 String user_id = jsonObject.getString("user_id");
                                 String user_pw = jsonObject.getString("user_pw");
                                 String user_nickname = jsonObject.getString("user_nickname");
 
-                                Toast.makeText(getApplicationContext(),"로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"유저 로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(MainActivity.this, Restaurant_List_test.class);
                                 intent.putExtra("logining_user_id", user_id);
                                 intent.putExtra("logining_user_pw", user_pw);
                                 intent.putExtra("logining_user_nickname", user_nickname);
                                 startActivity(intent);
-                            } else { // 로그인에 실패한 경우
-                                Toast.makeText(getApplicationContext(),"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show();
-                                return;
+                            } else { // 유저로그인에 실패한 경우 사장로그인 체크
+                                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        try {
+                                            // 인코딩 문제때문에 한글 DB인 경우 로그인 불가
+                                            System.out.println("hongchul" + response);
+                                            JSONObject jsonObject = new JSONObject(response);
+                                            boolean success = jsonObject.getBoolean("success");
+                                            if (success) { // 사장로그인에 성공한 경우
+                                                String ceo_id = jsonObject.getString("ceo_id");
+                                                String ceo_pw = jsonObject.getString("ceo_pw");
+
+
+                                                Toast.makeText(getApplicationContext(),"사장 로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(MainActivity.this, ManagerhomeActivity.class);
+                                                intent.putExtra("logining_ceo_id", ceo_id);
+                                                intent.putExtra("logining_ceo_pw", ceo_pw);
+                                                startActivity(intent);
+                                            } else { // 사장로그인에 실패한 경우
+                                                Toast.makeText(getApplicationContext(),"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                                                return;
+
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                };
+                                ceo_LoginRequest loginRequest = new ceo_LoginRequest(userID, userPass, responseListener);
+                                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                                queue.add(loginRequest);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
