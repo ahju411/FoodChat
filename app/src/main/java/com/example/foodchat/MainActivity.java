@@ -8,20 +8,36 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
@@ -32,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private UserDao mUserDao;
     private ManagerDao mManagerDao;
     private final static String TAG = "유저";
+    private EditText ed_id,ed_pw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         registerbtn = findViewById(R.id.goregister);
         guestloginbtn = findViewById(R.id.guestlogin);
         registerstorebtn = findViewById(R.id.registstore);
+        ed_id = findViewById(R.id.id);
+        ed_pw = findViewById(R.id.pwd);
 
         //DB파트
         UserDB database = Room.databaseBuilder(getApplicationContext(), UserDB.class, "FoodChat_db")
@@ -127,10 +146,41 @@ public class MainActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userID = ed_id.getText().toString();
+                String userPass = ed_pw.getText().toString();
 
-                //유은철 식당목록 테스트좀할려고 넣음 삭제예정
-                Intent intent = new Intent(view.getContext(), Restaurant_List_test.class);
-                startActivity(intent);
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            // 인코딩 문제때문에 한글 DB인 경우 로그인 불가
+                            System.out.println("hongchul" + response);
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if (success) { // 로그인에 성공한 경우
+                                String userID = jsonObject.getString("user_id");
+                                String userPass = jsonObject.getString("user_pw");
+
+                                Toast.makeText(getApplicationContext(),"로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MainActivity.this, Restaurant_List_test.class);
+                                intent.putExtra("logining_user_id", userID);
+                                intent.putExtra("logining_user_pw", userPass);
+                                startActivity(intent);
+                            } else { // 로그인에 실패한 경우
+                                Toast.makeText(getApplicationContext(),"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                LoginRequest loginRequest = new LoginRequest(userID, userPass, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+                queue.add(loginRequest);
+
+
 
             }
         });
@@ -165,6 +215,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
+
+
 
 
     private void updateKakaoLoginUI() {
