@@ -20,6 +20,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,15 +32,15 @@ public class NicknameActivity extends AppCompatActivity {
     private int userid;
     private String usernick;
     private UserDao mUserDao;
-    String url = "http://218.236.123.14:9090/input_users.php";
+    private String user_id,user_pw,user_nickname,user_favorites;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nickname);
         Intent getintent = getIntent();
-        String id = getintent.getStringExtra("id");
-        String pw = getintent.getStringExtra("pw");
-        System.out.println(id+pw);
+        user_id = getintent.getStringExtra("id");
+        user_pw = getintent.getStringExtra("pw");
+        System.out.println(user_id+user_pw);
 
 
 //        UserDB database = Room.databaseBuilder(getApplicationContext(), UserDB.class, "FoodChat_db")
@@ -57,49 +60,35 @@ public class NicknameActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                User user = new User();
-//                usernick = nickname.getText().toString();
-//                Log.d("id", String.valueOf(userid));
-//                Log.d("wantnick",usernick);
-//                mUserDao.UserChangeNick(usernick,userid);
-//                Intent intent = new Intent(view.getContext(), restaurant_list.class);
-//                startActivity(intent);
-//                finish();
-                StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+//
+                user_nickname = nickname.getText().toString();
+                user_favorites="";
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
-                    public void onResponse(String response)
-                    {
-                        Toast.makeText(getApplication(),"회원가입 성공!",Toast.LENGTH_SHORT).show();
-                        Log.v("들어감","들어감");
-                        Intent intent = new Intent(view.getContext(), Restaurant_List_test.class);
-                        intent.putExtra("id", id);
-                        intent.putExtra("nickname",String.valueOf(nickname.getText()));
-                        startActivity(intent);
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        error.printStackTrace();
-                        Toast.makeText(getApplication(),"안들어감",Toast.LENGTH_SHORT).show();
-                        Log.v("안들어감","안들어감");
-                    }
-                })
-                {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError
-                    {
-                        Map<String, String> map = new HashMap<>();
-                        // 1번 인자는 PHP 파일의 $_POST['']; 부분과 똑같이 해줘야 한다
-                        map.put("user_id", String.valueOf(id));
-                        map.put("user_pw", String.valueOf(pw));
-                        map.put("user_nickname", String.valueOf(nickname.getText()));
-                        return map;
-                    }
-                };
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if (success) { // 회원등록에 성공한 경우
+                                Toast.makeText(getApplicationContext(),"회원 등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(NicknameActivity.this, Restaurant_List_test.class);
+                                startActivity(intent);
+                            } else { // 회원등록에 실패한 경우
+                                Toast.makeText(getApplicationContext(),"회원 등록에 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                queue.add(request);
+                    }
+                }; // 서버로 Volley를 이용해서 요청을 함.
+                RegisterRequest registerRequest = new RegisterRequest(user_id,user_pw,user_nickname, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(NicknameActivity.this);
+                queue.add(registerRequest);
+
+
+
             }
         });
     }
