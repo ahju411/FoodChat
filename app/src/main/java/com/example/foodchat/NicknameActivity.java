@@ -72,6 +72,9 @@ public class NicknameActivity extends AppCompatActivity {
                             if (success) { // 회원등록에 성공한 경우
                                 Toast.makeText(getApplicationContext(),"회원 등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(NicknameActivity.this, Restaurant_List_test.class);
+                                intent.putExtra("logining_user_id", user_id);
+                                intent.putExtra("logining_user_pw", user_pw);
+                                intent.putExtra("logining_user_nickname", user_nickname);
                                 startActivity(intent);
                             } else { // 회원등록에 실패한 경우
                                 Toast.makeText(getApplicationContext(),"회원 등록에 실패하였습니다.",Toast.LENGTH_SHORT).show();
