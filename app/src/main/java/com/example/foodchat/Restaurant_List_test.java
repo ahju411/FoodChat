@@ -63,6 +63,8 @@ public class Restaurant_List_test extends AppCompatActivity {
     private GpsTracker gpsTracker;
     LoadingDialogBar loadingDialogBar;
 
+    private String logining_user_id,logining_user_pw,logining_user_nickname;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
@@ -70,10 +72,10 @@ public class Restaurant_List_test extends AppCompatActivity {
         ct = getApplicationContext();
         setContentView(R.layout.restaurant_list2);
         Intent getintent = getIntent();
-        String id = getintent.getStringExtra("id");
-        String nickname = getintent.getStringExtra("nickname");
-        System.out.println(id+nickname);
-
+        String logining_user_id = getintent.getStringExtra("logining_user_id");
+        String logining_user_pw = getintent.getStringExtra("logining_user_pw");
+        String logining_user_nickname = getintent.getStringExtra("logining_user_nickname");
+        System.out.println("아이디 :"+logining_user_id +"비번 :"+logining_user_pw+"닉네임:"+logining_user_nickname);
         setAddress();
 
 
