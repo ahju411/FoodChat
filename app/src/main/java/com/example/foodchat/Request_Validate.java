@@ -8,12 +8,12 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ValidateRequest extends StringRequest {
+public class Request_Validate extends StringRequest {
     //서버 url 설정(php파일 연동)
     final static  private String URL="http://192.168.75.151:9090/Validate_ID.php";
     private Map<String,String> map;
 
-    public ValidateRequest(String userID, Response.Listener<String>listener){
+    public Request_Validate(String userID, Response.Listener<String>listener){
         super(Request.Method.POST,URL,listener,null);
 
         map=new HashMap<>();

@@ -33,7 +33,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public class store_register_2 extends AppCompatActivity {
+public class ManageInputStoreActivity extends AppCompatActivity {
     private EditText res_name, res_address, res_time,res_mension;
     private String name,address,time,mension;
     String res_image;

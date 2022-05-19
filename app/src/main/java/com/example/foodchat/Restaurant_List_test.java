@@ -1,20 +1,15 @@
 package com.example.foodchat;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -43,8 +38,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Restaurant_List_test extends AppCompatActivity {
     static RequestQueue requestQueue;
@@ -140,7 +133,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         IV.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 //임시 웹 서버DB연결테스트 삭제 예정
-                Intent intent = new Intent(view.getContext(), store_register_2.class);
+                Intent intent = new Intent(view.getContext(), ManageInputStoreActivity.class);
                 startActivity(intent);
             }
         });

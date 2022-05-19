@@ -56,7 +56,8 @@
         <activity android:name=".Restaurant_List_test" />
         <activity android:name=".dbtest_loda_image" />
         <activity android:name=".store_register" />
-        <activity android:name=".store_register_2" />
+        <activity android:name=".ManageInputStoreActivity" />
+        <activity android:name=".ManageInputStoreActivity2" />
         <activity android:name=".dbinputtest" />
         <activity android:name=".Restaurant_Info" />
         <activity android:name=".Restaurant_Review" />

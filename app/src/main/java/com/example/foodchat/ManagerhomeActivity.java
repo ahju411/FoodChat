@@ -19,6 +19,9 @@ public class ManagerhomeActivity extends AppCompatActivity {
         String logining_ceo_pw = getintent.getStringExtra("logining_ceo_pw");
         System.out.println("아이디 :"+logining_ceo_id +"비번 :"+logining_ceo_pw);
 
+
+
+
         store_registerbtn = findViewById(R.id.store_register);
         manage_reservationbtn = findViewById(R.id.manage_reservation);
         manage_reviewbtn = findViewById(R.id.manage_review);
@@ -26,7 +29,9 @@ public class ManagerhomeActivity extends AppCompatActivity {
         store_registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), store_register_2.class);
+                Intent intent = new Intent(view.getContext(), ManageInputStoreActivity2.class);
+                intent.putExtra("logining_ceo_id", logining_ceo_id);
+                intent.putExtra("logining_ceo_pw", logining_ceo_pw);
                 startActivity(intent);
             }
         });

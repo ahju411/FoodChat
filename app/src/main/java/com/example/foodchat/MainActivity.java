@@ -5,13 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.room.Room;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,25 +13,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
@@ -197,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                                         }
                                     }
                                 };
-                                ceo_LoginRequest loginRequest = new ceo_LoginRequest(userID, userPass, responseListener);
+                                Request_CEO_LoginRequest loginRequest = new Request_CEO_LoginRequest(userID, userPass, responseListener);
                                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                                 queue.add(loginRequest);
 

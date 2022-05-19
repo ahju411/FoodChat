@@ -7,20 +7,25 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RegisterRequest extends StringRequest {
+public class Request_InputStore extends StringRequest {
 
     // 서버 URL 설정 ( PHP 파일 연동 )
-    final static private String URL = "http://192.168.75.151:9090/Register.php";
+    final static private String URL = "http://192.168.75.151:9090/input_store_info.php";
     private Map<String, String> map;
 
 
-    public RegisterRequest(String userID, String userPassword, String userName, Response.Listener<String> listener) {
+    public Request_InputStore(String a, String b, String c,String d,String e,String f, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
 
         map = new HashMap<>();
-        map.put("user_id",userID);
-        map.put("user_pw", userPassword);
-        map.put("user_nickname", userName);
+        map.put("store_name",a);
+        map.put("store_address", b);
+        map.put("store_time", c);
+        map.put("store_images",d);
+        map.put("store_mension", e);
+        map.put("ceo_id",f);
+
+
 
 
     }

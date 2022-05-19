@@ -1,7 +1,6 @@
 package com.example.foodchat;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -182,9 +181,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                         }
                     }; // 서버로 Volley를 이용해서 요청을 함.
-                    ValidateRequest validateRequest = new ValidateRequest(user_id,responseListener);
+                    Request_Validate requestValidate = new Request_Validate(user_id,responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                    queue.add(validateRequest);
+                    queue.add(requestValidate);
 
 
 
