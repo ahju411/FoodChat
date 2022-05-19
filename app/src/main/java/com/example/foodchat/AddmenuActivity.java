@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -35,7 +36,6 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
             public void onClick(View view) {
                 //Dialog 추가
                 openDialog();
-               // Toast.makeText(getApplicationContext(),"다이얼로그 띄우기",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -60,6 +60,25 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         rv.setLayoutManager(manager);
 
         adpt.setItemManageMenus(itemManageMenus);
+        adpt.setOnItemClickListener(new AddmenuListener() {
+            @Override
+            public void onItemClick(AddmenuAdapter.ViewHolder holder, View view, int position) {
+                ItemManageMenu item = adpt.getItem(position);
+
+                Menu_dialog menu_dialog = new Menu_dialog();
+                menu_dialog.setStrmenuname(item.getMenu_name());
+                menu_dialog.setStrmenuprice(item.getMenu_price());
+                menu_dialog.setStrmenuexplain(item.getMenu_explain());
+                menu_dialog.setBmmenuimg(item.getMenu_img());
+                menu_dialog.setPosition(position);
+
+
+                menu_dialog.show(getSupportFragmentManager(),"dialog");
+                //openDialogFull(item.getMenu_name(),item.getMenu_price(),item.getMenu_explain(),item.getMenu_img());
+
+                Toast.makeText(getApplicationContext(),"메뉴명 받기" + item.getMenu_name(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
@@ -75,6 +94,7 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
 
 
     }
+
     private void openDialog(){
         Menu_dialog menu_dialog = new Menu_dialog();
         menu_dialog.show(getSupportFragmentManager(),"dialog");
@@ -89,6 +109,8 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         //itemManageMenus.add(new ItemManageMenu("볶음밥","누구나 즐길 수 있는 볶음밥","5000원",R.drawable.friedrice));
     }
 
+
+
     @Override
     public void applyText(String strmenuname, String strmenuprice, String strmenuexplain, String strmenuimg) {
         itemManageMenus.add(new ItemManageMenu(strmenuname,strmenuexplain,strmenuprice + "원",StringToBitmaps(strmenuimg)));
@@ -97,6 +119,13 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
 
         //여기서 메뉴 리사이클러뷰에 추가하기
     }
+
+    @Override
+    public void setText(String strmenuname, String strmenuprice, String strmenuexplain, String strmenuimg,int position) {
+        itemManageMenus.set(position,new ItemManageMenu(strmenuname,strmenuexplain,strmenuprice + "원",StringToBitmaps(strmenuimg)));
+        adpt.notifyDataSetChanged();
+    }
+
     public static Bitmap StringToBitmaps(String image) {
         try {
             byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);

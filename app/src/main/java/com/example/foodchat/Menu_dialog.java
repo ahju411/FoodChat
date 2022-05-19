@@ -38,6 +38,9 @@ public class Menu_dialog extends AppCompatDialogFragment {
     private Menu_dialogListener listener;
     private final int GET_GALLERY_IMAGE = 200;
     private String encodeimg;
+    private String strmenuname ="",  strmenuprice ="",  strmenuexplain ="";
+    private Bitmap bmmenuimg = null;
+    private int position = -1;
 
 
     @NonNull
@@ -51,6 +54,15 @@ public class Menu_dialog extends AppCompatDialogFragment {
         menuprice = view.findViewById(R.id.menuprice_dialog);
         menuexplain = view.findViewById(R.id.menuexplain_dialog);
         menuimg = view.findViewById(R.id.menuimg_explain);
+
+        menuname.setText(strmenuname);
+        menuprice.setText(strmenuprice);
+        menuexplain.setText(strmenuexplain);
+        menuimg.setImageBitmap(bmmenuimg);
+
+
+
+
 
 
 
@@ -78,6 +90,17 @@ public class Menu_dialog extends AppCompatDialogFragment {
         }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        }).setNeutralButton("수정", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String strmenuname = menuname.getText().toString();
+                String strmenuprice = menuprice.getText().toString();
+                String strmenuexplain = menuexplain.getText().toString();
+                String strmenuimg = encodeimg;
+
+                listener.setText(strmenuname,strmenuprice,strmenuexplain,strmenuimg,position);
 
             }
         });
@@ -130,6 +153,7 @@ public class Menu_dialog extends AppCompatDialogFragment {
 
     }
 
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -145,7 +169,27 @@ public class Menu_dialog extends AppCompatDialogFragment {
 
     public interface Menu_dialogListener{
         void applyText(String s, String strmenuname, String strmenuprice, String strmenuexplain);
+        void setText(String s, String strmenuname, String strmenuprice,String strmenuexplain, int position);
     }
 
+    public void setStrmenuname(String strmenuname) {
+        this.strmenuname = strmenuname;
+    }
+
+    public void setStrmenuprice(String strmenuprice) {
+        this.strmenuprice = strmenuprice;
+    }
+
+    public void setStrmenuexplain(String strmenuexplain) {
+        this.strmenuexplain = strmenuexplain;
+    }
+
+    public void setBmmenuimg(Bitmap bmmenuimg) {
+        this.bmmenuimg = bmmenuimg;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
 }

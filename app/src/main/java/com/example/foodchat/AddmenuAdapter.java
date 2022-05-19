@@ -3,7 +3,6 @@ package com.example.foodchat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,13 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AddmenuAdapter extends RecyclerView.Adapter<AddmenuAdapter.ViewHolder> {
+public class AddmenuAdapter extends RecyclerView.Adapter<AddmenuAdapter.ViewHolder> implements AddmenuListener{
 
     ArrayList<ItemManageMenu> itemManageMenus = new ArrayList<>();
 
     public AddmenuAdapter(){
 
     }
+    //========클릭 이벤트 구현===========
+    private AddmenuListener itemClickListener;
+
+    public void setOnItemClickListener (AddmenuListener listener){
+        this.itemClickListener = listener;
+    }
+
+
+
 
     @NonNull
     @Override
@@ -26,6 +34,8 @@ public class AddmenuAdapter extends RecyclerView.Adapter<AddmenuAdapter.ViewHold
         //원하는 layout띄우기
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.store_addmenu_list,parent,false);
+        AddmenuAdapter.ViewHolder viewHolder = new AddmenuAdapter.ViewHolder(view);
+
         return new ViewHolder(view);
     }
 
@@ -49,6 +59,18 @@ public class AddmenuAdapter extends RecyclerView.Adapter<AddmenuAdapter.ViewHold
         return itemManageMenus.size();
     }
 
+    //클릭 이벤트 필요 요소
+    public ItemManageMenu getItem(int position){
+        return itemManageMenus.get(position);
+    }
+
+    @Override
+    public void onItemClick(ViewHolder holder, View view, int position) {
+        if(itemClickListener != null){
+            itemClickListener.onItemClick(holder,view,position);
+        }
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView menu_name,menu_explain,menu_price;
         ImageView menu_img;
@@ -59,6 +81,17 @@ public class AddmenuAdapter extends RecyclerView.Adapter<AddmenuAdapter.ViewHold
             menu_explain = itemView.findViewById(R.id.menu_explain);
             menu_price = itemView.findViewById(R.id.menu_price);
             menu_img = itemView.findViewById(R.id.menu_img);
+
+            //클릭 이벤트 필요 요소
+            itemView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    int position = getBindingAdapterPosition();
+                    if(itemClickListener !=null){
+                        itemClickListener.onItemClick(ViewHolder.this, view, position);
+                    }
+                }
+            });
 
 
         }
