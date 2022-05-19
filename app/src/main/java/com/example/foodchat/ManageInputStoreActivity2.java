@@ -24,11 +24,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,6 +45,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
     private ImageView imageView;
     private String store_name,store_address,store_time,store_image,store_mension,
             logining_ceo_pw,logining_ceo_id;
+    static RequestQueue requestQueue;
 
 
 
@@ -81,6 +84,8 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
         imageView = (ImageView)findViewById((R.id.img1));
 
 
+
+        getData();
 
         btn_uploadIMG.setOnClickListener(new View.OnClickListener(){ // + 버튼 누르면 갤러리 이미지 따오기
             @Override
@@ -207,6 +212,74 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
     public Bitmap byteArrayToBitmap( byte[] byteArray ) { // Byte >> 이미지 변환
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         return bitmap;
+    }
+
+
+
+    public void getData() {
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            String item = jsonObject.getString("store_name");
+                            String item2 = jsonObject.getString("store_address");
+                            String item3 = jsonObject.getString("store_time");
+                            String item4 = jsonObject.getString("store_images");
+                            Bitmap bit2 = StringToBitmaps(item4);
+                            imageView.setImageBitmap(bit2); // 액티비티에 이미지 표시
+                            String item5 = jsonObject.getString("store_mension");
+
+                            res_name.setText(item);
+                            res_address.setText(item2);
+                            res_time.setText(item3);
+                            res_time.setText(item5);
+
+                            System.out.println("data1 :"+item);
+
+                            Log.v("여긴작동하나용","네에");
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.v("작동실패","안들어옴");
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_get_CEO_storeInfo requestRegister = new Request_get_CEO_storeInfo(logining_ceo_id, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(ManageInputStoreActivity2.this);
+        queue.add(requestRegister);
+
+
+    }
+
+
+    public static Bitmap StringToBitmaps(String image) { // 서버에서 이미지 가져온거 비트맵으로 전환하는 함수
+        try {
+            byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+            // Base64 코드를 디코딩하여 바이트 형태로 저장
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            // 바이트 형태를 디코딩하여 비트맵 형태로 저장
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 
 
