@@ -38,8 +38,8 @@ public class NicknameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nickname);
         Intent getintent = getIntent();
-        user_id = getintent.getStringExtra("id");
-        user_pw = getintent.getStringExtra("pw");
+        user_id = getintent.getStringExtra("user_id");
+        user_pw = getintent.getStringExtra("user_pw");
         System.out.println(user_id+user_pw);
 
 

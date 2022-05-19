@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email,pwd,pwdconfirm;
     private TextView confirmemail,falsechkpwd,truechkpwd,confirmpwd;
     //나중에 회원 입력 정보 받아서 DB에 넣는 용
-    private static String useremail,userpwd,userpwdconfirm;
+    private String user_id,user_pw;
     private String[] ids= new String[3];
     private int check;
     String URL = "http://218.236.123.14:9090/load_users.php";
@@ -65,7 +65,6 @@ public class RegisterActivity extends AppCompatActivity {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
         System.out.println("체크체크");
-        login();
         System.out.println("체크체크2");
 
 
@@ -158,31 +157,34 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(email.getText().toString().length() > 0) {
-//                    finish();
-//                    Intent intent = new Intent(view.getContext(), NicknameActivity.class);
-//                    startActivity(intent);
+                    user_id = email.getText().toString();
+                    user_pw = pwd.getText().toString();
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response);
+                                boolean success = jsonObject.getBoolean("success");
+                                if (success) { // 중복인경우
+                                    Toast.makeText(getApplicationContext(),"아이디중복입니다.",Toast.LENGTH_SHORT).show();
+                                    return;
+                                } else { // 회원등록에 실패한 경우
+                                    Toast.makeText(getApplicationContext(),"아이디 중복 없음!",Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(RegisterActivity.this, NicknameActivity.class);
+                                    intent.putExtra("user_id", user_id);
+                                    intent.putExtra("user_pw", user_pw);
 
-                    check = 0;
-                    for(int j =0;j< ids.length;j++){
-                        System.out.println("ids"+j+"값:"+ids[j]);
-                        if(email.getText().toString()==ids[j]){
-                            check=1;
-                            break;
+                                    startActivity(intent);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
                         }
-                    }
-                    check=0;
-                    if(check==1){
-
-                        Toast.makeText(getApplication(),"아이디가 중복입니다. 다시입력해주세요",Toast.LENGTH_SHORT).show();
-
-                    }
-                    else{
-                        Intent intent = new Intent(view.getContext(), NicknameActivity.class);
-                        intent.putExtra("id", email.getText().toString());
-                        intent.putExtra("pw",pwd.getText().toString());
-                        startActivity(intent);
-
-                    }
+                    }; // 서버로 Volley를 이용해서 요청을 함.
+                    ValidateRequest validateRequest = new ValidateRequest(user_id,responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                    queue.add(validateRequest);
 
 
 
