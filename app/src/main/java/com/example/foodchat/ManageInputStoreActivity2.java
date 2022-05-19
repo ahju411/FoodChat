@@ -42,7 +42,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
     private static final int REQUEST_CODE = 0;
     private ImageView imageView;
     private String store_name,store_address,store_time,store_image,store_mension,
-    logining_ceo_pw,logining_ceo_id;
+            logining_ceo_pw,logining_ceo_id;
 
 
 
@@ -101,6 +101,8 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
                 store_address = res_address.getText().toString();
                 store_time = res_time.getText().toString();
                 store_image = res_image;
+                System.out.println("길이선:"+store_image.length());
+
                 store_mension = res_mension.getText().toString();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -122,9 +124,10 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
 
                     }
                 }; // 서버로 Volley를 이용해서 요청을 함.
-                Request_InputStore requestRegister = new Request_InputStore(store_name,store_address,store_time,store_image,store_mension,logining_ceo_id, responseListener);
+                Request_InputStore requestRegister = new Request_InputStore(store_name,store_address,store_time,res_image,store_mension,logining_ceo_id, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(ManageInputStoreActivity2.this);
                 queue.add(requestRegister);
+
 
 
             }

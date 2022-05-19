@@ -1,5 +1,7 @@
 package com.example.foodchat;
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -21,7 +23,9 @@ public class Request_InputStore extends StringRequest {
         map.put("store_name",a);
         map.put("store_address", b);
         map.put("store_time", c);
-        map.put("store_images",d);
+        map.put("store_images",String.valueOf(d));
+        System.out.println("여기기록되나");
+        System.out.println("길이:"+d.length());
         map.put("store_mension", e);
         map.put("ceo_id",f);
 
