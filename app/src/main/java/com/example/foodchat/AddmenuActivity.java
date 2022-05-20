@@ -103,10 +103,6 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
     private void getItem() {
         itemManageMenus = new ArrayList<>();
 
-        //itemManageMenus.add(new ItemManageMenu("짜장면","누구나 즐길 수 있는 짜장면","5000원",));
-        //itemManageMenus.add(new ItemManageMenu("짬뽕","누구나 즐길 수 있는 짬뽕","6000원",R.drawable.jjambbong));
-        //itemManageMenus.add(new ItemManageMenu("탕수육","누구나 즐길 수 있는 탕수육","9000원",R.drawable.tangsu));
-        //itemManageMenus.add(new ItemManageMenu("볶음밥","누구나 즐길 수 있는 볶음밥","5000원",R.drawable.friedrice));
     }
 
 
@@ -122,7 +118,7 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
 
     @Override
     public void setText(String strmenuname, String strmenuprice, String strmenuexplain, String strmenuimg,int position) {
-        itemManageMenus.set(position,new ItemManageMenu(strmenuname,strmenuexplain,strmenuprice + "원",StringToBitmaps(strmenuimg)));
+        itemManageMenus.set(position,new ItemManageMenu(strmenuname,strmenuexplain,strmenuprice,StringToBitmaps(strmenuimg)));
         adpt.notifyDataSetChanged();
     }
 

@@ -42,9 +42,11 @@
         app:layout_constraintWidth_percent="0.5" />
 
     <TextView
+        android:id="@+id/menuimg_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="메뉴사진 추가"
+        android:textColor="@color/blue"
         app:layout_constraintBottom_toBottomOf="@+id/menuimg_explain"
         app:layout_constraintEnd_toStartOf="@+id/menuimg_explain"
         app:layout_constraintStart_toStartOf="@+id/menuexplain_dialog"
@@ -54,7 +56,6 @@
         android:id="@+id/menuimg_explain"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:src="@drawable/addcircle"
         android:background="@color/white"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"

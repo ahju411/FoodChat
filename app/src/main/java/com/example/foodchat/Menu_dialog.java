@@ -7,15 +7,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -35,6 +38,7 @@ import java.io.IOException;
 public class Menu_dialog extends AppCompatDialogFragment {
     private EditText menuname,menuprice,menuexplain;
     private ImageButton menuimg;
+    private TextView menuimg_tv;
     private Menu_dialogListener listener;
     private final int GET_GALLERY_IMAGE = 200;
     private String encodeimg;
@@ -54,6 +58,8 @@ public class Menu_dialog extends AppCompatDialogFragment {
         menuprice = view.findViewById(R.id.menuprice_dialog);
         menuexplain = view.findViewById(R.id.menuexplain_dialog);
         menuimg = view.findViewById(R.id.menuimg_explain);
+        menuimg_tv= view.findViewById(R.id.menuimg_tv);
+        menuimg_tv.setPaintFlags(menuimg_tv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         menuname.setText(strmenuname);
         menuprice.setText(strmenuprice);
@@ -66,7 +72,7 @@ public class Menu_dialog extends AppCompatDialogFragment {
 
 
 
-        menuimg.setOnClickListener(new View.OnClickListener() {
+        menuimg_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 imageChooser();
@@ -83,6 +89,7 @@ public class Menu_dialog extends AppCompatDialogFragment {
                 String strmenuprice = menuprice.getText().toString();
                 String strmenuexplain = menuexplain.getText().toString();
                 String strmenuimg = encodeimg;
+                Log.d("이미지 받기",strmenuimg);
 
                 listener.applyText(strmenuname,strmenuprice,strmenuexplain,strmenuimg);
 
@@ -99,6 +106,7 @@ public class Menu_dialog extends AppCompatDialogFragment {
                 String strmenuprice = menuprice.getText().toString();
                 String strmenuexplain = menuexplain.getText().toString();
                 String strmenuimg = encodeimg;
+                Log.d("이미지 받기",strmenuimg);
 
                 listener.setText(strmenuname,strmenuprice,strmenuexplain,strmenuimg,position);
 
