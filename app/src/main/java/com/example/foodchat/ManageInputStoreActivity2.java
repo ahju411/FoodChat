@@ -106,7 +106,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
                 store_address = res_address.getText().toString();
                 store_time = res_time.getText().toString();
                 store_image = res_image;
-                System.out.println("길이선:"+store_image.length());
+
 
                 store_mension = res_mension.getText().toString();
 
@@ -236,12 +236,13 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
                             String item4 = jsonObject.getString("store_images");
                             Bitmap bit2 = StringToBitmaps(item4);
                             imageView.setImageBitmap(bit2); // 액티비티에 이미지 표시
+                            res_image = item4;
                             String item5 = jsonObject.getString("store_mension");
 
                             res_name.setText(item);
                             res_address.setText(item2);
                             res_time.setText(item3);
-                            res_time.setText(item5);
+                            res_mension.setText(item5);
 
                             System.out.println("data1 :"+item);
 

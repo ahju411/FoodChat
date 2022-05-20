@@ -193,9 +193,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
 
-                LoginRequest loginRequest = new LoginRequest(userID, userPass, responseListener);
+                Request_User_Login requestUserLogin = new Request_User_Login(userID, userPass, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-                queue.add(loginRequest);
+                queue.add(requestUserLogin);
 
 
 
