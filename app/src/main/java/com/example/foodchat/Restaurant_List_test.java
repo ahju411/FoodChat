@@ -153,8 +153,8 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         res_items = new ArrayList<>();
 
-//        String URL = "http://192.168.75.151:9090/load_res.php";
-        String URL = "http://218.236.123.14:9090/load_res.php";
+        String URL = "http://192.168.75.151:9090/load_store_info.php";
+        //String URL = "http://218.236.123.14:9090/load_store_info.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -175,12 +175,13 @@ public class Restaurant_List_test extends AppCompatActivity {
                         try {
                             jsonObject = jsonArray.getJSONObject(i);
                             // Pulling items from the array
-                            String item = jsonObject.getString("res_name");
+                            String item = jsonObject.getString("store_name");
 
-                            String item2 = jsonObject.getString("res_address");
+                            String item2 = jsonObject.getString("store_address");
 
-//                              String item3 = jsonObject.getString("res_time");
-                            String item4 = jsonObject.getString("res_image");
+
+                            String item4 = jsonObject.getString("store_images");
+
                             Bitmap bit = StringToBitmaps(item4);
 
                             res_items.add(new Restaurant_List_Item_test(item,item2,bit, R.drawable.chat, R.drawable.starimg)); //리스트 식당호출
