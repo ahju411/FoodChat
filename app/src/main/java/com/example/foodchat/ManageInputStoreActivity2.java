@@ -45,6 +45,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
     private ImageView imageView;
     private String store_name,store_address,store_time,store_image,store_mension,
             logining_ceo_pw,logining_ceo_id;
+    private int logining_store_id;
     static RequestQueue requestQueue;
 
 
@@ -60,7 +61,9 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
         Intent getintent = getIntent();
         logining_ceo_id = getintent.getStringExtra("logining_ceo_id");
         logining_ceo_pw = getintent.getStringExtra("logining_ceo_pw");
-        System.out.println("아이디:"+logining_ceo_id+"비번"+logining_ceo_pw);
+        logining_store_id = getintent.getIntExtra("logining_store_id",0);
+
+        System.out.println("아이디:"+logining_ceo_id+"비번"+logining_ceo_pw+"상점아이디22:"+logining_store_id);
 
         res_name = (EditText)findViewById(R.id.rest_name);
 
@@ -77,6 +80,9 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AddmenuActivity.class);
+                intent.putExtra("logining_ceo_id", logining_ceo_id);
+                intent.putExtra("logining_ceo_pw", logining_ceo_pw);
+                intent.putExtra("logining_store_id", logining_store_id);
                 startActivity(intent);
             }
         });

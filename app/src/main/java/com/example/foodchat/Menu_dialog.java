@@ -89,7 +89,7 @@ public class Menu_dialog extends AppCompatDialogFragment {
                 String strmenuprice = menuprice.getText().toString();
                 String strmenuexplain = menuexplain.getText().toString();
                 String strmenuimg = encodeimg;
-                Log.d("이미지 받기",strmenuimg);
+
 
                 listener.applyText(strmenuname,strmenuprice,strmenuexplain,strmenuimg);
 
@@ -105,8 +105,11 @@ public class Menu_dialog extends AppCompatDialogFragment {
                 String strmenuname = menuname.getText().toString();
                 String strmenuprice = menuprice.getText().toString();
                 String strmenuexplain = menuexplain.getText().toString();
-                String strmenuimg = encodeimg;
-                Log.d("이미지 받기",strmenuimg);
+                AddmenuActivity a = new AddmenuActivity();
+
+                String strmenuimg = a.menu_image2;
+
+
 
                 listener.setText(strmenuname,strmenuprice,strmenuexplain,strmenuimg,position);
 
