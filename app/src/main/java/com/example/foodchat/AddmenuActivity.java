@@ -28,7 +28,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Menu_dialogListener {
+public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Menu_dialogListener,Menu_fix_dialog.Menu_dialogListener {
     private Button finishbtn;
     private ImageButton backbtn,addmenubtn;
     private AddmenuAdapter adpt;
@@ -88,7 +88,7 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
             public void onItemClick(AddmenuAdapter.ViewHolder holder, View view, int position) {
                 ItemManageMenu item = adpt.getItem(position);
 
-                Menu_dialog menu_dialog = new Menu_dialog();
+                Menu_fix_dialog menu_dialog = new Menu_fix_dialog();
                 menu_dialog.setStrmenuname(item.getMenu_name());
                 menu_dialog.setStrmenuprice(item.getMenu_price());
                 menu_dialog.setStrmenuexplain(item.getMenu_explain());
@@ -229,6 +229,10 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         //여기서 메뉴 리사이클러뷰에 추가하기
     }
 
+
+
+    //메뉴 수정
+
     @Override
     public void setText(String strmenuname, String strmenuprice, String strmenuexplain, String strmenuimg,int position) { // 수정부분
         itemManageMenus.set(position,new ItemManageMenu(strmenuname,strmenuexplain,strmenuprice,StringToBitmaps(strmenuimg)));
@@ -266,7 +270,13 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         RequestQueue queue = Volley.newRequestQueue(AddmenuActivity.this);
         queue.add(requestRegister);
 
+    }
 
+    //메뉴 삭제
+    @Override
+    public void destroy(int position) {
+        itemManageMenus.remove(position);
+        adpt.notifyDataSetChanged();
     }
 
     public static Bitmap StringToBitmaps(String image) {

@@ -38,7 +38,7 @@ public class Restaurant_Info extends AppCompatActivity {
         go_map_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),Testmap.class);
+                Intent intent = new Intent(view.getContext(), Restaurnt_map.class);
                 startActivity(intent);
             }
         });

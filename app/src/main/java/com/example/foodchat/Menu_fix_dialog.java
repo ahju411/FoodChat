@@ -12,30 +12,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import com.example.foodchat.R;
-
 import java.io.ByteArrayOutputStream;
-import java.io.IOError;
 import java.io.IOException;
 
-public class Menu_dialog extends AppCompatDialogFragment {
+public class Menu_fix_dialog extends AppCompatDialogFragment {
     private EditText menuname,menuprice,menuexplain;
     private ImageButton menuimg;
     private TextView menuimg_tv;
@@ -82,22 +74,24 @@ public class Menu_dialog extends AppCompatDialogFragment {
         });
 
 
-        builder.setView(view).setTitle("메뉴 추가").setPositiveButton("추가", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle("메뉴 수정").setPositiveButton("수정", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String strmenuname = menuname.getText().toString();
                 String strmenuprice = menuprice.getText().toString();
                 String strmenuexplain = menuexplain.getText().toString();
-                String strmenuimg = encodeimg;
+                AddmenuActivity a = new AddmenuActivity();
+
+                String strmenuimg = a.menu_image2;
 
 
-                listener.applyText(strmenuname,strmenuprice,strmenuexplain,strmenuimg);
+                listener.setText(strmenuname,strmenuprice,strmenuexplain,strmenuimg,position);
 
             }
-        }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("삭제", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                listener.destroy(position);
             }
         });
 
@@ -164,7 +158,8 @@ public class Menu_dialog extends AppCompatDialogFragment {
 
 
     public interface Menu_dialogListener{
-        void applyText(String s, String strmenuname, String strmenuprice, String strmenuexplain);
+        void setText(String s, String strmenuname, String strmenuprice,String strmenuexplain, int position);
+        void destroy(int position);
     }
 
     public void setStrmenuname(String strmenuname) {
