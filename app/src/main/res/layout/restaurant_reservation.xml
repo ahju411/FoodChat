@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/reservation_calendarView"
+        android:id="@+id/reservation_calendarView_user"
         android:layout_width="335dp"
         android:layout_height="301dp"
         android:theme="@style/CalenderViewCustom"

@@ -41,9 +41,9 @@ public class ManageReservationActivity extends AppCompatActivity {
         setContentView(R.layout.store_reservation);
 
 
-        calendar.findViewById(R.id.reservation_calendarView);
+        calendar = findViewById(R.id.reservation_calendarView);
         //달력 시작이 일요일로 하는 것
-        calendar.state().edit().setFirstDayOfWeek(DayOfWeek.SUNDAY).commit();
+        calendar.state().edit().setFirstDayOfWeek(DayOfWeek.MONDAY).commit();
         //달과 주 요일 이름 한글로 설정하기
         calendar.setTitleFormatter(new MonthArrayTitleFormatter(getResources().getTextArray(R.array.custom_months)));
         calendar.setWeekDayFormatter(new ArrayWeekDayFormatter(getResources().getTextArray(R.array.custom_weekdays)));
@@ -90,6 +90,7 @@ public class ManageReservationActivity extends AppCompatActivity {
         rv = findViewById(R.id.recycler_storeReservation);
         backbtn = findViewById(R.id.store_reservation_backbtn);
 
+
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,7 +117,7 @@ public class ManageReservationActivity extends AppCompatActivity {
         private final Drawable drawable;
 
         private DayDecorator(Context context) {
-            drawable = ContextCompat.getDrawable(context, R.drawable.calender_selector);
+            drawable = context.getDrawable(R.drawable.calender_selector);
         }
 
 
