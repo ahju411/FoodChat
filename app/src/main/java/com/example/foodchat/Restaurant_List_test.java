@@ -107,6 +107,17 @@ public class Restaurant_List_test extends AppCompatActivity {
         rv.setAdapter(adpt);
         rv.setLayoutManager(manager);
 
+        // ============어댑터 클릭리스너 구현 ===========
+        adpt.setRes_list_item(res_items);
+        adpt.setListClickListener(new Restaurant_listListener() {
+            @Override
+            public void onListClick(Restaurant_ListAdapter_test.ViewHolder holder, View view, int position) {
+                Restaurant_List_Item_test item= adpt.getItem(position);
+                //상세페이지 띄워서 item에서 get을 통해 상세페이지로 넘겨서 띄우면 끝
+
+            }
+        });
+
 
 
         menubtn = (ImageView) findViewById(R.id.menubtn);
@@ -283,7 +294,9 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         Address address = addresses.get(0);
         String add = address.getAddressLine(0).toString();
+        Log.d("주소",add);
         String add2 = add.substring(4); //대한민국 문자열 자르기
+        Log.d("주소",add2);
         return add2;
 
     }

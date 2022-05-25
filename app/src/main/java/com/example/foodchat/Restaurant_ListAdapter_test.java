@@ -12,12 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Restaurant_ListAdapter_test extends RecyclerView.Adapter<Restaurant_ListAdapter_test.ViewHolder> {
+public class Restaurant_ListAdapter_test extends RecyclerView.Adapter<Restaurant_ListAdapter_test.ViewHolder> implements Restaurant_listListener{
 
     ArrayList<Restaurant_List_Item_test> res_list_item = new ArrayList<>();
 
     public Restaurant_ListAdapter_test(){
 
+    }
+
+    //========클릭 이벤트 구현===========
+    Restaurant_listListener listClickListener;
+
+    public void setListClickListener (Restaurant_listListener listener){
+        this.listClickListener = listener;
     }
 
     @NonNull
@@ -44,10 +51,27 @@ public class Restaurant_ListAdapter_test extends RecyclerView.Adapter<Restaurant
         notifyDataSetChanged();
     }
 
+    //클릭 이벤트 필요 요소 해당 포지션에 있는 아이템들 가져오기
+    public Restaurant_List_Item_test getItem(int position){
+        return res_list_item.get(position);
+    }
+
+
+    @Override
+    public void onListClick(ViewHolder holder, View view, int position) {
+        if(listClickListener != null){
+            listClickListener.onListClick(holder,view,position);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return res_list_item.size();
     }
+
+
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView name_tv,info_tv;
@@ -62,6 +86,17 @@ public class Restaurant_ListAdapter_test extends RecyclerView.Adapter<Restaurant
             logo_iv = itemView.findViewById(R.id.res_logo);
             chat_iv = itemView.findViewById(R.id.res_chat);
             star_iv = itemView.findViewById(R.id.res_star);
+
+            //아이템 클릭 이벤트 구현
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getBindingAdapterPosition();
+                    if(listClickListener != null){
+                        listClickListener.onListClick(ViewHolder.this,view,position);
+                    }
+                }
+            });
 
 
         }
