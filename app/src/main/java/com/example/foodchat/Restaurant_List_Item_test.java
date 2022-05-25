@@ -13,7 +13,7 @@ public class Restaurant_List_Item_test {
 
     public Restaurant_List_Item_test(String res_name,String res_info,Bitmap logo_img,int chat_img,int star_img){
         this.res_name = res_name;
-        this.res_info = res_info;
+        this.res_info = res_info;//
         this.logo_img = logo_img;
         this.chat_img = chat_img;
         this.star_img = star_img;
