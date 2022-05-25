@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,7 +42,7 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION};
     private Geocoder geocoder = new Geocoder(this, Locale.getDefault());
     private Button button;
-    private EditText editText;
+    private TextView editText;
     private String store_address_string;
 
     @Override
@@ -54,11 +55,12 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
         Log.d("식당주소: ",store_address_string);
 
 
-        //editText = findViewById(R.id.editTextmap);
+        editText = findViewById(R.id.editTextmap);
+        editText.setText(store_address_string);
 
 
         //button = findViewById(R.id.buttonmap);
-        setMap();
+
 
        /* button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +70,7 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
                 try{
                     // editText에 입력한 거를 지오 코딩을 통해서 경도 위도로 바꾸기
                     addressList = geocoder.getFromLocationName(
-                            store_address_string, 10
+                            str, 10
                     );
 
                 }catch (IOException e){
@@ -114,6 +116,7 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
         }else{
             checkRunTimePermission();
         }
+        setMap();
 
     }
 

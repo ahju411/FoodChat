@@ -76,6 +76,7 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         loadingDialogBar = new LoadingDialogBar(this);
         loadingDialogBar.ShowDilaog("");
         getData();
+
         getItem();
 
         //어댑터 세팅

@@ -311,7 +311,7 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         String add2 = add.substring(4); //대한민국 문자열 자르기
         Log.d("주소",add2);
-        return add2;
+        return  add2;
 
     }
 
