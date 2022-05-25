@@ -39,6 +39,7 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
     private String[] menu = new String[10];
     private int logining_store_id,menu_id=999999;
     public static String menu_image2="aa";
+    LoadingDialogBar loadingDialogBar;
 
 
     @Override
@@ -70,7 +71,11 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
                 finish();
             }
         });
-
+        // ProgressDialog 생성
+        //로딩창 객체 생성
+        loadingDialogBar = new LoadingDialogBar(this);
+        loadingDialogBar.ShowDilaog("");
+        getData();
         getItem();
 
         //어댑터 세팅
@@ -303,6 +308,55 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         System.out.println("바이트값"+bytesOfImage);
         String encodeImageString = Base64.encodeToString(bytesOfImage, Base64.DEFAULT);
         return encodeImageString;
+
+    }
+
+
+
+    public void getData() {
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            String item = jsonObject.getString("menu_name");
+                            String item2 = jsonObject.getString("menu_image");
+                            String item3 = jsonObject.getString("menu_price");
+                            String item4 = jsonObject.getString("menu_info");
+//                            Bitmap bit2 = StringToBitmaps(item2);
+//                            imageView.setImageBitmap(bit2); // 액티비티에 이미지 표시
+                            itemManageMenus.add(new ItemManageMenu(item,item4,item3 ,StringToBitmaps(item2)));
+                            adpt.notifyDataSetChanged();
+                            loadingDialogBar.HideDialog();
+
+                            Log.v("여긴작동하나용","네에");
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.v("작동실패","안들어옴");
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_get_menu requestRegister = new Request_get_menu(logining_store_id, responseListener);
+        RequestQueue queue = Volley.newRequestQueue(AddmenuActivity.this);
+        queue.add(requestRegister);
+
 
     }
 

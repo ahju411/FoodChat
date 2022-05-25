@@ -5,18 +5,19 @@ import android.graphics.Bitmap;
 public class Restaurant_List_Item_test {
 
     String res_name,res_info;
-    int chat_img,star_img;
+    int chat_img,star_img,res_id;
     Bitmap logo_img;
 
 
 
 
-    public Restaurant_List_Item_test(String res_name,String res_info,Bitmap logo_img,int chat_img,int star_img){
+    public Restaurant_List_Item_test(String res_name,String res_info,int res_id,Bitmap logo_img,int chat_img,int star_img){
         this.res_name = res_name;
         this.res_info = res_info;
         this.logo_img = logo_img;
         this.chat_img = chat_img;
         this.star_img = star_img;
+        this.res_id = res_id;
 
     }
 
@@ -68,4 +69,11 @@ public class Restaurant_List_Item_test {
         this.star_img = star_img;
     }
 
+    public int getRes_id() {
+        return res_id;
+    }
+
+    public void setRes_id(int res_id) {
+        this.res_id = res_id;
+    }
 }

@@ -113,6 +113,14 @@ public class Restaurant_List_test extends AppCompatActivity {
             @Override
             public void onListClick(Restaurant_ListAdapter_test.ViewHolder holder, View view, int position) {
                 Restaurant_List_Item_test item= adpt.getItem(position);
+                int clicked_store_id = item.getRes_id();
+
+                //해당 식당페이지로 이동
+                Intent intent = new Intent(view.getContext(), Restaurant_Info.class);
+                intent.putExtra("clicked_store_id", clicked_store_id);
+                startActivity(intent);
+
+
                 //상세페이지 띄워서 item에서 get을 통해 상세페이지로 넘겨서 띄우면 끝
 
             }
@@ -164,8 +172,8 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         res_items = new ArrayList<>();
 
-        String URL = "http://192.168.75.151:9090/load_store_info.php";
-        //String URL = "http://218.236.123.14:9090/load_store_info.php";
+        //String URL = "http://192.168.75.151:9090/load_store_info.php";
+        String URL = "http://218.236.123.14:9090/load_store_info.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -192,10 +200,11 @@ public class Restaurant_List_test extends AppCompatActivity {
 
 
                             String item4 = jsonObject.getString("store_images");
+                            int item5 = jsonObject.getInt("store_id");
 
                             Bitmap bit = StringToBitmaps(item4);
 
-                            res_items.add(new Restaurant_List_Item_test(item,item2,bit, R.drawable.chat, R.drawable.starimg)); //리스트 식당호출
+                            res_items.add(new Restaurant_List_Item_test(item,item2,item5,bit, R.drawable.chat, R.drawable.starimg)); //리스트 식당호출
                             adpt.notifyDataSetChanged();
 
                             adpt.setRes_list_item(res_items);
