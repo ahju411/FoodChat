@@ -47,6 +47,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
             logining_ceo_pw,logining_ceo_id;
     private int logining_store_id;
     static RequestQueue requestQueue;
+    LoadingDialogBar loadingDialogBar;
 
 
 
@@ -72,7 +73,10 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
         res_mension = (EditText)findViewById(R.id.rest_mention);
         btn_submit = (Button)findViewById(R.id.store_submit);
 
-
+        // ProgressDialog 생성
+        //로딩창 객체 생성
+        loadingDialogBar = new LoadingDialogBar(this);
+        loadingDialogBar.ShowDilaog("");
 
         btn_uploadIMG = (ImageButton)findViewById((R.id.btn_loadIMG));
         btn_uploadMENU =(Button)findViewById((R.id.addmenu));
@@ -251,7 +255,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
                             res_mension.setText(item5);
 
                             System.out.println("data1 :"+item);
-
+                            loadingDialogBar.HideDialog();
                             Log.v("여긴작동하나용","네에");
 
 

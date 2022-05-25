@@ -281,7 +281,33 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
     @Override
     public void destroy(int position) {
         itemManageMenus.remove(position);
+        System.out.println("뭐가 삭제됬니"+menu_name+"아이디는?"+menu_id);
         adpt.notifyDataSetChanged();
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) { // 등록에 성공한 경우
+                        Toast.makeText(getApplicationContext(),"삭제 성공하였습니다.",Toast.LENGTH_SHORT).show();
+
+                    } else { // 등록에 실패한 경우
+                        Toast.makeText(getApplicationContext(),"삭제 ㅊ실패하였습니다.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_delete_menu requestRegister = new Request_delete_menu(String.valueOf(menu_id),
+                 responseListener);
+        RequestQueue queue = Volley.newRequestQueue(AddmenuActivity.this);
+        queue.add(requestRegister);
+
     }
 
     public static Bitmap StringToBitmaps(String image) {
@@ -321,31 +347,34 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    System.out.println("제이슨어레이길이는?"+jsonArray.length());
 
-                    for (int i=0; i < jsonArray.length(); i++)
-                    {
-                        try {
-                            jsonObject = jsonArray.getJSONObject(i);
-                            // Pulling items from the array
-                            String item = jsonObject.getString("menu_name");
-                            String item2 = jsonObject.getString("menu_image");
-                            String item3 = jsonObject.getString("menu_price");
-                            String item4 = jsonObject.getString("menu_info");
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            try {
+                                jsonObject = jsonArray.getJSONObject(i);
+                                // Pulling items from the array
+                                String item = jsonObject.getString("menu_name");
+                                String item2 = jsonObject.getString("menu_image");
+                                String item3 = jsonObject.getString("menu_price");
+                                String item4 = jsonObject.getString("menu_info");
 //                            Bitmap bit2 = StringToBitmaps(item2);
 //                            imageView.setImageBitmap(bit2); // 액티비티에 이미지 표시
-                            itemManageMenus.add(new ItemManageMenu(item,item4,item3 ,StringToBitmaps(item2)));
-                            adpt.notifyDataSetChanged();
-                            loadingDialogBar.HideDialog();
+                                itemManageMenus.add(new ItemManageMenu(item, item4, item3, StringToBitmaps(item2)));
+                                adpt.notifyDataSetChanged();
+                                loadingDialogBar.HideDialog();
 
-                            Log.v("여긴작동하나용","네에");
+                                Log.v("여긴작동하나용", "네에");
 
 
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.v("작동실패","안들어옴");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.v("작동실패", "안들어옴");
+                            }
                         }
-                    }
+                       
+
+
 
                 } catch (JSONException e) {
                     e.printStackTrace();
