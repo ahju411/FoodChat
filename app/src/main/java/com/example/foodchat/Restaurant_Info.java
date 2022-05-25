@@ -8,7 +8,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +23,7 @@ import org.json.JSONObject;
 
 public class Restaurant_Info extends AppCompatActivity {
     Button go_review_btn,go_reservation_btn,go_map_btn;
-    int clicked_store_id;
+    private int clicked_store_id;
     private TextView res_name,res_address,res_time,res_image,res_mension;
     private ImageView imageView;
     LoadingDialogBar loadingDialogBar;
@@ -38,7 +37,7 @@ public class Restaurant_Info extends AppCompatActivity {
         // ProgressDialog 생성
         //로딩창 객체 생성
         loadingDialogBar = new LoadingDialogBar(this);
-        loadingDialogBar.ShowDilaog("불러오는중입니다.");
+        loadingDialogBar.ShowDilaog("불러오는 중.");
 
 
         if(requestQueue == null){
@@ -98,7 +97,9 @@ public class Restaurant_Info extends AppCompatActivity {
         go_map_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Restaurnt_map.class);
+                Intent intent = new Intent(view.getContext(), Restaurant_map.class);
+                intent.putExtra("map_address",res_address.getText().toString());
+                Log.d("식당 주소: info",res_address.getText().toString());
                 startActivity(intent);
             }
         });

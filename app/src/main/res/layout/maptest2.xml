@@ -11,19 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="8">
+        android:layout_weight="9">
 
-        <EditText
+        <TextView
             android:id="@+id/editTextmap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="주소를 입력해주세요." />
 
-        <Button
-            android:id="@+id/buttonmap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Search" />
 
     </LinearLayout>
 

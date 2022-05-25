@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class Restaurnt_map extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapReverseGeoCoder.ReverseGeoCodingResultListener {
+public class Restaurant_map extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapReverseGeoCoder.ReverseGeoCodingResultListener {
     private MapView mapView;
     private static final int GPS_ENABLE_REQUEST_CODE = 2001;
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -42,24 +42,33 @@ public class Restaurnt_map extends AppCompatActivity implements MapView.CurrentL
     private Geocoder geocoder = new Geocoder(this, Locale.getDefault());
     private Button button;
     private EditText editText;
+    private String store_address_string;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maptest2);
 
-        editText = findViewById(R.id.editTextmap);
-        button = findViewById(R.id.buttonmap);
+        Intent getintent = getIntent();
+        store_address_string = getintent.getStringExtra("map_address");
+        Log.d("식당주소: ",store_address_string);
 
-        button.setOnClickListener(new View.OnClickListener() {
+
+        //editText = findViewById(R.id.editTextmap);
+
+
+        //button = findViewById(R.id.buttonmap);
+        setMap();
+
+       /* button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String str = editText.getText().toString();
-                List<Address> addressList = null;
+                //String str = editText.getText().toString();
+                *//*List<Address> addressList = null;
                 try{
                     // editText에 입력한 거를 지오 코딩을 통해서 경도 위도로 바꾸기
                     addressList = geocoder.getFromLocationName(
-                            str, 10
+                            store_address_string, 10
                     );
 
                 }catch (IOException e){
@@ -84,10 +93,10 @@ public class Restaurnt_map extends AppCompatActivity implements MapView.CurrentL
                 marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본 블루핀
                 marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); //클릭 시 레드핀
                 mapView.addPOIItem(marker);
-                mapView.moveCamera(CameraUpdateFactory.newMapPoint(mapPoint,2));
+                mapView.moveCamera(CameraUpdateFactory.newMapPoint(mapPoint,2));*//*
 
             }
-        });
+        });*/
 
         mapView = (MapView) findViewById(R.id.maptest2view);
         mapView.setCurrentLocationEventListener(this);
@@ -253,6 +262,38 @@ public class Restaurnt_map extends AppCompatActivity implements MapView.CurrentL
 
         }
 
+    }
+    private void setMap(){
+        List<Address> addressList = null;
+        try{
+            // editText에 입력한 거를 지오 코딩을 통해서 경도 위도로 바꾸기
+            addressList = geocoder.getFromLocationName(
+                    store_address_string, 10
+            );
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        String []splitStr = addressList.get(0).toString().split(",");
+        for (int i = 0; i < splitStr.length; i++) {
+            Log.d("내가 검색한 거",splitStr[i]);
+        }
+
+        String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1,splitStr[0].length()-2); //주소 부분이다
+        String latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); //위도
+        String longtitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); //경도
+
+        //MapCoordLatLng point = new MapCoordLatLng(Double.parseDouble(latitude), Double.parseDouble(longtitude));
+
+        MapPOIItem marker = new MapPOIItem();
+        MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(latitude), Double.parseDouble(longtitude));
+        marker.setItemName("Default Makrer");
+        marker.setTag(0);
+        marker.setMapPoint(mapPoint); //위에 mappoint 위도 경도를 따서 표시함
+        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본 블루핀
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); //클릭 시 레드핀
+        mapView.addPOIItem(marker);
+        mapView.moveCamera(CameraUpdateFactory.newMapPoint(mapPoint,2));
     }
 
 

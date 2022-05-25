@@ -74,7 +74,7 @@
         <activity android:name=".AddmenuActivity" />
         <activity android:name=".ManagereviewActivity"/>
         <activity android:name=".ManageReservationActivity"/>
-        <activity android:name=".Restaurnt_map"/>
+        <activity android:name=".Restaurant_map"/>
     </application>
 
 </manifest>

@@ -75,7 +75,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         // ProgressDialog 생성
         //로딩창 객체 생성
         loadingDialogBar = new LoadingDialogBar(this);
-        loadingDialogBar.ShowDilaog("불러오는중입니다.");
+        loadingDialogBar.ShowDilaog("불러오는 중.");
 
 
         if(requestQueue == null){
@@ -304,6 +304,11 @@ public class Restaurant_List_test extends AppCompatActivity {
         Address address = addresses.get(0);
         String add = address.getAddressLine(0).toString();
         Log.d("주소",add);
+        String[] city = address.getAddressLine(0).split(" ");
+        for (int i = 0; i < city.length; i++) {
+            Log.d("주소들 확인",city[i]);
+        }
+
         String add2 = add.substring(4); //대한민국 문자열 자르기
         Log.d("주소",add2);
         return add2;
