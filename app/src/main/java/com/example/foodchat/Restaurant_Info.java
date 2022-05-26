@@ -28,11 +28,13 @@ public class Restaurant_Info extends AppCompatActivity {
     private ImageView imageView;
     LoadingDialogBar loadingDialogBar;
     static RequestQueue requestQueue;
+    private String logining_user_id,logining_user_nickname;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_info);
-
+     
+        
 
         // ProgressDialog 생성
         //로딩창 객체 생성
@@ -51,8 +53,11 @@ public class Restaurant_Info extends AppCompatActivity {
 
         Intent getintent = getIntent();
         clicked_store_id = getintent.getIntExtra("clicked_store_id",0);
+        logining_user_id = getintent.getStringExtra("logining_user_id");
+        logining_user_nickname = getintent.getStringExtra("logining_user_nickname");       
         System.out.println("상점아디값:"+clicked_store_id);
-
+        System.out.println("유저아이디:"+logining_user_id);
+        System.out.println("유저닉네임:"+logining_user_nickname);
 
         getData();
 
@@ -80,6 +85,9 @@ public class Restaurant_Info extends AppCompatActivity {
             public void onClick(View view) {
                 //리뷰하기로 이동
                 Intent intent = new Intent(view.getContext(), Restaurant_Review.class);
+                intent.putExtra("logining_user_id",logining_user_id);
+                intent.putExtra("logining_user_nickname",logining_user_nickname);
+                intent.putExtra("clicked_store_id",clicked_store_id);
                 startActivity(intent);
             }
         });

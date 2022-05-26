@@ -16,7 +16,7 @@
         android:paddingBottom="10dp"
         android:text="리뷰하기"
         android:textAlignment="center"
-        android:textSize="60sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
         app:layout_constraintVertical_bias="0.868" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/dislikeView3"
         android:layout_width="46dp"
         android:layout_height="46dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,7 +66,7 @@
         app:srcCompat="@drawable/badimg" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/likeView4"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,7 +92,7 @@
         app:layout_constraintVertical_bias="0.626" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/image1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -104,7 +104,7 @@
         app:srcCompat="@drawable/logo" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/image2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -116,7 +116,7 @@
         app:srcCompat="@drawable/logo" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/image3"
         android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -118,6 +118,8 @@ public class Restaurant_List_test extends AppCompatActivity {
                 //해당 식당페이지로 이동
                 Intent intent = new Intent(view.getContext(), Restaurant_Info.class);
                 intent.putExtra("clicked_store_id", clicked_store_id);
+                intent.putExtra("logining_user_id", logining_user_id);
+                intent.putExtra("logining_user_nickname", logining_user_nickname);
                 startActivity(intent);
 
 
@@ -172,7 +174,7 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         res_items = new ArrayList<>();
 
-        //String URL = "http://192.168.75.151:9090/load_store_info.php";
+       // String URL = "http://192.168.75.151:9090/load_store_info.php";
         String URL = "http://218.236.123.14:9090/load_store_info.php";
 
 
