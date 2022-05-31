@@ -55,6 +55,7 @@ public class Restaurant_List_test extends AppCompatActivity {
     private double latitude,longtitue;//위도 경도
     private GpsTracker gpsTracker;
     LoadingDialogBar loadingDialogBar;
+    private int clicked_store_id;
 
     private String logining_user_id,logining_user_pw,logining_user_nickname;
 
@@ -113,7 +114,7 @@ public class Restaurant_List_test extends AppCompatActivity {
             @Override
             public void onListClick(Restaurant_ListAdapter_test.ViewHolder holder, View view, int position) {
                 Restaurant_List_Item_test item= adpt.getItem(position);
-                int clicked_store_id = item.getRes_id();
+                clicked_store_id = item.getRes_id();
 
                 //해당 식당페이지로 이동
                 Intent intent = new Intent(view.getContext(), Restaurant_Info.class);
@@ -135,6 +136,9 @@ public class Restaurant_List_test extends AppCompatActivity {
             public void onClick(View view) {
 //나의 메뉴로 이동
                 Intent intent = new Intent(view.getContext(), UserMenuHomeActivity.class);
+                intent.putExtra("clicked_store_id", clicked_store_id);
+                intent.putExtra("logining_user_id", logining_user_id);
+                intent.putExtra("logining_user_nickname", logining_user_nickname);
                 startActivity(intent);
             }
         });
@@ -174,8 +178,8 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         res_items = new ArrayList<>();
 
-       // String URL = "http://192.168.75.151:9090/load_store_info.php";
-        String URL = "http://218.236.123.14:9090/load_store_info.php";
+        String URL = "http://192.168.75.151:9090/load_store_info.php";
+       // String URL = "http://218.236.123.14:9090/load_store_info.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

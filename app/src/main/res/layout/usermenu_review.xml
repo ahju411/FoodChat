@@ -4,31 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:padding="20dp">
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="395dp"
-        android:layout_height="59dp"
-        android:text="    리뷰가 없어요.."
-        android:textColor="@color/black"
-        android:textSize="48sp"
+    <ImageButton
+        android:id="@+id/myReview_backbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="30dp"
+        android:maxHeight="30dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:src="@drawable/btn_back"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/backimg_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myReview_recycler_menu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.113"
+        app:layout_constraintHeight_percent="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058"
-        app:srcCompat="@drawable/backimg" />
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="5dp"
+        app:layout_constraintVertical_bias="0.2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

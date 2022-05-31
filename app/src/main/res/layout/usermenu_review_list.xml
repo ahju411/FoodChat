@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="162dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/myReview_nickname_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/binggrae"
+            android:paddingLeft="10dp"
+            android:text="사용자 닉네임"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/myReview_revisit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/binggrae"
+            android:text="재방문의사:"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/myReview_nickname_review"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/myReview_nickname_review"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+        <ImageView
+            android:id="@+id/myReview_revisit_decision"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="20dp"
+            android:maxHeight="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/goodimg"
+            app:layout_constraintBottom_toBottomOf="@+id/myReview_nickname_review"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/myReview_revisit"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+        <TextView
+            android:id="@+id/review_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/bjua"
+            android:text="2022-05-08"
+            app:layout_constraintBottom_toBottomOf="@+id/myReview_nickname_review"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toEndOf="@+id/myReview_revisit_decision"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1" />
+
+
+        <ImageView
+            android:id="@+id/myReview_review_img"
+            android:layout_width="110dp"
+            android:layout_height="106dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="130dp"
+            android:maxHeight="100dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myReview_nickname_review"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/myReview_review_user"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_gravity="top"
+            android:fontFamily="@font/binggrae"
+            android:maxLength="100"
+            android:paddingStart="5sp"
+            android:text="리뷰내용"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/myReview_review_img"
+            app:layout_constraintTop_toTopOf="@+id/myReview_review_img"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/myReview_del_btn"
+            android:layout_width="41dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:text="삭제"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toTopOf="@+id/myReview_review_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
