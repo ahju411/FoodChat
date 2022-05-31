@@ -3,21 +3,93 @@ package com.example.foodchat;
 import android.graphics.Bitmap;
 
 public class UserMenuReview_Item {
-
-    String res_name,res_info;
-    int chat_img,star_img,res_id;
-    Bitmap logo_img;
-
+    String User_nickname,date,review,ceo_review;
+    int like_img;
+    Bitmap photo_img1,photo_img2,photo_img3;
 
 
+    public String getUser_nickname() {
+        return User_nickname;
+    }
 
-    public UserMenuReview_Item(String res_name, String res_info, int res_id, Bitmap logo_img, int chat_img, int star_img){
-        this.res_name = res_name;
-        this.res_info = res_info;
-        this.logo_img = logo_img;
-        this.chat_img = chat_img;
-        this.star_img = star_img;
-        this.res_id = res_id;
+    public void setUser_nickname(String user_nickname) {
+        User_nickname = user_nickname;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getCeo_review() {
+        return ceo_review;
+    }
+
+    public void setCeo_review(String ceo_review) {
+        this.ceo_review = ceo_review;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public int getLike_img() {
+        return like_img;
+    }
+    public int getLike1_img() {
+        int a = R.drawable.goodimg;
+        return a;
+    }
+    public int getDisLike_img() {
+        int b = R.drawable.badimg;
+        return b;
+    }
+
+    public void setLike_img(int like_img) {
+        this.like_img = like_img;
+    }
+
+    public Bitmap getPhoto_img1() {
+        return photo_img1;
+    }
+
+    public void setPhoto_img1(Bitmap photo_img1) {
+        this.photo_img1 = photo_img1;
+    }
+
+    public Bitmap getPhoto_img2() {
+        return photo_img2;
+    }
+
+    public void setPhoto_img2(Bitmap photo_img2) {
+        this.photo_img2 = photo_img2;
+    }
+
+    public Bitmap getPhoto_img3() {
+        return photo_img3;
+    }
+
+    public void setPhoto_img3(Bitmap photo_img3) {
+        this.photo_img3 = photo_img3;
+    }
+
+    public UserMenuReview_Item(String User_nickname, String date, String review, int like_img, Bitmap photo_img1, Bitmap photo_img2,
+                               Bitmap photo_img3,String ceo_review){
+        this.User_nickname = User_nickname;
+        this.date = date;
+        this.review = review;
+        this.like_img = like_img;
+        this.photo_img1 = photo_img1;
+        this.photo_img2=photo_img2;
+        this.photo_img3=photo_img3;
+        this.ceo_review = ceo_review;
 
     }
 
@@ -29,51 +101,5 @@ public class UserMenuReview_Item {
 // this.revisitdecision_img = revisitdecision_img;
 // }
 
-    public String getRes_name() {
-        return res_name;
-    }
 
-    public void setRes_name(String res_name) {
-        this.res_name = res_name;
-    }
-
-    public String getRes_info() {
-        return res_info;
-    }
-
-    public void setRes_info(String res_info) {
-        this.res_info = res_info;
-    }
-
-    public Bitmap getLogo_img() {
-        return logo_img;
-    }
-
-    public void setLogo_img(Bitmap logo_img) {
-        this.logo_img = logo_img;
-    }
-
-    public int getChat_img() {
-        return chat_img;
-    }
-
-    public void setChat_img(int chat_img) {
-        this.chat_img = chat_img;
-    }
-
-    public int getStar_img() {
-        return star_img;
-    }
-
-    public void setStar_img(int star_img) {
-        this.star_img = star_img;
-    }
-
-    public int getRes_id() {
-        return res_id;
-    }
-
-    public void setRes_id(int res_id) {
-        this.res_id = res_id;
-    }
 }

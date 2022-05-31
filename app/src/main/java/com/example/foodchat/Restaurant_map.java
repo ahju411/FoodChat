@@ -116,7 +116,7 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
         }else{
             checkRunTimePermission();
         }
-        setMap();
+        //setMap();
 
     }
 
