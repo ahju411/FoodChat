@@ -3,7 +3,9 @@ package com.example.foodchat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class GetCEO_MenuReview_Adapter extends RecyclerView.Adapter<GetCEO_MenuReview_Adapter.ViewHolder> implements GetCEO_MenuReview_Listener{
-
+    String test="";
     ArrayList<GetCEO_MenuReview_Item> Review_item = new ArrayList<>();
 
     public GetCEO_MenuReview_Adapter(){
@@ -69,12 +71,15 @@ public class GetCEO_MenuReview_Adapter extends RecyclerView.Adapter<GetCEO_MenuR
         return Review_item.size();
     }
 
+    public String getTest() { return test;}
+
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView nickname_tv,date_tv,reviewMension_tv;
         EditText ceoreviewMension_tv;
         ImageView like_iv,photo_iv1,photo_iv2,photo_iv3;
+        Button btn_submit;
 
 
 
@@ -89,13 +94,26 @@ public class GetCEO_MenuReview_Adapter extends RecyclerView.Adapter<GetCEO_MenuR
             photo_iv1 = itemView.findViewById(R.id.CEOReview_review_img);
             photo_iv2 = itemView.findViewById(R.id.CEOReview_review_img2);
             photo_iv3 = itemView.findViewById(R.id.CEOReview_review_img3);
-
+            btn_submit = itemView.findViewById(R.id.review_answer_btn);
+            //버튼클릭 이벤트 구현
+            btn_submit.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getBindingAdapterPosition();
+                    test =ceoreviewMension_tv.getText().toString();
+                    System.out.println("값뭐죠"+test);
+                    if(listClickListener != null){
+                        listClickListener.onListClick(GetCEO_MenuReview_Adapter.ViewHolder.this,view,position);
+                    }
+                }
+            }));
 
             //아이템 클릭 이벤트 구현
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getBindingAdapterPosition();
+                    test =ceoreviewMension_tv.getText().toString();
                     if(listClickListener != null){
                         listClickListener.onListClick(ViewHolder.this,view,position);
                     }

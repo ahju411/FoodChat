@@ -1,6 +1,7 @@
 package com.example.foodchat;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,12 +40,13 @@ import java.util.Map;
 
 public class UserMenuReviewActivity extends AppCompatActivity {
     ImageView back_btn;
-    static RequestQueue requestQueue;
+    static RequestQueue requestQueue,queue,queue2;
     private int clicked_store_id;
     private String logining_user_id,logining_user_nickname;
     private RecyclerView rv;
     private UserMenuReview_Adapter adpt;
     private ArrayList<UserMenuReview_Item> Review_item;
+    private int reviewid;
     LoadingDialogBar loadingDialogBar;
     Bitmap bigPictureBitmap;
     @Override
@@ -67,6 +70,12 @@ public class UserMenuReviewActivity extends AppCompatActivity {
         if(requestQueue == null){
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
+        if(queue == null){
+            queue = Volley.newRequestQueue(getApplicationContext());
+        }
+        if(queue2 == null){
+            queue2 = Volley.newRequestQueue(getApplicationContext());
+        }
 
 
         getItem();
@@ -81,12 +90,54 @@ public class UserMenuReviewActivity extends AppCompatActivity {
         rv = findViewById(R.id.myReview_recycler_menu);
         rv.setAdapter(adpt);
         rv.setLayoutManager(manager);
-        adpt.setOnItemClickListener(new UserMenuReview_Listener() {
+        adpt.setListClickListener(new UserMenuReview_Listener() {
             @Override
             public void onListClick(UserMenuReview_Adapter.ViewHolder holder, View view, int position) {
                 UserMenuReview_Item item2 = adpt.getItem(position);
-                System.out.println("1번체크"+item2.getUser_nickname());
-                System.out.println("2번체크"+item2.getDate());
+                String u_date = item2.getDate();
+                String u_review = item2.getReview();
+                System.out.println("아이디"+logining_user_id);
+                System.out.println("날짜ㅅ"+u_date);
+                System.out.println("멘션:"+u_review);
+
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                            for (int i=0; i < jsonArray.length(); i++)
+                            {
+                                try {
+                                    jsonObject = jsonArray.getJSONObject(i);
+                                    // Pulling items from the array
+                                    int item = jsonObject.getInt("review_id");
+                                    reviewid=item;
+                                    System.out.println("리뷰아이디 머임:"+item);
+
+
+
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+                }; // 서버로 Volley를 이용해서 요청을 함.
+                Request_get_ReviewID requestRegister = new Request_get_ReviewID(u_date,logining_user_id,u_review,
+                        responseListener);
+                queue = Volley.newRequestQueue(UserMenuReviewActivity.this);
+                queue.add(requestRegister);
+
+
+                show(position);
 
 
             }
@@ -97,6 +148,80 @@ public class UserMenuReviewActivity extends AppCompatActivity {
 
 
     }
+
+
+    void show(int position)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("삭제");
+        builder.setMessage("해당 리뷰를 삭제 하시겠습니까?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+
+
+                        destroy(position);
+
+
+
+
+
+
+
+
+                        Toast.makeText(getApplicationContext(),"삭제가 되었습니다..",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"삭제가 취소되었습니다..",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
+    }
+
+
+    public void destroy(int position) {
+        Review_item.remove(position);
+        adpt.notifyDataSetChanged();
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) { // 등록에 성공한 경우
+                        Toast.makeText(getApplicationContext(),"삭제 성공하였습니다.",Toast.LENGTH_SHORT).show();
+
+                    } else { // 등록에 실패한 경우
+                        Toast.makeText(getApplicationContext(),"삭제 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_delete_Review requestRegister = new Request_delete_Review(reviewid,
+                responseListener);
+        RequestQueue queue = Volley.newRequestQueue(UserMenuReviewActivity.this);
+        queue.add(requestRegister);
+
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     private void getItem() { // 식당 리스트 UI수정하는거

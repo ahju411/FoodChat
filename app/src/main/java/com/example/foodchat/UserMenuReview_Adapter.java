@@ -58,7 +58,7 @@ public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_
 
 
     @Override
-    public void onListClick(ViewHolder holder, View view, int position) {
+    public void onListClick(UserMenuReview_Adapter.ViewHolder holder, View view, int position) {
         if(listClickListener != null){
             listClickListener.onListClick(holder,view,position);
         }
@@ -69,18 +69,14 @@ public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_
         return Review_item.size();
     }
 
-    //========클릭 이벤트 구현===========
-    private UserMenuReview_Listener itemClickListener;
 
-    public void setOnItemClickListener (UserMenuReview_Listener listener){
-        this.itemClickListener = listener;
-    }
 
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
         TextView nickname_tv,date_tv,reviewMension_tv,ceoreviewMension_tv;
         ImageView like_iv,photo_iv1,photo_iv2,photo_iv3;
+        Button btn_delete;
 
 
 
@@ -91,11 +87,23 @@ public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_
             reviewMension_tv = itemView.findViewById(R.id.myReview_review_user);
             ceoreviewMension_tv = itemView.findViewById(R.id.myReview_ceo_mension);
 
+
             like_iv = itemView.findViewById(R.id.myReview_revisit_decision);
             photo_iv1 = itemView.findViewById(R.id.myReview_review_img);
             photo_iv2 = itemView.findViewById(R.id.myReview_review_img2);
             photo_iv3 = itemView.findViewById(R.id.myReview_review_img3);
-
+            btn_delete = itemView.findViewById(R.id.myReview_del_btn);
+            btn_delete.setOnClickListener((new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getBindingAdapterPosition();
+                    System.out.println("버튼클릭임,");
+                    System.out.println("값은:"+date_tv.getText());
+                    if(listClickListener != null){
+                        listClickListener.onListClick(ViewHolder.this,view,position);
+                    }
+                }
+            }));
 
             //아이템 클릭 이벤트 구현
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -124,6 +132,8 @@ public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_
 
         }
     }
+
+
 
 
 }

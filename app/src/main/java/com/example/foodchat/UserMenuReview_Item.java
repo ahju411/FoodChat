@@ -8,6 +8,7 @@ public class UserMenuReview_Item {
     Bitmap photo_img1,photo_img2,photo_img3;
 
 
+
     public String getUser_nickname() {
         return User_nickname;
     }
