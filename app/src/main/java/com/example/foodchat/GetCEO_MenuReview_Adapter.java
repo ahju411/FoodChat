@@ -3,7 +3,7 @@ package com.example.foodchat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,47 +12,47 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_Adapter.ViewHolder> implements UserMenuReview_Listener{
+public class GetCEO_MenuReview_Adapter extends RecyclerView.Adapter<GetCEO_MenuReview_Adapter.ViewHolder> implements GetCEO_MenuReview_Listener{
 
-    ArrayList<UserMenuReview_Item> Review_item = new ArrayList<>();
+    ArrayList<GetCEO_MenuReview_Item> Review_item = new ArrayList<>();
 
-    public UserMenuReview_Adapter(){
+    public GetCEO_MenuReview_Adapter(){
 
     }
 
     //========클릭 이벤트 구현===========
-    UserMenuReview_Listener listClickListener;
+    GetCEO_MenuReview_Listener listClickListener;
 
-    public void setListClickListener (UserMenuReview_Listener listener){
+    public void setListClickListener (GetCEO_MenuReview_Listener listener){
         this.listClickListener = listener;
     }
 
     @NonNull
     @Override
-    public UserMenuReview_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GetCEO_MenuReview_Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //원하는 layout띄우기
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.usermenu_review_list,parent,false);
+        View view = inflater.inflate(R.layout.store_review_list_answer,parent,false);
         return new ViewHolder(view);
     }
 
 
 
     @Override
-    public void onBindViewHolder(@NonNull UserMenuReview_Adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GetCEO_MenuReview_Adapter.ViewHolder holder, int position) {
 //ItemViewHolder가 생성되고 넣어야할 코드들을 넣어줍다.
 // 보통 onBind 함수 안에 모두 넣어줍니다.
         holder.onBind(Review_item.get(position));
 
 
     }
-    public void setReview_item(ArrayList<UserMenuReview_Item> list){
+    public void setReview_item(ArrayList<GetCEO_MenuReview_Item> list){
         this.Review_item = list;
         notifyDataSetChanged();
     }
 
     //클릭 이벤트 필요 요소 해당 포지션에 있는 아이템들 가져오기
-    public UserMenuReview_Item getItem(int position){
+    public GetCEO_MenuReview_Item getItem(int position){
         return Review_item.get(position);
     }
 
@@ -69,32 +69,26 @@ public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_
         return Review_item.size();
     }
 
-    //========클릭 이벤트 구현===========
-    private UserMenuReview_Listener itemClickListener;
-
-    public void setOnItemClickListener (UserMenuReview_Listener listener){
-        this.itemClickListener = listener;
-    }
-
 
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView nickname_tv,date_tv,reviewMension_tv,ceoreviewMension_tv;
+        TextView nickname_tv,date_tv,reviewMension_tv;
+        EditText ceoreviewMension_tv;
         ImageView like_iv,photo_iv1,photo_iv2,photo_iv3;
 
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nickname_tv = itemView.findViewById((R.id.myReview_nickname_review));
-            date_tv = itemView.findViewById(R.id.myReview_date);
-            reviewMension_tv = itemView.findViewById(R.id.myReview_review_user);
-            ceoreviewMension_tv = itemView.findViewById(R.id.myReview_ceo_mension);
+            nickname_tv = itemView.findViewById((R.id.CEOReview_nickname_review));
+            date_tv = itemView.findViewById(R.id.CEOReview_date);
+            reviewMension_tv = itemView.findViewById(R.id.CEOReview_review_user);
+            ceoreviewMension_tv = itemView.findViewById(R.id.CEOReview_ceo_mension);
 
-            like_iv = itemView.findViewById(R.id.myReview_revisit_decision);
-            photo_iv1 = itemView.findViewById(R.id.myReview_review_img);
-            photo_iv2 = itemView.findViewById(R.id.myReview_review_img2);
-            photo_iv3 = itemView.findViewById(R.id.myReview_review_img3);
+            like_iv = itemView.findViewById(R.id.CEOReview_revisit_decision);
+            photo_iv1 = itemView.findViewById(R.id.CEOReview_review_img);
+            photo_iv2 = itemView.findViewById(R.id.CEOReview_review_img2);
+            photo_iv3 = itemView.findViewById(R.id.CEOReview_review_img3);
 
 
             //아이템 클릭 이벤트 구현
@@ -110,7 +104,7 @@ public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_
 
 
         }
-        void onBind(UserMenuReview_Item item){
+        void onBind(GetCEO_MenuReview_Item item){
             nickname_tv.setText(item.getUser_nickname());
             date_tv.setText(item.getDate());
             reviewMension_tv.setText(item.getReview());

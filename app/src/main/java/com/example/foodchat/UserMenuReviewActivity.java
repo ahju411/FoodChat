@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -80,6 +81,16 @@ public class UserMenuReviewActivity extends AppCompatActivity {
         rv = findViewById(R.id.myReview_recycler_menu);
         rv.setAdapter(adpt);
         rv.setLayoutManager(manager);
+        adpt.setOnItemClickListener(new UserMenuReview_Listener() {
+            @Override
+            public void onListClick(UserMenuReview_Adapter.ViewHolder holder, View view, int position) {
+                UserMenuReview_Item item2 = adpt.getItem(position);
+                System.out.println("1번체크"+item2.getUser_nickname());
+                System.out.println("2번체크"+item2.getDate());
+
+
+            }
+        });
 
 
 

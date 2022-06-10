@@ -38,7 +38,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
     private EditText res_name, res_address, res_time,res_mension;
     private String name,address,time,mension;
     String res_image;
-    private Button btn_submit,btn_uploadMENU;
+    private Button btn_submit,btn_uploadMENU,btn_preview;
     private ImageButton btn_uploadIMG;
 
     private static final int REQUEST_CODE = 0;
@@ -78,6 +78,12 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
         loadingDialogBar = new LoadingDialogBar(this);
         loadingDialogBar.ShowDilaog("");
 
+        if(requestQueue == null){
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
+            loadingDialogBar.HideDialog();
+
+        }
+
         btn_uploadIMG = (ImageButton)findViewById((R.id.btn_loadIMG));
         btn_uploadMENU =(Button)findViewById((R.id.addmenu));
         btn_uploadMENU.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +103,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
 
         getData();
 
+
         btn_uploadIMG.setOnClickListener(new View.OnClickListener(){ // + 버튼 누르면 갤러리 이미지 따오기
             @Override
             public void onClick(View v) {
@@ -104,6 +111,16 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
+
+        btn_preview = (Button)findViewById(R.id.store_preview);
+        btn_preview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Restaurant_Info.class);
+                intent.putExtra("clicked_store_id",logining_store_id);
+                startActivity(intent);
             }
         });
 
@@ -234,6 +251,7 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    System.out.println("길이"+jsonArray.length());
 
                     for (int i=0; i < jsonArray.length(); i++)
                     {
@@ -249,6 +267,8 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
                             res_image = item4;
                             String item5 = jsonObject.getString("store_mension");
 
+
+
                             res_name.setText(item);
                             res_address.setText(item2);
                             res_time.setText(item3);
@@ -263,11 +283,14 @@ public class ManageInputStoreActivity2 extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.v("작동실패","안들어옴");
+                            loadingDialogBar.HideDialog();
                         }
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    loadingDialogBar.HideDialog();
+
                 }
 
             }

@@ -39,6 +39,7 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
     private String[] menu = new String[10];
     private int logining_store_id,menu_id=999999;
     public static String menu_image2="aa";
+    private RequestQueue queue;
     LoadingDialogBar loadingDialogBar;
 
 
@@ -50,6 +51,8 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         logining_ceo_id = getintent.getStringExtra("logining_ceo_id");
         logining_ceo_pw = getintent.getStringExtra("logining_ceo_pw");
         logining_store_id = getintent.getIntExtra("logining_store_id",0);
+
+
 
         System.out.println("아이디:"+logining_ceo_id+"비번"+logining_ceo_pw+"상점아이디22:"+logining_store_id);
 
@@ -75,6 +78,12 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         //로딩창 객체 생성
         loadingDialogBar = new LoadingDialogBar(this);
         loadingDialogBar.ShowDilaog("");
+
+        if(queue == null){
+            queue = Volley.newRequestQueue(getApplicationContext());
+            loadingDialogBar.HideDialog();
+
+        }
         getData();
 
         getItem();
@@ -170,13 +179,12 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
         finishbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                adpt.notifyDataSetChanged();
-
-                System.out.println(itemManageMenus.get(0));
-                System.out.println(itemManageMenus.get(1));
                 finish();
+                Toast.makeText(getApplicationContext(),"메뉴등록이 되었습니다." ,Toast.LENGTH_SHORT).show();
             }
         });
+
+
 
 
     }
@@ -384,7 +392,7 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
             }
         }; // 서버로 Volley를 이용해서 요청을 함.
         Request_get_menu requestRegister = new Request_get_menu(logining_store_id, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(AddmenuActivity.this);
+        queue = Volley.newRequestQueue(AddmenuActivity.this);
         queue.add(requestRegister);
 
 

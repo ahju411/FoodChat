@@ -37,7 +37,7 @@ public class Restaurant_Info extends AppCompatActivity {
     private TextView res_name,res_address,res_time,res_image,res_mension;
     private ImageView imageView;
     LoadingDialogBar loadingDialogBar;
-    static RequestQueue requestQueue;
+    static RequestQueue requestQueue,queue,queue2;
     private String logining_user_id,logining_user_nickname;
 
 
@@ -56,9 +56,24 @@ public class Restaurant_Info extends AppCompatActivity {
         loadingDialogBar.ShowDilaog("불러오는 중.");
 
 
+
         if(requestQueue == null){
             requestQueue = Volley.newRequestQueue(getApplicationContext());
+            loadingDialogBar.HideDialog();
+
         }
+        if(queue == null){
+            queue = Volley.newRequestQueue(getApplicationContext());
+            loadingDialogBar.HideDialog();
+
+        }
+        if(queue2 == null){
+            queue2 = Volley.newRequestQueue(getApplicationContext());
+            loadingDialogBar.HideDialog();
+
+        }
+
+
         res_name = findViewById(R.id.store_name);
         res_address = findViewById(R.id.store_address);
         res_time = findViewById(R.id.store_time);
@@ -219,7 +234,7 @@ public class Restaurant_Info extends AppCompatActivity {
             }
         }; // 서버로 Volley를 이용해서 요청을 함.
         Request_store_info requestRegister = new Request_store_info(clicked_store_id, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Restaurant_Info.this);
+        queue = Volley.newRequestQueue(Restaurant_Info.this);
         queue.add(requestRegister);
 
 
@@ -271,7 +286,7 @@ public class Restaurant_Info extends AppCompatActivity {
             }
         }; // 서버로 Volley를 이용해서 요청을 함.
         Request_get_menu requestRegister = new Request_get_menu(clicked_store_id, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Restaurant_Info.this);
+        queue = Volley.newRequestQueue(Restaurant_Info.this);
         queue.add(requestRegister);
 
 
@@ -346,7 +361,7 @@ public class Restaurant_Info extends AppCompatActivity {
             }
         }; // 서버로 Volley를 이용해서 요청을 함.
         Request_get_Review requestRegister = new Request_get_Review(clicked_store_id, responseListener);
-        RequestQueue queue2 = Volley.newRequestQueue(Restaurant_Info.this);
+        queue2 = Volley.newRequestQueue(Restaurant_Info.this);
         queue2.add(requestRegister);
 
 

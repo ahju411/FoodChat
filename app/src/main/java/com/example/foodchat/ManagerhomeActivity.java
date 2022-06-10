@@ -54,6 +54,9 @@ public class ManagerhomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ManagereviewActivity.class);
+                intent.putExtra("logining_ceo_id", logining_ceo_id);
+                intent.putExtra("logining_ceo_pw", logining_ceo_pw);
+                intent.putExtra("logining_store_id", logining_store_id);
                 startActivity(intent);
             }
         });
