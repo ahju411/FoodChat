@@ -2,7 +2,7 @@ package com.example.foodchat;
 
 import android.graphics.Bitmap;
 
-public class UserMenuReview_Item {
+public class GetMenuReview_Item {
     String User_nickname,date,review,ceo_review;
     int like_img;
     Bitmap photo_img1,photo_img2,photo_img3;
@@ -73,8 +73,8 @@ public class UserMenuReview_Item {
         this.photo_img3 = photo_img3;
     }
 
-    public UserMenuReview_Item(String User_nickname, String date, String review, int like_img, Bitmap photo_img1, Bitmap photo_img2,
-                               Bitmap photo_img3,String ceo_review){
+    public GetMenuReview_Item(String User_nickname, String date, String review, int like_img, Bitmap photo_img1, Bitmap photo_img2,
+                              Bitmap photo_img3, String ceo_review){
         this.User_nickname = User_nickname;
         this.date = date;
         this.review = review;

@@ -1,8 +1,11 @@
 package com.example.foodchat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.load.resource.bitmap.BitmapDrawableResource;
+import com.bumptech.glide.request.transition.BitmapTransitionFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,8 +44,7 @@ public class UserMenuReviewActivity extends AppCompatActivity {
     private UserMenuReview_Adapter adpt;
     private ArrayList<UserMenuReview_Item> Review_item;
     LoadingDialogBar loadingDialogBar;
-
-
+    Bitmap bigPictureBitmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,7 @@ public class UserMenuReviewActivity extends AppCompatActivity {
         System.out.println("상점아디값:"+clicked_store_id);
         System.out.println("유저아이디:"+logining_user_id);
         System.out.println("유저닉네임:"+logining_user_nickname);
+
 
         // ProgressDialog 생성
         //로딩창 객체 생성
@@ -101,14 +107,27 @@ public class UserMenuReviewActivity extends AppCompatActivity {
                             String item = jsonObject.getString("user_nickname");
                             String item2 = jsonObject.getString("review_image1");
                             Bitmap bit1 = StringToBitmaps(item2);
+
                             String item3 = jsonObject.getString("review_image2");
                             Bitmap bit2 = StringToBitmaps(item3);
+
                             String item4 = jsonObject.getString("review_image3");
                             Bitmap bit3 = StringToBitmaps(item4);
+
                             int item5 = jsonObject.getInt("review_like");
+                            if(item5==1){ // 가져온게 1일경우 1은 따봉
+                                item5 = R.drawable.goodimg;
+                            }
+                            if(item5==-1){ // 가져온게 -1일경우 -1은 재방문없다는거임
+                                item5 = R.drawable.badimg;
+                            }
                             String item6 = jsonObject.getString("review_mension");
                             String item7 = jsonObject.getString("review_datetime");
                             String item8 = jsonObject.getString("review_ceo_mension");
+                            if(item8.equals("null")){
+                                item8 = "사장님의 답변이 아직 없어요.";
+                            }
+
 
 
 

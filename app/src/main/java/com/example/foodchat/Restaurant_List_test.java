@@ -178,8 +178,8 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         res_items = new ArrayList<>();
 
-        //String URL = "http://192.168.75.151:9090/load_store_info.php";
-       String URL = "http://218.236.123.14:9090/load_store_info.php";
+        String URL = "http://192.168.75.151:9090/load_store_info.php";
+       //String URL = "http://218.236.123.14:9090/load_store_info.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
