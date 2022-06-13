@@ -105,16 +105,7 @@ public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_
                 }
             }));
 
-            //아이템 클릭 이벤트 구현
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getBindingAdapterPosition();
-                    if(listClickListener != null){
-                        listClickListener.onListClick(ViewHolder.this,view,position);
-                    }
-                }
-            });
+
 
 
         }

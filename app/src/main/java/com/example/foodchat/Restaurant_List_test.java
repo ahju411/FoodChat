@@ -1,6 +1,7 @@
 package com.example.foodchat;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +45,7 @@ public class Restaurant_List_test extends AppCompatActivity {
     static RequestQueue requestQueue;
     private RecyclerView rv;
     private Restaurant_ListAdapter_test adpt;
-    private ArrayList<Restaurant_List_Item_test> res_items;
+    private ArrayList<Restaurant_List_Item_test> res_items,res_items2;
     private ImageButton backbtn;
     private ImageView menubtn;
     private Button LV;
@@ -56,6 +58,11 @@ public class Restaurant_List_test extends AppCompatActivity {
     private GpsTracker gpsTracker;
     LoadingDialogBar loadingDialogBar;
     private int clicked_store_id;
+    private RequestQueue queue;
+    private List<Integer>  favorite_store_id= new ArrayList<Integer>();
+    private List<Integer>  favorite_store_check= new ArrayList<Integer>();
+    private int[] fav_store_id;
+    private int[] fav_store_check;
 
     private String logining_user_id,logining_user_pw,logining_user_nickname;
 
@@ -65,15 +72,18 @@ public class Restaurant_List_test extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ct = getApplicationContext();
         setContentView(R.layout.restaurant_list2);
+        res_items = new ArrayList<>();
         Intent getintent = getIntent();
-        String logining_user_id = getintent.getStringExtra("logining_user_id");
-        String logining_user_pw = getintent.getStringExtra("logining_user_pw");
-        String logining_user_nickname = getintent.getStringExtra("logining_user_nickname");
+        logining_user_id = getintent.getStringExtra("logining_user_id");
+        logining_user_pw = getintent.getStringExtra("logining_user_pw");
+        logining_user_nickname = getintent.getStringExtra("logining_user_nickname");
         System.out.println("아이디 :"+logining_user_id +"비번 :"+logining_user_pw+"닉네임:"+logining_user_nickname);
         setAddress();
 
-
-        // ProgressDialog 생성
+        if(queue == null){
+            queue = Volley.newRequestQueue(getApplicationContext());
+        }
+        // ProgressDialog 생성ㅅ
         //로딩창 객체 생성
         loadingDialogBar = new LoadingDialogBar(this);
         loadingDialogBar.ShowDilaog("불러오는 중.");
@@ -83,7 +93,7 @@ public class Restaurant_List_test extends AppCompatActivity {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
 
-
+        getFavorite();// 유저 즐겨찾기 가져오기
         getItem(); // 리사이클러뷰 아이템넣기
 
 //
@@ -111,6 +121,8 @@ public class Restaurant_List_test extends AppCompatActivity {
         // ============어댑터 클릭리스너 구현 ===========
         adpt.setRes_list_item(res_items);
         adpt.setListClickListener(new Restaurant_listListener() {
+
+            // 뭐 이름이나 사진등 누르면
             @Override
             public void onListClick(Restaurant_ListAdapter_test.ViewHolder holder, View view, int position) {
                 Restaurant_List_Item_test item= adpt.getItem(position);
@@ -127,7 +139,40 @@ public class Restaurant_List_test extends AppCompatActivity {
                 //상세페이지 띄워서 item에서 get을 통해 상세페이지로 넘겨서 띄우면 끝
 
             }
+
+            // 즐겨찾기 클릭시
+            public void onStarClick(Restaurant_ListAdapter_test.ViewHolder holder, View view, int position) {
+                System.out.println("즐겨찾기클릭22");
+                Restaurant_List_Item_test item= adpt.getItem(position);
+                clicked_store_id = item.getRes_id();
+                // 즐겨찾기되어있는거 클릭했다면? >> 즐겨찾기 삭제할건지 물어보기
+                int check_favorite=0;
+                int total = favorite_store_id.size();// arrayList의 요소의 갯수를 구한다.
+                for (int index = 0; index < total; index++) {
+                    if(clicked_store_id==favorite_store_id.get(index)){
+                        show_1(position);
+                        check_favorite=1;
+                    }
+                }
+
+                if(check_favorite==0){
+                    show_2(position);
+                }
+
+
+
+
+
+            }
+            // 채팅 클릭시
+            @Override
+            public void onChatClick(Restaurant_ListAdapter_test.ViewHolder holder, View view, int position) {
+                System.out.println("채팅클릭22");
+            }
+
         });
+
+
 
 
 
@@ -174,9 +219,17 @@ public class Restaurant_List_test extends AppCompatActivity {
         });
     }
 
+
+
+
+
+
+
+
+
     private void getItem() { // 식당 리스트 UI수정하는거
 
-        res_items = new ArrayList<>();
+
 
        //String URL = "http://192.168.75.151:9090/load_store_info.php";
        String URL = "http://218.236.123.14:9090/load_store_info.php";
@@ -200,6 +253,7 @@ public class Restaurant_List_test extends AppCompatActivity {
                         try {
                             jsonObject = jsonArray.getJSONObject(i);
                             // Pulling items from the array
+                            int checkFavorite = 0;
                             String item = jsonObject.getString("store_name");
 
                             String item2 = jsonObject.getString("store_address");
@@ -210,14 +264,33 @@ public class Restaurant_List_test extends AppCompatActivity {
 
                             Bitmap bit = StringToBitmaps(item4);
 
-                            res_items.add(new Restaurant_List_Item_test(item,item2,item5,bit, R.drawable.chat, R.drawable.starimg)); //리스트 식당호출
-                            adpt.notifyDataSetChanged();
+                            int total = favorite_store_id.size();// arrayList의 요소의 갯수를 구한다.
+                            for (int index = 0; index < total; index++) {
+                                if(item5==favorite_store_id.get(index)){
+                                    res_items.add(new Restaurant_List_Item_test(item,item2,item5,bit, R.drawable.chat, R.drawable.staryellowimg));
+                                    checkFavorite =1;
+                                    adpt.notifyDataSetChanged();
 
-                            adpt.setRes_list_item(res_items);
-                            loadingDialogBar.HideDialog();;
-                            System.out.println("data1 :"+item);
+                                    adpt.setRes_list_item(res_items);
+                                    loadingDialogBar.HideDialog();
+                                    ;
+                                    System.out.println("data1 :" + item);
 
-                            Log.v("여긴작동하나용","네에");
+                                    Log.v("여긴작동하나용", "네에");
+                                }
+                            }
+
+                            if(checkFavorite==0) {
+                                res_items.add(new Restaurant_List_Item_test(item, item2, item5, bit, R.drawable.chat, R.drawable.starimg)); //리스트 식당호출
+                                adpt.notifyDataSetChanged();
+
+                                adpt.setRes_list_item(res_items);
+                                loadingDialogBar.HideDialog();
+                                ;
+                                System.out.println("data1 :" + item);
+
+                                Log.v("여긴작동하나용", "네에");
+                            }
 
 
 
@@ -321,6 +394,181 @@ public class Restaurant_List_test extends AppCompatActivity {
 
     }
 
+    private void getFavorite(){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            int item = jsonObject.getInt("store_id");
+                            int item2 = jsonObject.getInt("favorite_check");
+                            System.out.println("겟페브리함수작동?ㅅ");
+                            favorite_store_id.add(item);
+                            favorite_store_check.add(item2);
+
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_get_favorite requestRegister = new Request_get_favorite(logining_user_id,
+                responseListener);
+        queue = Volley.newRequestQueue(Restaurant_List_test.this);
+        queue.add(requestRegister);
+    }
+
+
+
+    void show_1(int position) // 즐겨찾기 된놈의 버튼을 클릭시
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("즐겨찾기");
+        builder.setMessage("해당 가게를 즐겨찾기 해제를 하시겠습니까?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        show_1_met(position);
+
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"취소되었습니다..",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
+    }
+
+    void show_2(int position) // 즐겨찾기 안된 놈의 버튼을 클릭시
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("즐겨찾기");
+        builder.setMessage("해당 가게를 즐겨찾기 하시겠습니까?");
+        builder.setPositiveButton("예",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        show_2_met(position);
+
+                    }
+                });
+        builder.setNegativeButton("아니오",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getApplicationContext(),"취소되었습니다..",Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.show();
+    }
+
+    public void show_1_met(int position) { // 즐겨찾기 된놈 버튼 > 예 > 즐겨찾기 해제기능 수행
+        Restaurant_List_Item_test item= adpt.getItem(position);
+        String s_name = item.getRes_name();
+        String s_info = item.getRes_info();
+        int s_id= item.getRes_id();
+        Bitmap s_bit = item.getLogo_img();
+        int s_chatimg = item.getChat_img();
+        res_items.set(position,new Restaurant_List_Item_test(s_name,s_info,s_id,s_bit,s_chatimg,R.drawable.starimg));
+        item.setStar_img(R.drawable.starimg);
+        adpt.notifyDataSetChanged();
+        favorite_store_id.remove(new Integer(clicked_store_id));
+
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) { // 등록에 성공한 경우
+                        Toast.makeText(getApplicationContext(),"즐겨찾기 해제 성공하였습니다.",Toast.LENGTH_SHORT).show();
+
+                    } else { // 등록에 실패한 경우
+                        Toast.makeText(getApplicationContext(),"즐겨찾기 해제 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_delete_favorite requestRegister = new Request_delete_favorite(logining_user_id,clicked_store_id,
+                responseListener);
+        queue = Volley.newRequestQueue(Restaurant_List_test.this);
+        queue.add(requestRegister);
+
+    }
+
+
+    public void show_2_met(int position) { // 즐겨찾기 안된놈 버튼 > 예 > 즐겨찾기기능수행
+        Restaurant_List_Item_test item= adpt.getItem(position);
+        String s_name = item.getRes_name();
+        String s_info = item.getRes_info();
+        int s_id= item.getRes_id();
+        Bitmap s_bit = item.getLogo_img();
+        int s_chatimg = item.getChat_img();
+        res_items.set(position,new Restaurant_List_Item_test(s_name,s_info,s_id,s_bit,s_chatimg,R.drawable.staryellowimg));
+        item.setStar_img(R.drawable.staryellowimg);
+        adpt.notifyDataSetChanged();
+        favorite_store_id.add(clicked_store_id);
+
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) { // 등록에 성공한 경우
+                        Toast.makeText(getApplicationContext(),"즐겨찾기 성공하였습니다.",Toast.LENGTH_SHORT).show();
+
+                    } else { // 등록에 실패한 경우
+                        Toast.makeText(getApplicationContext(),"즐겨찾기 실패하였습니다.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_input_user_favorite requestRegister = new Request_input_user_favorite(logining_user_id,clicked_store_id,
+                responseListener);
+        queue = Volley.newRequestQueue(Restaurant_List_test.this);
+        queue.add(requestRegister);
+
+    }
+
+
+
+
 
 
 
@@ -332,4 +580,5 @@ public class Restaurant_List_test extends AppCompatActivity {
 
 
 }
+
 

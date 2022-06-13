@@ -22,10 +22,23 @@ public class Restaurant_ListAdapter_test extends RecyclerView.Adapter<Restaurant
 
     //========클릭 이벤트 구현===========
     Restaurant_listListener listClickListener;
+    Restaurant_listListener StarClickListener;
+    Restaurant_listListener ChatClickListener;
 
     public void setListClickListener (Restaurant_listListener listener){
         this.listClickListener = listener;
+        this.StarClickListener = listener;
+        this.ChatClickListener = listener;
     }
+//    public void setStarClickListener (Restaurant_listListener listener){
+//        this.StarClickListener = listener;
+//    }
+//
+//    public void setChatClickListener (Restaurant_listListener listener){
+//        this.ChatClickListener = listener;
+//    }
+
+
 
     @NonNull
     @Override
@@ -65,6 +78,19 @@ public class Restaurant_ListAdapter_test extends RecyclerView.Adapter<Restaurant
     }
 
     @Override
+    public void onStarClick(ViewHolder holder, View view, int position) {
+        if(listClickListener != null){
+            StarClickListener.onStarClick(holder,view,position);
+        }
+    }
+    @Override
+    public void onChatClick(ViewHolder holder, View view, int position) {
+        if(listClickListener != null){
+            ChatClickListener.onChatClick(holder,view,position);
+        }
+    }
+
+    @Override
     public int getItemCount() {
         return res_list_item.size();
     }
@@ -94,6 +120,30 @@ public class Restaurant_ListAdapter_test extends RecyclerView.Adapter<Restaurant
                     int position = getBindingAdapterPosition();
                     if(listClickListener != null){
                         listClickListener.onListClick(ViewHolder.this,view,position);
+                    }
+                }
+            });
+
+            //즐겨찾기 클릭 이벤트 구현
+            star_iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getBindingAdapterPosition();
+                    System.out.println("즐겨찾기이 눌러짐!");
+                    if(StarClickListener != null){
+                        StarClickListener.onStarClick(ViewHolder.this,view,position);
+                    }
+                }
+            });
+
+            //채팅 클릭 이벤트 구현
+            chat_iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getBindingAdapterPosition();
+                    System.out.println("채팅이 눌러짐!");
+                    if(StarClickListener != null){
+                        ChatClickListener.onChatClick(ViewHolder.this,view,position);
                     }
                 }
             });
