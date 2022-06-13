@@ -3,11 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/bgrounded.xml" value="0.121" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/btn_reservation.xml" value="0.245" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/calendar_element.xml" value="0.234" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/calender_element.xml" value="0.234" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/calender_selector.xml" value="0.234" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.2105" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.3515625" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/addmenu_dialog.xml" value="0.24583333333333332" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/addreservation_dialog.xml" value="0.3067708333333333" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/dbtest.xml" value="0.2869791666666667" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/dbtest2.xml" value="0.2942708333333333" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/dialog_progress.xml" value="0.2942708333333333" />
@@ -17,9 +21,11 @@
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/nickname.xml" value="0.33" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/register.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/register_manager.xml" value="0.33" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/reservation_number_dialog.xml" value="0.26666666666666666" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/reservation_time_btn.xml" value="0.3067708333333333" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_info.xml" value="0.2765625" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_list.xml" value="0.20108695652173914" />
-        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_reservation.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_reservation.xml" value="0.22" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_review.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_rowui_list.xml" value="0.2765625" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_addmenu.xml" value="0.20108695652173914" />
@@ -27,8 +33,9 @@
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_addreservation_list.xml" value="0.33" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_addreview_list.xml" value="0.5" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_register.xml" value="0.203125" />
-        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_reservation.xml" value="0.15501519756838905" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_reservation.xml" value="0.14" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_review.xml" value="0.15501519756838905" />
+        <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_review_list.xml" value="0.26666666666666666" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/testmap.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/layout/usermenu_home.xml" value="0.2942708333333333" />
         <entry key="..\:/Users/OK/AndroidStudioProjects/FoodChat/app/src/main/res/xml/network_security_config.xml" value="0.36614583333333334" />
@@ -52,38 +59,8 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_register.xml" value="0.2994791666666667" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_reservation.xml" value="0.2994791666666667" />
         <entry key="..\:/Users/User/AndroidStudioProjects/FoodChat/app/src/main/res/layout/userinfo_home.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/drawable/btn_darknavi.xml" value="0.121" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/drawable/btn_reservation.xml" value="0.121" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/drawable/btn_skyblue.xml" value="0.121" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/drawable/buttonex.xml" value="0.2385" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/drawable/calender_element.xml" value="0.2385" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/activity_main.xml" value="0.14868287740628167" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/addmenu_dialog.xml" value="0.14868287740628167" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/addreservation_dialog.xml" value="0.14868287740628167" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/dbtest.xml" value="0.14868287740628167" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/dbtest2.xml" value="0.14868287740628167" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/dialog_progress.xml" value="0.14868287740628167" />
         <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/home.xml" value="0.18931159420289856" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/manager_home.xml" value="0.14868287740628167" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/maptest2.xml" value="0.14868287740628167" />
         <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/register.xml" value="0.22509057971014493" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/restaurant_info.xml" value="0.33" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/restaurant_list.xml" value="0.26875" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/restaurant_list2.xml" value="0.26875" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/restaurant_review.xml" value="0.24230072463768115" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/restaurant_rowui_list2.xml" value="0.14447463768115942" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/store_addmenu.xml" value="0.16983695652173914" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/store_addmenu_list.xml" value="0.33" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/store_addreservation_list.xml" value="0.14130434782608695" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/store_addreview_list.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/store_register.xml" value="0.5" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/store_review.xml" value="0.13272543059777103" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/store_review_list.xml" value="0.33" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/store_review_list_answer.xml" value="0.33" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/usermenu_home.xml" value="0.20471014492753623" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/usermenu_reservation.xml" value="0.14868287740628167" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/usermenu_review.xml" value="0.21422101449275363" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/foodchat3/app/src/main/res/layout/usermenu_review_list.xml" value="0.22" />
         <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat2/app/src/main/res/drawable/dialog_progress.xml" value="0.1" />
         <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat2/app/src/main/res/layout/aa_inputtest.xml" value="0.12335359675785208" />
@@ -93,6 +70,8 @@
         <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat2/app/src/main/res/layout/restaurant_list.xml" value="0.1" />
         <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat2/app/src/main/res/layout/restaurant_list2.xml" value="0.264" />
         <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat2/app/src/main/res/layout/store_register.xml" value="0.1" />
+        <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat2/app/src/main/res/layout/usermenu_review.xml" value="0.20364583333333333" />
+        <entry key="..\:/Users/Yoo/AndroidStudioProjects/FoodChat2/app/src/main/res/layout/usermenu_review_list.xml" value="0.4" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/btn_darknavi.xml" value="0.177" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/btn_manager_register.xml" value="0.168" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/btn_skyblue.xml" value="0.168" />
@@ -100,13 +79,18 @@
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/edit_text_bg.xml" value="0.168" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/drawable/tv_explain.xml" value="0.168" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/addmenu.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/dialog_progress.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/home.xml" value="0.17708333333333334" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/manager_home.xml" value="0.264" />
+        <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/maptest2.xml" value="0.1265625" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/nickname.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/register.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/register_manager.xml" value="0.264" />
+        <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_info.xml" value="0.17604166666666668" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_list.xml" value="0.109375" />
+        <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_list2.xml" value="0.1526268115942029" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_rowui_list.xml" value="0.15677083333333333" />
+        <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/restaurant_rowui_list2.xml" value="0.17604166666666668" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_addmenu.xml" value="0.1" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_addmenu_list.xml" value="0.4" />
         <entry key="..\:/Users/hshs3/AndroidStudioProjects/FoodChat/app/src/main/res/layout/store_addreview_list.xml" value="0.24456521739130435" />
@@ -122,12 +106,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.33" />
-      </ProjectState>
-    </option>
   </component>
 </project>
