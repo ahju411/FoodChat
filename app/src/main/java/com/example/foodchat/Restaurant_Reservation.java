@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +17,14 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -29,6 +34,9 @@ import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 import com.prolificinteractive.materialcalendarview.format.MonthArrayTitleFormatter;
 import com.prolificinteractive.materialcalendarview.format.TitleFormatter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.threeten.bp.DayOfWeek;
 import org.threeten.bp.LocalDate;
 
@@ -55,23 +63,84 @@ public class Restaurant_Reservation extends AppCompatActivity {
     //예약인원 count
     private int AdultCount = 0;
     private int ChildCount = 0;
+    private int click_year,click_month,click_day;
+    private String click_date,click_time;
+    private RequestQueue queue;
 
     private final Calendar cldr = Calendar.getInstance();
     private int hour = cldr.get(Calendar.HOUR_OF_DAY);
     private int minutes = cldr.get(Calendar.MINUTE);
+    private String logining_user_id,logining_user_nickname,clicked_store_name,clicked_store_address;
+    private int clicked_store_id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_reservation);
+        Intent getintent = getIntent();
+        clicked_store_id = getintent.getIntExtra("clicked_store_id",0);
+        logining_user_id = getintent.getStringExtra("logining_user_id");
+        logining_user_nickname = getintent.getStringExtra("logining_user_nickname");
+        clicked_store_name = getintent.getStringExtra("clicked_store_name");
+        clicked_store_address = getintent.getStringExtra("clicked_store_address");
+        System.out.println("상점아디값:"+clicked_store_id);
+        System.out.println("유저아이디:"+logining_user_id);
+        System.out.println("유저닉네임:"+logining_user_nickname);
+        System.out.println("상점이름:"+clicked_store_name);
+        System.out.println("상점주소:"+clicked_store_address);
 
         //이 텍스트뷰는 그냥 클릭하면 식당 위치랑 이름 가져오는 역할로 쓰기
-        storename = (AutoCompleteTextView) findViewById(R.id.reservation_store_name);
-        storelocation = (AutoCompleteTextView) findViewById(R.id.reservation_store_location);
+        storename =  findViewById(R.id.reservation_store_name);
+        storelocation = findViewById(R.id.reservation_store_location);
+
+        storename.setText(clicked_store_name);
+        storelocation.setText(clicked_store_address);
+        storename.setClickable(false);
+        storename.setFocusable(false);
+        storelocation.setClickable(false);
+        storelocation.setFocusable(false);
+
+        if(queue == null){
+            queue = Volley.newRequestQueue(getApplicationContext());
+        }
+
 
         btn_reservation_date = (Button) findViewById(R.id.reservation_date_pick);
         btn_reservation_time = (Button) findViewById(R.id.reservation_time);
         btn_reservation_num = (Button) findViewById(R.id.reservation_number);
         btn_reservation = (Button) findViewById(R.id.reservation_btn);
+        btn_reservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println(logining_user_id+
+                        logining_user_nickname+clicked_store_id+click_date+click_time+AdultCount+ChildCount);
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean success = jsonObject.getBoolean("success");
+                            if (success) { // 등록에 성공한 경우
+                                Toast.makeText(getApplicationContext(),"성공하였습니다.",Toast.LENGTH_SHORT).show();
+
+                            } else { // 등록에 실패한 경우
+                                Toast.makeText(getApplicationContext(),"실패하였습니다.",Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }; // 서버로 Volley를 이용해서 요청을 함.
+                Request_input_reservation requestRegister = new Request_input_reservation(logining_user_id,
+                        logining_user_nickname,clicked_store_id,click_date,click_time,AdultCount,ChildCount,-1,
+                        storename.getText().toString(),storelocation.getText().toString(),
+                        responseListener);
+                queue = Volley.newRequestQueue(Restaurant_Reservation.this);
+                queue.add(requestRegister);
+            }
+        });
+
 
         year = HelperUtilities.currentYear();
         month = HelperUtilities.currentMonth();
@@ -83,6 +152,7 @@ public class Restaurant_Reservation extends AppCompatActivity {
 
                 datePickerDialog(RESERVATION_DATE).show();
                 Log.d("test click","데이트 클릭");
+
             }
         });
 
@@ -116,6 +186,8 @@ public class Restaurant_Reservation extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int Hour, int Minute) {
                 btn_reservation_time.setText(Hour + "시 " + Minute + "분");
+                click_time = Hour+"시"+Minute+"분";
+                System.out.println("클릭한시간"+click_time);
             }
         };
     }
@@ -146,6 +218,12 @@ public class Restaurant_Reservation extends AppCompatActivity {
 
                 reservationdate = startYear + "-" + (startMonth + 1) + "-" + startDay;
                 btn_reservation_date.setText(HelperUtilities.formatDate(startYear, startMonth, startDay));
+                click_year = startYear;
+                click_month = (startMonth+1);
+                click_day = startDay;
+                click_date = ""+click_year+"-"+click_month+"-"+click_day;
+                System.out.println("select date22: "+click_year+"-"+click_month+"-"+click_day);
+                System.out.println("select date22: "+click_date);
 
             }
         };
@@ -154,7 +232,7 @@ public class Restaurant_Reservation extends AppCompatActivity {
 
         switch (datePickerId) {
             case RESERVATION_DATE:
-
+                System.out.println("끼야호호호호호ㅅㄷ");
                 if (datePickerDialog1 == null) {
                     datePickerDialog1 = new DatePickerDialog(this, getReservationDateListener(), year, month, day);
                 }
@@ -176,13 +254,13 @@ public class Restaurant_Reservation extends AppCompatActivity {
                 .setView(dialogLayout)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //get number of traveller here
+                        System.out.println("예약인원 OK클릭댐 성인 : "+AdultCount+"아동:"+ChildCount);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
+                        System.out.println("예약인원 취소클릭댐");
                     }
                 });
 
@@ -219,7 +297,7 @@ public class Restaurant_Reservation extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ChildCount++;
-                numChild.setText(String.valueOf(AdultCount));
+                numChild.setText(String.valueOf(ChildCount));
                 btn_reservation_num.setText(String.valueOf(AdultCount) + "성인, " + String.valueOf(ChildCount) + "아동");
             }
         });

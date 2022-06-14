@@ -38,7 +38,7 @@ public class Restaurant_Info extends AppCompatActivity {
     private ImageView imageView;
     LoadingDialogBar loadingDialogBar;
     static RequestQueue requestQueue,queue,queue2;
-    private String logining_user_id,logining_user_nickname;
+    private String logining_user_id,logining_user_nickname,clicked_store_name,clicked_store_address;
 
 
 
@@ -93,6 +93,9 @@ public class Restaurant_Info extends AppCompatActivity {
         getItem_Menu();
         getReviewData();
         getItem_Review();
+
+
+
 
 
 
@@ -155,6 +158,11 @@ public class Restaurant_Info extends AppCompatActivity {
             public void onClick(View view) {
                 //예약하기로 이동
                 Intent intent = new Intent(view.getContext(), Restaurant_Reservation.class);
+                intent.putExtra("logining_user_id",logining_user_id);
+                intent.putExtra("logining_user_nickname",logining_user_nickname);
+                intent.putExtra("clicked_store_id",clicked_store_id);
+                intent.putExtra("clicked_store_name",clicked_store_name);
+                intent.putExtra("clicked_store_address",clicked_store_address);
                 startActivity(intent);
             }
         });
@@ -214,6 +222,9 @@ public class Restaurant_Info extends AppCompatActivity {
                             res_address.setText(item2);
                             res_time.setText(item3);
                             res_mension.setText(item5);
+                            System.out.println("이름찍히냐상점"+res_name.getText().toString());
+                            clicked_store_name = item;
+                            clicked_store_address = item2;
 
 
 
@@ -351,11 +362,13 @@ public class Restaurant_Info extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.v("작동실패","안들어옴");
+                            loadingDialogBar.HideDialog();
                         }
                     }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    loadingDialogBar.HideDialog();
                 }
 
             }
