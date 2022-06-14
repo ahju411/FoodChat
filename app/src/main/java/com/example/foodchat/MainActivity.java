@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "유저";
     private EditText ed_id,ed_pw;
     private List<String>  user_nickname= new ArrayList<String>();
-    private List<String>  ceo_id= new ArrayList<String>();
+    private List<String>  store_name= new ArrayList<String>();
 
 
 
@@ -332,8 +332,8 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             jsonObject = jsonArray.getJSONObject(i);
                             // Pulling items from the array
-                            String item = jsonObject.getString("ceo_id");
-                            ceo_id.add(item);
+                            String item = jsonObject.getString("store_name");
+                            store_name.add(item);
 
 
 
@@ -346,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-                    System.out.println(ceo_id);
+                    System.out.println(store_name);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
