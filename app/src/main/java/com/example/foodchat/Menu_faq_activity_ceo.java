@@ -27,7 +27,7 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-public class Menu_faq_activity_ceo extends AppCompatActivity implements Menu_dialog_faq.Menu_faq_dialogListener,Menu_faq_fix_dialog.Menu_dialogListener {
+public class Menu_faq_activity_ceo extends AppCompatActivity implements Menu_dialog_faq.Menu_faq_dialogListener,Menu_faq_fix_dialog.Menu_faq_dialogListener {
     private Button plus_btn;
     private ImageButton backbtn,addmenubtn;
     private Menu_faq_Adapter adpt;
@@ -39,10 +39,11 @@ public class Menu_faq_activity_ceo extends AppCompatActivity implements Menu_dia
     private String[] menu = new String[10];
     private int logining_store_id,menu_id=999999;
     public static String menu_image2="aa";
-    private RequestQueue queue,queue2;
+    private RequestQueue queue,queue2,queue3,queue4;
     LoadingDialogBar loadingDialogBar;
     private String send_q,send_a;
     private int send_id;
+    private int posi;
 
 
     @Override
@@ -74,6 +75,16 @@ public class Menu_faq_activity_ceo extends AppCompatActivity implements Menu_dia
             loadingDialogBar.HideDialog();
 
         }
+        if(queue3 == null){
+            queue3 = Volley.newRequestQueue(getApplicationContext());
+            loadingDialogBar.HideDialog();
+
+        }
+        if(queue4 == null){
+            queue3 = Volley.newRequestQueue(getApplicationContext());
+            loadingDialogBar.HideDialog();
+
+        }
 
         plus_btn = findViewById(R.id.faq_plus_btn);
         plus_btn.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +112,18 @@ public class Menu_faq_activity_ceo extends AppCompatActivity implements Menu_dia
 
             @Override
             public void onItemClick(Menu_faq_Adapter.ViewHolder holder, View view, int position) {
+                Menu_faq_item item = adpt.getItem(position);
+                posi=position;
+                send_id=item.getFaq_id();
+                System.out.println("클릭후 아이디값:"+item.getFaq_id());
+                Menu_faq_fix_dialog menu_dialog = new Menu_faq_fix_dialog();
+                menu_dialog.setStrmenuname(item.getFaq_Q());
+                menu_dialog.setStrmenuprice(item.getFaq_A());
+
+                menu_dialog.show(getSupportFragmentManager(),"dialog");
+                Log.v("여기뜨는건가","여기뜨는건가");
+
+
 
             }
 
@@ -175,14 +198,75 @@ public class Menu_faq_activity_ceo extends AppCompatActivity implements Menu_dia
 
 
     @Override
-    public void setText(String s, String strmenuname, String strmenuprice, String strmenuexplain, int position) {
+    public void setText(String s, String strmenuname) {
+        Menu_faq_item item = adpt.getItem(posi);
+        System.out.println("첫번쨰 센드아이디"+send_id);
+        itemManageMenus.set(posi,new Menu_faq_item(s,strmenuname,send_id));
+        System.out.println("두번쨰 센드아이디"+send_id);
+        send_q = s;
+        send_a =strmenuname;
+        System.out.println("이때 센드아이디:"+send_id);
+        adpt.notifyDataSetChanged();
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) { // 등록에 성공한 경우
+                        Toast.makeText(getApplicationContext(),"성공하였습니다.",Toast.LENGTH_SHORT).show();
+
+                    } else { // 등록에 실패한 경우
+                        Toast.makeText(getApplicationContext(),"실패하였습니다.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_update_faq requestRegister = new Request_update_faq(send_q,send_a,send_id, responseListener);
+        queue3 = Volley.newRequestQueue(Menu_faq_activity_ceo.this);
+        queue3.add(requestRegister);
+
+
 
     }
 
     @Override
-    public void destroy(int position) {
+    public void destroy() {
+        itemManageMenus.remove(posi);
+        adpt.notifyDataSetChanged();
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if (success) { // 등록에 성공한 경우
+                        Toast.makeText(getApplicationContext(),"성공하였습니다.",Toast.LENGTH_SHORT).show();
+
+                    } else { // 등록에 실패한 경우
+                        Toast.makeText(getApplicationContext(),"실패하였습니다.",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_delete_faq requestRegister = new Request_delete_faq(send_id, responseListener);
+        queue4 = Volley.newRequestQueue(Menu_faq_activity_ceo.this);
+        queue4.add(requestRegister);
+
+
 
     }
+
 
     @Override
     public void applyText(String s, String strmenuname,int id) {
