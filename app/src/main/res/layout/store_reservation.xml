@@ -4,23 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <ImageButton
         android:id="@+id/store_reservation_backbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="30dp"
-        android:maxHeight="30dp"
         android:layout_margin="20dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
         android:background="@null"
+        android:maxWidth="30dp"
+        android:maxHeight="30dp"
+        android:scaleType="fitCenter"
         android:src="@drawable/btn_back"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintVertical_bias="0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/store_reserva_recycle"
@@ -30,6 +31,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.636" />
+        app:layout_constraintVertical_bias="0.645" />
+
+    <Button
+        android:id="@+id/Accept_btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="예약목록"
+        android:background="@drawable/btn_darknavi"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.814"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
