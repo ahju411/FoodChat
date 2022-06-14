@@ -28,15 +28,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class Menu_faq_fix_dialog extends AppCompatDialogFragment {
-    private EditText menuname,menuprice,menuexplain;
+    private EditText ed_q, ed_a;
     private ImageButton menuimg;
     private TextView menuimg_tv;
-    private Menu_dialogListener listener;
+    private Menu_faq_dialogListener listener;
     private final int GET_GALLERY_IMAGE = 200;
     private String encodeimg;
-    private String strmenuname ="",  strmenuprice ="",  strmenuexplain ="";
-    private Bitmap bmmenuimg = null;
-    private int position = -1;
+    private String strmenuname ="",  strmenuprice ="";
+
 
 
 
@@ -45,54 +44,32 @@ public class Menu_faq_fix_dialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.addmenu_dialog,null);
+        View view = inflater.inflate(R.layout.faq_add_dialog,null);
 
-        menuname = view.findViewById(R.id.menuname_dialog);
-        menuprice = view.findViewById(R.id.menuprice_dialog);
-        menuexplain = view.findViewById(R.id.menuexplain_dialog);
-        menuimg = view.findViewById(R.id.menuimg_explain);
-        menuimg_tv= view.findViewById(R.id.menuimg_tv);
-        menuimg_tv.setPaintFlags(menuimg_tv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        ed_q = view.findViewById(R.id.faqname_dialog);
+        ed_a = view.findViewById(R.id.faqexplain_dialog);
 
-        menuname.setText(strmenuname);
-        menuprice.setText(strmenuprice);
-        menuexplain.setText(strmenuexplain);
-        menuimg.setImageBitmap(bmmenuimg);
+        ed_q.setText(strmenuname);
+        ed_a.setText(strmenuprice);
 
 
 
 
 
 
-
-        menuimg_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                imageChooser();
-
-
-            }
-        });
-
-
-        builder.setView(view).setTitle("메뉴 수정").setPositiveButton("수정", new DialogInterface.OnClickListener() {
+        builder.setView(view).setTitle("FAQ 수정").setPositiveButton("수정", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                String strmenuname = menuname.getText().toString();
-                String strmenuprice = menuprice.getText().toString();
-                String strmenuexplain = menuexplain.getText().toString();
-                AddmenuActivity a = new AddmenuActivity();
+                String strmenuname = ed_q.getText().toString();
+                String strmenuprice = ed_a.getText().toString();
 
-                String strmenuimg = a.menu_image2;
-
-
-                listener.setText(strmenuname,strmenuprice,strmenuexplain,strmenuimg,position);
+                listener.setText(strmenuname,strmenuprice);
 
             }
         }).setNegativeButton("삭제", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                listener.destroy(position);
+                listener.destroy();
             }
         });
 
@@ -150,7 +127,7 @@ public class Menu_faq_fix_dialog extends AppCompatDialogFragment {
         super.onAttach(context);
 
         try {
-           listener = (Menu_dialogListener) context;
+           listener = (Menu_faq_dialogListener) context;
         }catch (ClassCastException e){
             throw new ClassCastException(context.toString() + "listener를 implement해야한다");
         }
@@ -158,9 +135,9 @@ public class Menu_faq_fix_dialog extends AppCompatDialogFragment {
     }
 
 
-    public interface Menu_dialogListener{
-        void setText(String s, String strmenuname, String strmenuprice,String strmenuexplain, int position);
-        void destroy(int position);
+    public interface Menu_faq_dialogListener{
+        void setText(String s, String strmenuname);
+        void destroy();
     }
 
     public void setStrmenuname(String strmenuname) {
@@ -171,16 +148,8 @@ public class Menu_faq_fix_dialog extends AppCompatDialogFragment {
         this.strmenuprice = strmenuprice;
     }
 
-    public void setStrmenuexplain(String strmenuexplain) {
-        this.strmenuexplain = strmenuexplain;
-    }
 
-    public void setBmmenuimg(Bitmap bmmenuimg) {
-        this.bmmenuimg = bmmenuimg;
-    }
 
-    public void setPosition(int position) {
-        this.position = position;
-    }
+
 
 }

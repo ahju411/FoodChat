@@ -15,8 +15,8 @@
 
         <TextView
             android:id="@+id/faq_quess"
-            android:layout_width="334dp"
-            android:layout_height="45dp"
+            android:layout_width="282dp"
+            android:layout_height="39dp"
             android:layout_gravity="top"
             android:fontFamily="@font/binggrae"
             android:maxLength="100"
@@ -25,21 +25,21 @@
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.567"
+            app:layout_constraintHorizontal_bias="0.528"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.132" />
+            app:layout_constraintVertical_bias="0.094" />
 
         <TextView
             android:id="@+id/faq_anss"
-            android:layout_width="337dp"
-            android:layout_height="91dp"
+            android:layout_width="281dp"
+            android:layout_height="113dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.617"
+            app:layout_constraintHorizontal_bias="0.522"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/faq_quess"
-            app:layout_constraintVertical_bias="0.254" />
+            app:layout_constraintVertical_bias="0.428" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
