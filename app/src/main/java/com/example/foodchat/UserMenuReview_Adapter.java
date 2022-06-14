@@ -84,8 +84,8 @@ public class UserMenuReview_Adapter extends RecyclerView.Adapter<UserMenuReview_
             super(itemView);
             nickname_tv = itemView.findViewById((R.id.myReview_nickname_review));
             date_tv = itemView.findViewById(R.id.myReview_date);
-            reviewMension_tv = itemView.findViewById(R.id.myReview_review_user);
-            ceoreviewMension_tv = itemView.findViewById(R.id.myReview_ceo_mension);
+            reviewMension_tv = itemView.findViewById(R.id.faq_quess);
+            ceoreviewMension_tv = itemView.findViewById(R.id.faq_anss);
 
 
             like_iv = itemView.findViewById(R.id.myReview_revisit_decision);

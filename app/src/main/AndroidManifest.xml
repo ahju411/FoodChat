@@ -75,9 +75,11 @@
         <activity android:name=".ManagereviewActivity"/>
         <activity android:name=".ManageReservationActivity"/>
         <activity android:name=".ManageReservationAcceptActivity"/>
+        <activity android:name=".Menu_faq_activity_ceo"/>
         <activity android:name=".Restaurant_map"/>
         <activity android:name=".Chatting_Window"/>
         <activity android:name="framelayout"/>
+
     </application>
 
 </manifest>

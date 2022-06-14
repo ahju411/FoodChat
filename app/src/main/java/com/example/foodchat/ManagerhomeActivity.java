@@ -19,9 +19,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ManagerhomeActivity extends AppCompatActivity {
-    private Button store_registerbtn,manage_reviewbtn,manage_reservationbtn;
+    private Button store_registerbtn,manage_reviewbtn,manage_reservationbtn,manage_faqbtn;
     private String logining_ceo_id,logining_ceo_pw;
     private int logining_store_id;
+    private String store_name;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,18 @@ public class ManagerhomeActivity extends AppCompatActivity {
         store_registerbtn = findViewById(R.id.store_register);
         manage_reservationbtn = findViewById(R.id.manage_reservation);
         manage_reviewbtn = findViewById(R.id.manage_review);
+
+        manage_faqbtn=findViewById(R.id.manage_fa);
+        manage_faqbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Menu_faq_activity_ceo.class);
+                intent.putExtra("logining_ceo_id", logining_ceo_id);
+                intent.putExtra("logining_ceo_pw", logining_ceo_pw);
+                intent.putExtra("logining_store_id", logining_store_id);
+                startActivity(intent);
+            }
+        });
 
         store_registerbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +102,9 @@ public class ManagerhomeActivity extends AppCompatActivity {
                             jsonObject = jsonArray.getJSONObject(i);
                             // Pulling items from the array
                             int item = jsonObject.getInt("store_id");
-
+                            String item2 = jsonObject.getString("store_name");
+                            store_name = item2;
+                            System.out.println("스토어네임:"+store_name);
                             System.out.println("상점아이디:"+item);
                             logining_store_id=item;
 

@@ -39,6 +39,7 @@ public class Restaurant_Info extends AppCompatActivity {
     LoadingDialogBar loadingDialogBar;
     static RequestQueue requestQueue,queue,queue2;
     private String logining_user_id,logining_user_nickname,clicked_store_name,clicked_store_address;
+    private Button go_faq_btn;
 
 
 
@@ -79,6 +80,16 @@ public class Restaurant_Info extends AppCompatActivity {
         res_time = findViewById(R.id.store_time);
         res_mension = findViewById(R.id.store_mension);
         imageView = findViewById(R.id.imageView2);
+        go_faq_btn = findViewById(R.id.go_faq);
+        go_faq_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Menu_faq_activity_ceo.class);
+                intent.putExtra("clicked_store_id",clicked_store_id);
+                startActivity(intent);
+
+            }
+        });
 
         Intent getintent = getIntent();
         clicked_store_id = getintent.getIntExtra("clicked_store_id",0);
