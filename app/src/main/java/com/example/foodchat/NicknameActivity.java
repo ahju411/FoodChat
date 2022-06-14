@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +26,9 @@ public class NicknameActivity extends AppCompatActivity {
     private String usernick;
     private UserDao mUserDao;
     private String user_id,user_pw,user_nickname,user_favorites;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +71,8 @@ public class NicknameActivity extends AppCompatActivity {
                                 intent.putExtra("logining_user_id", user_id);
                                 intent.putExtra("logining_user_pw", user_pw);
                                 intent.putExtra("logining_user_nickname", user_nickname);
+                                databaseReference.child("MemberData").setValue(user_nickname);
+
                                 startActivity(intent);
                             } else { // 회원등록에 실패한 경우
                                 Toast.makeText(getApplicationContext(),"회원 등록에 실패하였습니다.",Toast.LENGTH_SHORT).show();

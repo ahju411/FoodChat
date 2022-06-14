@@ -23,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     private String[] ids= new String[3];
     private int check;
     String URL = "http://218.236.123.14:9090/load_users.php";
+
 
 
     @Override
@@ -172,6 +175,10 @@ public class RegisterActivity extends AppCompatActivity {
                                     Intent intent = new Intent(RegisterActivity.this, NicknameActivity.class);
                                     intent.putExtra("user_id", user_id);
                                     intent.putExtra("user_pw", user_pw);
+
+
+
+
 
                                     startActivity(intent);
                                 }

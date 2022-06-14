@@ -27,6 +27,13 @@ public class Chat_Room_Adapter extends RecyclerView.Adapter<Chat_Room_Adapter.Vi
         this.chatting_room_list = chatting_room_list;
     }
 
+    //========클릭 이벤트 구현===========
+    private AddChattingListener itemClickListener;
+
+    public void setOnItemClickListener (AddChattingListener listener){
+        this.itemClickListener = listener;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_chat_room_line, parent, false);
@@ -35,20 +42,13 @@ public class Chat_Room_Adapter extends RecyclerView.Adapter<Chat_Room_Adapter.Vi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        if(chatting_room_list.get(position).isthis_chatroom_group){ // 그룹채팅방인 경우
-            String id = chatting_room_list.get(position).group_id.get(0);
-            for(int j=1; j< chatting_room_list.get(position).group_id.size(); j++){
-                id += ", " + chatting_room_list.get(position).group_id.get(j);
-            }
-            holder.friend_id.setText("그룹채팅방 : ");
-            holder.trash.setText(id);
-        }else {
+
             if (chatting_room_list.get(position).id1.equals(Restaurant_List_test.logining_user_nickname)) {
                 holder.friend_id.setText(chatting_room_list.get(position).id2);
             } else {
                 holder.friend_id.setText(chatting_room_list.get(position).id1);
             }
-        }
+
         holder.last_text.setText(chatting_room_list.get(position).last_message);
         holder.last_time.setText(chatting_room_list.get(position).last_message_time);
     }
@@ -62,6 +62,11 @@ public class Chat_Room_Adapter extends RecyclerView.Adapter<Chat_Room_Adapter.Vi
         TextView friend_id, last_time, last_text, trash;
         ImageView iv;
 
+
+
+
+
+
         public ViewHolder(View view) {
             super(view);
 
@@ -69,9 +74,23 @@ public class Chat_Room_Adapter extends RecyclerView.Adapter<Chat_Room_Adapter.Vi
             last_time = view.findViewById(R.id.cr_last_time);
             last_text = view.findViewById(R.id.cr_last_text);
             trash = view.findViewById(R.id.trash);
+
+            //클릭 이벤트 필요 요소
+            view.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    int position = getBindingAdapterPosition();
+                    if(itemClickListener !=null){
+                        itemClickListener.onItemClick(Chat_Room_Adapter.ViewHolder.this, view, position);
+                    }
+                }
+            });
         }
 
 
+    }
+    public Chat_room_info getItem(int position){
+        return chatting_room_list.get(position);
     }
 
     @Override

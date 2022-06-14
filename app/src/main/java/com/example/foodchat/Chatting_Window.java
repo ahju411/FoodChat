@@ -65,16 +65,13 @@ public class Chatting_Window extends AppCompatActivity {
         Chatting_room_info = (Chat_room_info) getIntent().getSerializableExtra("Chatting_room_id");
         Currentposition = getIntent().getIntExtra("currentposition", 0);
 
-        if(Chatting_room_info.isthis_chatroom_group) { // 그룹채팅방일때
-            this.getSupportActionBar().setTitle("그룹채팅방");
-
-        }else { // 그룹채팅방이 아닐때
+          // 그룹채팅방이 아닐때
             if (Chatting_room_info.id1.equals(Restaurant_List_test.logining_user_nickname)) {
                this.getSupportActionBar().setTitle(Chatting_room_info.id2 + "님과의 대화방");
             } else {
                 this.getSupportActionBar().setTitle(Chatting_room_info.id1 + "님과의 대화방");
             }
-        }
+
 
         set_RecyclerView();
 
@@ -154,28 +151,45 @@ public class Chatting_Window extends AppCompatActivity {
     public void Sending_message(View view) {
         ChatData chatData = new ChatData(Restaurant_List_test.logining_user_nickname, input_message.getText().toString());
         Calendar calendar = Calendar.getInstance();
-        String sending_time = String.format("%d. %d %d시 %d분", calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH),
+        String sending_time = String.format("%d.%d %d시 %d분", calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH),
                 calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+        Log.d("time",sending_time);
         chatData.sending_time = sending_time;
         databaseReference.child("message").child(Chatting_room_info.Chatting_room_id).child(String.valueOf(System.currentTimeMillis())).setValue(chatData);
+        Log.d("채팅룸 Sending_message",Chatting_room_info.Chatting_room_id);
         Chatting_room_info.last_message_time = sending_time;
         Chatting_room_info.last_message = input_message.getText().toString();
         Chatting_room_info.last_message_id = Restaurant_List_test.logining_user_nickname;
 
-        if(Chatting_room_info.isthis_chatroom_group) { // 그룹채팅방인경우
-            for(int i=0; i< Chatting_room_info.group_id.size(); i++){
-                databaseReference.child("MemberData").child(Chatting_room_info.group_id.get(i)).child("Chat_room_list")
-                        .child(Chatting_room_info.Chatting_room_id).setValue(Chatting_room_info); // 참여한 아이디에 채팅방 정보 저장
-            }
+        // 그룹채팅방이 아닌 경우
+        //databaseReference.child("MemberData").child(Restaurant_List_test.logining_user_nickname).child("Chat_room_list").child("채팅룸 아이디").setValue( Restaurant_List_test.logining_user_nickname); // 내 아이디에 채팅방정보 저장
+        //databaseReference.child("MemberData").child(Restaurant_List_test.logining_user_nickname).child("Chat_room_list").child(Chatting_room_info.Chatting_room_id).setValue(Chatting_room_info); // 내 아이디에 채팅방정보 저장
 
-        }else { // 그룹채팅방이 아닌 경우
-            databaseReference.child("MemberData").child(Restaurant_List_test.logining_user_nickname).child("Chat_room_list").child(Chatting_room_info.Chatting_room_id).setValue(Chatting_room_info); // 내 아이디에 채팅방정보 저장
-            if (Chatting_room_info.id1.equals(Restaurant_List_test.logining_user_nickname)) {
-                databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child(Chatting_room_info.Chatting_room_id).setValue(Chatting_room_info); // 내 아이디에 채팅방 정보 저장
-            } else {
-                databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child(Chatting_room_info.Chatting_room_id).setValue(Chatting_room_info); // 대화 상대 아이디에 채팅방 정보 저장
-            }
+        databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("Chatting_room_id").setValue(Chatting_room_info.Chatting_room_id); // 내 아이디에 채팅방 정보 저장
+        databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("id1").setValue(Chatting_room_info.id1); // 내 아이디에 채팅방 정보 저장
+        databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("id2").setValue(Chatting_room_info.id2); // 내 아이디에 채팅방 정보 저장
+        databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("last_message").setValue(Chatting_room_info.last_message); // 내 아이디에 채팅방 정보 저장
+        databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("last_message_id").setValue(Chatting_room_info.last_message_id); // 내 아이디에 채팅방 정보 저장
+        databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("last_message_time").setValue(Chatting_room_info.last_message_time); // 내 아이디에 채팅방 정보 저장
+
+        if (Chatting_room_info.id1.equals(Restaurant_List_test.logining_user_nickname)) {
+            databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("Chatting_room_id").setValue(Chatting_room_info.Chatting_room_id); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("id1").setValue(Chatting_room_info.id1); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("id2").setValue(Chatting_room_info.id2); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("last_message").setValue(Chatting_room_info.last_message); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("last_message_id").setValue(Chatting_room_info.last_message_id); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("last_message_time").setValue(Chatting_room_info.last_message_time); // 내 아이디에 채팅방 정보 저장
+
+
+        } else {
+            databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("Chatting_room_id").setValue(Chatting_room_info.Chatting_room_id); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("id1").setValue(Chatting_room_info.id1); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("id2").setValue(Chatting_room_info.id2); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("last_message").setValue(Chatting_room_info.last_message); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("last_message_id").setValue(Chatting_room_info.last_message_id); // 내 아이디에 채팅방 정보 저장
+            databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("last_message_time").setValue(Chatting_room_info.last_message_time); // 내 아이디에 채팅방 정보 저장
         }
+
 
         input_message.setText("");
     }

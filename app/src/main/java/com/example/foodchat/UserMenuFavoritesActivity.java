@@ -158,7 +158,7 @@ public class UserMenuFavoritesActivity extends AppCompatActivity {
 
 
                 //여기서 login id가 사실상 내 닉네임이다. 그걸 가져오면 된다.
-                //유은철이 수정
+                //유은철이 수정해야지
                 if(logining_user_id.compareTo(clicked_store_name)>0){ // A가 B보다 큰경우
                     ChattingRoom_id = logining_user_nickname + clicked_store_name;
                 }else {

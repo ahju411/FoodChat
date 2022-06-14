@@ -1,5 +1,7 @@
 package com.example.foodchat;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.room.Room;
@@ -11,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -22,8 +25,14 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Constants;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 
@@ -34,6 +43,7 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import kotlin.Unit;
@@ -48,6 +58,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText ed_id,ed_pw;
     private List<String>  user_nickname= new ArrayList<String>();
     private List<String>  store_name= new ArrayList<String>();
+
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
 
 
@@ -65,11 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
         //일단 버튼 누르면 이동하게 정의하기
 
-
-        //파이어베이스 DB 테스트하기
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference("message");
-        myRef.setValue("하이 첫 시작");
 
 
         loginbtn = findViewById(R.id.login);
@@ -92,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-         //데이터 삽입
+        //데이터 삽입
 //        User user = new User(); //객체 인스턴스 생성
 //        user.setId(1234);
 //        user.setName("은철");
@@ -201,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
                                             if (success) { // 사장로그인에 성공한 경우
                                                 String ceo_id = jsonObject.getString("ceo_id");
                                                 String ceo_pw = jsonObject.getString("ceo_pw");
+                                                Restaurant_List_test.logining_user_nickname = ceo_id;
 
 
                                                 Toast.makeText(getApplicationContext(),"사장 로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
@@ -299,6 +309,44 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
+//                    databaseReference.child("MemberData").addChildEventListener(new ChildEventListener() {
+//                        @Override
+//                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                            for(DataSnapshot data : snapshot.getChildren()){
+//                                for(String user: user_nickname){
+//                                    String str = data.child(user).getValue().toString();
+//                                    if(!str.equals(user)){
+//                                        databaseReference.child("MemberData").child(user).setValue(user);
+//
+//                                    }
+//
+//                                }
+//
+//                            }
+//
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//
+//                        }
+//                    });
 
                     System.out.println(user_nickname);
 
@@ -354,13 +402,57 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
+
+//                databaseReference.child("MemberData").addChildEventListener(new ChildEventListener() {
+//                    @Override
+//                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                        for(DataSnapshot data : snapshot.getChildren()){
+//                            for(String user: store_name){
+//                                String str = data.child(user).getValue().toString();
+//                                Log.d("자자 뭐하지",str);
+//                                if(!str.equals(user)){
+//                                    databaseReference.child("MemberData").child(user).setValue(user);
+//
+//                                }
+//
+//                            }
+//
+//                        }
+//
+//
+//                    }
+//
+//                    @Override
+//                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+
+
             }
+
         }; // 서버로 Volley를 이용해서 요청을 함.
         Request_Ceo_AllData requestRegister = new Request_Ceo_AllData(responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(requestRegister);
 
     }
+
 
 
 

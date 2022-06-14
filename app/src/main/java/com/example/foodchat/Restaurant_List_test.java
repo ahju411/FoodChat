@@ -31,6 +31,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -71,7 +73,11 @@ public class Restaurant_List_test extends AppCompatActivity {
     public static String now_watching_chat_room_id = null;
 
     private String logining_user_id,logining_user_pw;
-    public static String logining_user_nickname;
+    public static String logining_user_nickname = null;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,6 +109,7 @@ public class Restaurant_List_test extends AppCompatActivity {
 
         getFavorite();// 유저 즐겨찾기 가져오기
         getItem(); // 리사이클러뷰 아이템넣기
+
 
 //
 //        new Handler().postDelayed(new Runnable()
@@ -188,8 +195,7 @@ public class Restaurant_List_test extends AppCompatActivity {
 
 
 
-                //여기서 login id가 사실상 내 닉네임이다. 그걸 가져오면 된다.
-                //유은철이 수정
+                //여기서 login id가 사실상 내 닉네임이다. 그걸 가져오면 된다
                 if(logining_user_id.compareTo(clicked_store_name)>0){ // A가 B보다 큰경우
                     ChattingRoom_id = logining_user_nickname + clicked_store_name;
                 }else {
@@ -278,8 +284,8 @@ public class Restaurant_List_test extends AppCompatActivity {
 
 
 
-       String URL = "http://192.168.75.151:9090/load_store_info.php";
-       //String URL = "http://218.236.123.14:9090/load_store_info.php";
+       //String URL = "http://192.168.75.151:9090/load_store_info.php";
+       String URL = "http://218.236.123.14:9090/load_store_info.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {

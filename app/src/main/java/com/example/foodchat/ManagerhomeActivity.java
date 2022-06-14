@@ -19,7 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ManagerhomeActivity extends AppCompatActivity {
-    private Button store_registerbtn,manage_reviewbtn,manage_reservationbtn,manage_faqbtn;
+    private Button store_registerbtn,manage_reviewbtn,manage_reservationbtn,manage_faqbtn,manage_chatting_btn;
     private String logining_ceo_id,logining_ceo_pw;
     private int logining_store_id;
     private String store_name;
@@ -39,6 +39,7 @@ public class ManagerhomeActivity extends AppCompatActivity {
         store_registerbtn = findViewById(R.id.store_register);
         manage_reservationbtn = findViewById(R.id.manage_reservation);
         manage_reviewbtn = findViewById(R.id.manage_review);
+        manage_chatting_btn = findViewById(R.id.manage_chatting);
 
         manage_faqbtn=findViewById(R.id.manage_fa);
         manage_faqbtn.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +85,14 @@ public class ManagerhomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        manage_chatting_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Fragment_chat_room.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -104,6 +113,7 @@ public class ManagerhomeActivity extends AppCompatActivity {
                             int item = jsonObject.getInt("store_id");
                             String item2 = jsonObject.getString("store_name");
                             store_name = item2;
+                            Restaurant_List_test.logining_user_nickname = store_name;
                             System.out.println("스토어네임:"+store_name);
                             System.out.println("상점아이디:"+item);
                             logining_store_id=item;

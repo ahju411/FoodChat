@@ -87,7 +87,7 @@ public class UserMenuHomeActivity extends AppCompatActivity {
         chatting_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),framelayout.class);
+                Intent intent = new Intent(view.getContext(),Fragment_chat_room.class);
                 startActivity(intent);
 
             }
