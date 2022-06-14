@@ -16,7 +16,7 @@ public class Request_input_reservation extends StringRequest {
     private Map<String,String> map;
 
     public Request_input_reservation(String userid,String usernickname,int storeid,String date,String time,
-                                     int adult,int child,int check,String storename,String storeaddress,Response.Listener<String>listener){
+                                     String people,String check,String storename,String storeaddress,Response.Listener<String>listener){
         super(Method.POST,URL,listener,null);
 
         map=new HashMap<>();
@@ -26,9 +26,8 @@ public class Request_input_reservation extends StringRequest {
         map.put("store_id",String.valueOf(storeid));
         map.put("reservation_date",date);
         map.put("reservation_time",time);
-        map.put("reservation_adult",String.valueOf(adult));
-        map.put("reservation_child",String.valueOf(child));
-        map.put("reservation_check",String.valueOf(check));
+        map.put("reservation_people",people);
+        map.put("reservation_check",check);
         map.put("reservation_storename",storename);
         map.put("reservation_storeaddress",storeaddress);
     }

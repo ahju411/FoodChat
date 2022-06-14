@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -26,11 +27,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import kotlin.Unit;
@@ -43,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
     private ManagerDao mManagerDao;
     private final static String TAG = "유저";
     private EditText ed_id,ed_pw;
+    private List<String>  user_nickname= new ArrayList<String>();
+    private List<String>  ceo_id= new ArrayList<String>();
+
 
 
 
@@ -51,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.home);
+
+        getUserAlldata();
+        getCEOAlldata();
+
 
 
         //일단 버튼 누르면 이동하게 정의하기
@@ -262,6 +272,95 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void getUserAlldata() {
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    System.out.println("길이"+jsonArray.length());
+
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            String item = jsonObject.getString("user_nickname");
+                            user_nickname.add(item);
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.v("작동실패","안들어옴");
+
+                        }
+                    }
+
+                    System.out.println(user_nickname);
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_User_AllData requestRegister = new Request_User_AllData(responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(requestRegister);
+
+    }
+
+    public void getCEOAlldata() {
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    System.out.println("길이"+jsonArray.length());
+
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            String item = jsonObject.getString("ceo_id");
+                            ceo_id.add(item);
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.v("작동실패","안들어옴");
+
+                        }
+                    }
+
+
+                    System.out.println(ceo_id);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_Ceo_AllData requestRegister = new Request_Ceo_AllData(responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(requestRegister);
+
+    }
 
 
 

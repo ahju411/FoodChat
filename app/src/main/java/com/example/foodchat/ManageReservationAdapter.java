@@ -51,25 +51,28 @@ public class ManageReservationAdapter extends RecyclerView.Adapter<ManageReserva
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView reser_name,reser_phone,reser_numberres,reser_date;
+        TextView reser_date,reser_usernickname,reser_storename,reser_people,reser_check,reser_time;
         Button btn_accept,btn_reject;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            reser_name = itemView.findViewById(R.id.reservation_name);
+            reser_storename = itemView.findViewById(R.id.reservation_storename);
+            reser_usernickname = itemView.findViewById(R.id.reservation_usernickname);
+            reser_people = itemView.findViewById(R.id.reservation_people);
             reser_date = itemView.findViewById(R.id.reservation_date);
-            reser_numberres = itemView.findViewById(R.id.reservation_numberReservation);
-            reser_phone = itemView.findViewById(R.id.reservation_phone);
+            reser_time = itemView.findViewById(R.id.reservation_timee);
+            reser_check = itemView.findViewById(R.id.reservation_check);
             btn_accept = itemView.findViewById(R.id.reservation_accept_btn);
             btn_reject = itemView.findViewById(R.id.reservation_reject_btn);
 
         }
         void onBind(ItemManageReservation item){
-            reser_name.setText(item.getReservation_name());
-            reser_phone.setText(item.getReservation_phone());
-            reser_numberres.setText(item.getReservation_number());
+            reser_storename.setText(item.getStorename());
+            reser_usernickname.setText(item.getUsernickname());
+            reser_people.setText(item.getReservation_people());
             reser_date.setText(item.getReservation_date());
-
+            reser_time.setText(item.getReservation_time());
+            reser_check.setText(item.getReservation_check());
         }
     }
 

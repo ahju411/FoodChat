@@ -66,6 +66,7 @@ public class Restaurant_Reservation extends AppCompatActivity {
     private int click_year,click_month,click_day;
     private String click_date,click_time;
     private RequestQueue queue;
+    private String people,check;
 
     private final Calendar cldr = Calendar.getInstance();
     private int hour = cldr.get(Calendar.HOUR_OF_DAY);
@@ -111,8 +112,7 @@ public class Restaurant_Reservation extends AppCompatActivity {
         btn_reservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(logining_user_id+
-                        logining_user_nickname+clicked_store_id+click_date+click_time+AdultCount+ChildCount);
+                check="대기중";
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -133,7 +133,7 @@ public class Restaurant_Reservation extends AppCompatActivity {
                     }
                 }; // 서버로 Volley를 이용해서 요청을 함.
                 Request_input_reservation requestRegister = new Request_input_reservation(logining_user_id,
-                        logining_user_nickname,clicked_store_id,click_date,click_time,AdultCount,ChildCount,-1,
+                        logining_user_nickname,clicked_store_id,click_date,click_time,people,check,
                         storename.getText().toString(),storelocation.getText().toString(),
                         responseListener);
                 queue = Volley.newRequestQueue(Restaurant_Reservation.this);
@@ -254,7 +254,9 @@ public class Restaurant_Reservation extends AppCompatActivity {
                 .setView(dialogLayout)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        System.out.println("예약인원 OK클릭댐 성인 : "+AdultCount+"아동:"+ChildCount);
+                        System.out.println("예약인원 OK클릭댐 성인:"+AdultCount+"명"+" "+"아동:"+ChildCount+"명");
+                        people = "성인:"+AdultCount+"명"+" "+"아동:"+ChildCount+"명";
+                        System.out.println("피플값"+people);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

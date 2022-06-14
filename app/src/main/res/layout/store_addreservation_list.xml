@@ -5,22 +5,25 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="20dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="match_parent">
+
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="368dp"
+            android:layout_height="150dp"
             android:orientation="vertical"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
-            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,19 +34,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/binggrae"
-                    android:text="예약인 :" />
+                    android:text="가게 이름 :" />
 
                 <TextView
-                    android:id="@+id/reservation_name"
+                    android:id="@+id/reservation_storename"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingLeft="10dp"
                     android:fontFamily="@font/binggrae"
-                    android:text="예약자 이름" />
+                    android:paddingLeft="10dp"
+                    android:text="가게이름" />
 
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,15 +57,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/binggrae"
-                    android:text="전화번호:" />
+                    android:text="닉네임 :" />
 
                 <TextView
-                    android:id="@+id/reservation_phone"
+                    android:id="@+id/reservation_usernickname"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/binggrae"
-                    android:text="010-1234-4567" />
+                    android:paddingLeft="10dp"
+                    android:text="예약자 이름" />
 
 
             </LinearLayout>
@@ -78,12 +82,12 @@
                     android:text="예약 인원:" />
 
                 <TextView
-                    android:id="@+id/reservation_numberReservation"
+                    android:id="@+id/reservation_people"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/binggrae"
                     android:paddingLeft="10dp"
-                    android:text="성인 0명 | 아동 0명" />
+                    android:text="성인 2명 아동 2명" />
 
 
             </LinearLayout>
@@ -105,15 +109,57 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/binggrae"
                     android:paddingLeft="10dp"
-                    android:text="2022-03-29 15:00" />
+                    android:text="0000-00-00" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/binggrae"
+                    android:text="예약 시간:" />
+
+                <TextView
+                    android:id="@+id/reservation_timee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/binggrae"
+                    android:paddingLeft="10dp"
+                    android:text="00시00분" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/binggrae"
+                    android:text="예약 상태:" />
+
+                <TextView
+                    android:id="@+id/reservation_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/binggrae"
+                    android:paddingLeft="10dp"
+                    android:text="대기중" />
 
 
             </LinearLayout>
 
 
         </LinearLayout>
-
-
 
         <View
             android:id="@+id/view"
@@ -131,8 +177,8 @@
             android:layout_width="48dp"
             android:layout_height="30dp"
             android:background="@drawable/btn_darknavi"
-            android:text="수락"
             android:fontFamily="@font/bdohyeon"
+            android:text="수락"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -145,8 +191,8 @@
             android:layout_width="48dp"
             android:layout_height="30dp"
             android:background="@drawable/btn_darknavi"
-            android:text="거절"
             android:fontFamily="@font/bdohyeon"
+            android:text="거절"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -61,6 +61,8 @@ public class UserMenuHomeActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), UserMenuReservationActivity.class);
+                intent.putExtra("logining_user_id", logining_user_id);
+                intent.putExtra("logining_user_nickname", logining_user_nickname);
                 startActivity(intent);
             }
         });
