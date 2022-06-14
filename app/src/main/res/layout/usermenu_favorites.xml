@@ -7,19 +7,6 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="395dp"
-        android:layout_height="59dp"
-        android:text="즐겨찾기가 없어요.."
-        android:textColor="@color/black"
-        android:textSize="48sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.446" />
-
     <ImageView
         android:id="@+id/backimg_btn"
         android:layout_width="50dp"
@@ -31,4 +18,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.058"
         app:srcCompat="@drawable/backimg" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_favorite_"
+        android:layout_width="358dp"
+        android:layout_height="524dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.584" />
 </androidx.constraintlayout.widget.ConstraintLayout>

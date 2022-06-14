@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -277,8 +278,8 @@ public class Restaurant_List_test extends AppCompatActivity {
 
 
 
-       //String URL = "http://192.168.75.151:9090/load_store_info.php";
-       String URL = "http://218.236.123.14:9090/load_store_info.php";
+       String URL = "http://192.168.75.151:9090/load_store_info.php";
+       //String URL = "http://218.236.123.14:9090/load_store_info.php";
 
 
         StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
