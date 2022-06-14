@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.room.Room;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "유저";
     private EditText ed_id,ed_pw;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         //일단 버튼 누르면 이동하게 정의하기
+
+
+        //파이어베이스 DB 테스트하기
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = firebaseDatabase.getReference("message");
+        myRef.setValue("하이 첫 시작");
+
 
         loginbtn = findViewById(R.id.login);
         kakaologin = findViewById(R.id.kakao);
@@ -158,6 +170,14 @@ public class MainActivity extends AppCompatActivity {
                                 intent.putExtra("logining_user_id", user_id);
                                 intent.putExtra("logining_user_pw", user_pw);
                                 intent.putExtra("logining_user_nickname", user_nickname);
+
+
+                                SharedPreferences mPref = getSharedPreferences("LoginData", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = mPref.edit();
+                                editor.putString("LoginId", user_nickname);
+                                editor.commit();
+
+
                                 startActivity(intent);
                             } else { // 유저로그인에 실패한 경우 사장로그인 체크
                                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -177,6 +197,9 @@ public class MainActivity extends AppCompatActivity {
                                                 Intent intent = new Intent(MainActivity.this, ManagerhomeActivity.class);
                                                 intent.putExtra("logining_ceo_id", ceo_id);
                                                 intent.putExtra("logining_ceo_pw", ceo_pw);
+                                                SharedPreferences mPref = getSharedPreferences("LoginData", MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = mPref.edit();
+                                                editor.putString("LoginId", ceo_id);
                                                 startActivity(intent);
                                             } else { // 사장로그인에 실패한 경우
                                                 Toast.makeText(getApplicationContext(),"로그인에 실패하였습니다.",Toast.LENGTH_SHORT).show();

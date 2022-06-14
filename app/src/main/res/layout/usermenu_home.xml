@@ -144,4 +144,42 @@
         app:layout_constraintVertical_bias="0.378"
         app:srcCompat="@drawable/starimg" />
 
+
+    <TextView
+        android:id="@+id/my_chatting_text"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="My 채팅"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854" />
+
+    <ImageView
+        android:id="@+id/chatting_btn"
+        android:layout_width="35dp"
+        android:layout_height="46dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.843"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854"
+        app:srcCompat="@drawable/goimg" />
+
+    <ImageView
+        android:id="@+id/chatting_img"
+        android:layout_width="36dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854"
+        app:srcCompat="@drawable/chattingimg" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

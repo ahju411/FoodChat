@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "557980023062",
+    "project_id": "capstone-3-1",
+    "storage_bucket": "capstone-3-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557980023062:android:d5fa00959accfe21f67837",
+        "android_client_info": {
+          "package_name": "com.example.foodchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557980023062-ird8pub97iob9grv3ls6jd3dt1oo7l3p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjNp8Bpc7LhBDmP2GiloihRzkojKD6kjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557980023062-ird8pub97iob9grv3ls6jd3dt1oo7l3p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

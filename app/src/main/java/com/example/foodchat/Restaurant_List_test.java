@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -58,13 +59,18 @@ public class Restaurant_List_test extends AppCompatActivity {
     private GpsTracker gpsTracker;
     LoadingDialogBar loadingDialogBar;
     private int clicked_store_id;
+    private String clicked_store_name;
     private RequestQueue queue;
     private List<Integer>  favorite_store_id= new ArrayList<Integer>();
     private List<Integer>  favorite_store_check= new ArrayList<Integer>();
     private int[] fav_store_id;
     private int[] fav_store_check;
+    //일단 로그인 아이디 테스트입니다~ 아마 리스트화면에 넣어야할듯
+    public static String Login_id = null;
+    public static String now_watching_chat_room_id = null;
 
-    private String logining_user_id,logining_user_pw,logining_user_nickname;
+    private String logining_user_id,logining_user_pw;
+    public static String logining_user_nickname;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +84,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         logining_user_pw = getintent.getStringExtra("logining_user_pw");
         logining_user_nickname = getintent.getStringExtra("logining_user_nickname");
         System.out.println("아이디 :"+logining_user_id +"비번 :"+logining_user_pw+"닉네임:"+logining_user_nickname);
+        startService(new Intent(getApplicationContext(),UI_update_service.class));
         setAddress();
 
         if(queue == null){
@@ -168,6 +175,45 @@ public class Restaurant_List_test extends AppCompatActivity {
             @Override
             public void onChatClick(Restaurant_ListAdapter_test.ViewHolder holder, View view, int position) {
                 System.out.println("채팅클릭22");
+                Restaurant_List_Item_test item = adpt.getItem(position);
+                clicked_store_name = item.getRes_name();
+                String ChattingRoom_id;
+                //으으으음 사용자 입장에서 누른거니까 목록은 필요가 없을 것 같다.
+                Intent intent = new Intent(view.getContext(),Chatting_Window.class);
+
+                //채팅방 이름을 상대방 아이디+내아이디의 조합으로 만드는데, 알파벳 순서로 만든다.
+                
+                //여기서 fi_id는 식당 이름을 뜻한다. 오류나면 수정할 것 해당 포지션의 식당 이름 가져와야하는데
+
+
+
+                //여기서 login id가 사실상 내 닉네임이다. 그걸 가져오면 된다.
+                //유은철이 수정
+                if(logining_user_id.compareTo(clicked_store_name)>0){ // A가 B보다 큰경우
+                    ChattingRoom_id = logining_user_nickname + clicked_store_name;
+                }else {
+                    ChattingRoom_id =clicked_store_name + logining_user_nickname;
+                }
+
+
+
+                // 채팅방 기본 정보를 담는 부분
+                Chat_room_info chat_room_info = new Chat_room_info();
+                chat_room_info.id1 = logining_user_nickname; // 대화상대 1
+                chat_room_info.id2 = clicked_store_name; // 대화상대 2
+                chat_room_info.last_message = ""; // 초기 대화메세지값은 없음
+                chat_room_info.last_message_time = ""; // 공백으로 채운다.
+                chat_room_info.last_message_id = null;
+                chat_room_info.Chatting_room_id = ChattingRoom_id; // 채팅방 아이디를 정해준다.
+                intent.putExtra("Chatting_room_id", chat_room_info);
+        /*databaseReference.child("MemberData").child(MainActivity.Login_id).child("Chat_room_list").child(ChattingRoom_id).setValue(chat_room_info); // 내 아이디에 채팅방정보 저장
+        databaseReference.child("MemberData").child(fi_id.getText().toString()).child("Chat_room_list").child(ChattingRoom_id).setValue(chat_room_info); // 대화 상대 아이디에 채팅방 정보 저장*/
+                startActivity(intent);
+
+
+
+
+
             }
 
         });

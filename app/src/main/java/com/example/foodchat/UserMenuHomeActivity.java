@@ -6,10 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class UserMenuHomeActivity extends AppCompatActivity {
-    ImageView back_btn,favorite_btn,reservation_btn,review_btn;
+    ImageView back_btn,favorite_btn,reservation_btn,review_btn,chatting_btn;
     private int clicked_store_id;
     private String logining_user_id,logining_user_nickname;
     @Override
@@ -24,6 +27,9 @@ public class UserMenuHomeActivity extends AppCompatActivity {
         System.out.println("상점아디값:"+clicked_store_id);
         System.out.println("유저아이디:"+logining_user_id);
         System.out.println("유저닉네임:"+logining_user_nickname);
+
+
+
 
 
         //////////// 액티비티 뒤로가기
@@ -70,6 +76,18 @@ public class UserMenuHomeActivity extends AppCompatActivity {
             }
         });
         ////////
+
+        //채팅으로 이동
+        chatting_btn = (ImageView) findViewById(R.id.chatting_btn);
+        chatting_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),framelayout.class);
+                startActivity(intent);
+
+            }
+        });
+
 
     }
 }
