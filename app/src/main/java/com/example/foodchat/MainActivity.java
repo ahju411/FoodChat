@@ -33,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.Constants;
+
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
 
@@ -47,6 +48,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 
 public class MainActivity extends AppCompatActivity {
@@ -97,8 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
         mUserDao = database.userDao(); //인터페이스 객체 할당
         mManagerDao = database.managerDao();
-
-
 
 
         //데이터 삽입
@@ -155,11 +155,14 @@ public class MainActivity extends AppCompatActivity {
         kakaologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(MainActivity.this)) {
                     UserApiClient.getInstance().loginWithKakaoTalk(MainActivity.this, callback);
                 } else {
                     UserApiClient.getInstance().loginWithKakaoAccount(MainActivity.this, callback);
                 }
+
+
             }
         });
         updateKakaoLoginUI();
@@ -454,9 +457,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UserApiClient.getInstance().logout(new Function1<Throwable, Unit>() {
+            @Override
+            public Unit invoke(Throwable throwable) {
+                updateKakaoLoginUI();
+                return null;
+            }
+        });
+    }
 
     private void updateKakaoLoginUI() {
         //카카오 UI 가져오는 메소드

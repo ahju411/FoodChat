@@ -15,149 +15,150 @@
         android:layout_height="match_parent">
 
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_margin="15dp">
+
+                <LinearLayout
+                    android:id="@+id/예약Page"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
 
-                    <FrameLayout
-                        android:id="@android:id/tabcontent"
+                    <LinearLayout
+                        android:id="@+id/containerFlyingFrom"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="15dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bgrounded">
 
-                        <LinearLayout
-                            android:id="@+id/예약Page"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_restaurant_24"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp"/>
 
+                        <AutoCompleteTextView
+                            android:id="@+id/reservation_store_name"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content"
+                            android:hint="식당명"
+                            android:textSize="18sp"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:fontFamily="sans-serif"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/containerFlyingTo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bgrounded">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_location_on_24"
+                            android:paddingTop="15dp"
+                            android:paddingRight="15dp"/>
+
+                        <AutoCompleteTextView
+                            android:id="@+id/reservation_store_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="식당위치"
+                            android:textSize="18sp"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:fontFamily="sans-serif"/>
+
+                    </LinearLayout>
 
 
-                            <LinearLayout
-                                android:id="@+id/containerFlyingFrom"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:padding="15dp"
-                                android:layout_marginBottom="10dp"
-                                android:background="@drawable/bgrounded">
+                    <Button
+                        android:id="@+id/reservation_date_pick"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bgrounded"
+                        android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                        android:drawablePadding="15dp"
+                        android:fontFamily="sans-serif"
+                        android:padding="15dp"
+                        android:text="예약 날짜지정"
+                        android:textAlignment="textStart"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorMediumGray"
+                        android:textSize="18sp" />
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_baseline_restaurant_24"
-                                    android:paddingTop="15dp"
-                                    android:paddingRight="15dp"/>
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/reservation_store_name"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="식당명"
-                                    android:textSize="18sp"
-                                    android:inputType="text"
-                                    android:maxLines="1"
-                                    android:singleLine="true"
-                                    android:fontFamily="sans-serif"/>
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:id="@+id/containerFlyingTo"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:padding="15dp"
-                                android:layout_marginBottom="10dp"
-                                android:background="@drawable/bgrounded">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_baseline_location_on_24"
-                                    android:paddingTop="15dp"
-                                    android:paddingRight="15dp"/>
-
-                                <AutoCompleteTextView
-                                    android:id="@+id/reservation_store_location"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:hint="식당위치"
-                                    android:textSize="18sp"
-                                    android:inputType="text"
-                                    android:maxLines="1"
-                                    android:singleLine="true"
-                                    android:fontFamily="sans-serif"/>
-
-                            </LinearLayout>
-
-
-                            <Button
-                                android:id="@+id/reservation_date_pick"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textAlignment="textStart"
-                                android:layout_gravity="start"
-                                android:drawableLeft="@drawable/ic_date_range_black_24dp"
-                                android:drawablePadding="15dp"
-                                android:text="예약 날짜지정"
-                                android:background="@drawable/bgrounded"
-                                android:textColor="@color/colorMediumGray"
-                                android:layout_marginBottom="10dp"
-                                android:padding="15dp"
-                                android:textSize="18sp"
-                                android:textAllCaps="false"
-                                android:fontFamily="sans-serif"/>
-                            <Button
-                                android:id="@+id/reservation_time"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:drawableLeft="@drawable/ic_baseline_access_time_24"
-                                android:drawablePadding="15dp"
-                                android:textAlignment="textStart"
-                                android:layout_gravity="start"
-                                android:text="예약시간 지정"
-                                android:background="@drawable/bgrounded"
-                                android:textColor="@color/colorMediumGray"
-                                android:layout_marginBottom="10dp"
-                                android:padding="15dp"
-                                android:textSize="18sp"
-                                android:textAllCaps="false"
-                                android:fontFamily="sans-serif"/>
-                            <Button
-                                android:id="@+id/reservation_number"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textAlignment="textStart"
-                                android:layout_gravity="start"
-                                android:drawableLeft="@drawable/ic_person_black_24dp"
-                                android:drawablePadding="15dp"
-                                android:textColor="@color/colorMediumGray"
-                                android:text="예약 인원 선택"
-                                android:background="@drawable/bgrounded"
-                                android:layout_marginBottom="10dp"
-                                android:padding="15dp"
-                                android:textSize="18sp"
-                                android:textAllCaps="false"
-                                android:fontFamily="sans-serif"/>
+                    <Button
+                        android:id="@+id/reservation_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_baseline_access_time_24"
+                        android:drawablePadding="15dp"
+                        android:textAlignment="textStart"
+                        android:layout_gravity="start"
+                        android:text="예약시간 지정"
+                        android:background="@drawable/bgrounded"
+                        android:textColor="@color/colorMediumGray"
+                        android:layout_marginBottom="10dp"
+                        android:padding="15dp"
+                        android:textSize="18sp"
+                        android:textAllCaps="false"
+                        android:fontFamily="sans-serif"/>
+                    <Button
+                        android:id="@+id/reservation_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="textStart"
+                        android:layout_gravity="start"
+                        android:drawableLeft="@drawable/ic_person_black_24dp"
+                        android:drawablePadding="15dp"
+                        android:textColor="@color/colorMediumGray"
+                        android:text="예약 인원 선택"
+                        android:background="@drawable/bgrounded"
+                        android:layout_marginBottom="10dp"
+                        android:padding="15dp"
+                        android:textSize="18sp"
+                        android:textAllCaps="false"
+                        android:fontFamily="sans-serif"/>
 
 
 
 
-                        </LinearLayout>
+                </LinearLayout>
 
 
 
 
-                    </FrameLayout>
+            </FrameLayout>
 
 
 
 
 
-            </LinearLayout>
+        </LinearLayout>
 
 
         <Button
@@ -169,7 +170,7 @@
             android:layout_marginBottom="50dp"
             android:background="@drawable/btn_darknavi"
             android:fontFamily="@font/bdohyeon"
-            android:text="예약하기"
+            android:text="제출하기"
             android:textAllCaps="false"
             android:textColor="@color/colorInverted" />
 
