@@ -138,6 +138,10 @@ public class Restaurant_Reservation extends AppCompatActivity {
                         responseListener);
                 queue = Volley.newRequestQueue(Restaurant_Reservation.this);
                 queue.add(requestRegister);
+
+
+                finish();
+
             }
         });
 
