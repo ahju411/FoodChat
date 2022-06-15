@@ -10,14 +10,12 @@
     <!--ListView를 정의한다.-->
 
 
-
-
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="99dp"
-        tools:layout_editor_absoluteY="268dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
     </FrameLayout>
 
@@ -34,19 +32,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1" />
 
-    <Button
+    <AutoCompleteTextView
         android:id="@+id/address"
-        android:layout_width="170dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/buttonex"
-        android:text="주소 "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/bhannaair"
-        android:textColor="#000000"
-        android:textSize="11sp"
+        android:hint="주소"
+        android:layout_marginLeft="12dp"
+        android:inputType="text"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rangebtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/rangebtn" />
 
     <ImageView
         android:id="@+id/searchbtn"

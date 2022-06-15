@@ -98,18 +98,19 @@
                                 android:id="@+id/reservation_date_pick"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="textStart"
                                 android:layout_gravity="start"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/bgrounded"
                                 android:drawableLeft="@drawable/ic_date_range_black_24dp"
                                 android:drawablePadding="15dp"
-                                android:text="예약 날짜지정"
-                                android:background="@drawable/bgrounded"
-                                android:textColor="@color/colorMediumGray"
-                                android:layout_marginBottom="10dp"
+                                android:fontFamily="sans-serif"
                                 android:padding="15dp"
-                                android:textSize="18sp"
+                                android:text="예약 날짜지정"
+                                android:textAlignment="textStart"
                                 android:textAllCaps="false"
-                                android:fontFamily="sans-serif"/>
+                                android:textColor="@color/colorMediumGray"
+                                android:textSize="18sp" />
+
                             <Button
                                 android:id="@+id/reservation_time"
                                 android:layout_width="match_parent"
