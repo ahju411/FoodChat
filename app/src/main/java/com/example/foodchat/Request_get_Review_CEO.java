@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class Request_get_Review_CEO extends StringRequest {
     //서버 url 설정(php파일 연동)
-    final static  private String URL="http://192.168.75.151:9090/load_get_Review_CEO.php";
-    //final static  private String URL="http://218.236.123.14:9090/load_get_Review_CEO.php";
+    //final static  private String URL="http://192.168.75.151:9090/load_get_Review_CEO.php";
+    final static  private String URL="http://218.236.123.14:9090/load_get_Review_CEO.php";
 
     private Map<String,String> map;
 

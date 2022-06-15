@@ -21,7 +21,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
 
-public class store_register extends AppCompatActivity {
+public class    store_register extends AppCompatActivity {
     private EditText res_name, res_address, res_time,res_mension;
     String res_image;
     private Button btn_submit;

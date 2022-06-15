@@ -10,8 +10,8 @@ import java.util.Map;
 
 public class Request_delete_Review extends StringRequest {
     //서버 url 설정(php파일 연동)
-    final static  private String URL="http://192.168.75.151:9090/delete_Review.php";
-    //final static  private String URL="http://218.236.123.14:9090/delete_Review.php";
+    //final static  private String URL="http://192.168.75.151:9090/delete_Review.php";
+    final static  private String URL="http://218.236.123.14:9090/delete_Review.php";
 
     private Map<String,String> map;
 

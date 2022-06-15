@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +41,7 @@ public class Restaurant_Info extends AppCompatActivity {
     static RequestQueue requestQueue,queue,queue2;
     private String logining_user_id,logining_user_nickname,clicked_store_name,clicked_store_address;
     private Button go_faq_btn;
+    private ScrollView sc;
 
 
 
@@ -49,6 +51,13 @@ public class Restaurant_Info extends AppCompatActivity {
         setContentView(R.layout.restaurant_info);
         rv2 = findViewById(R.id.recycle);
         rv3 = findViewById(R.id.recycle2);
+        sc = (ScrollView) findViewById(R.id.scroll) ;
+        sc.post(new Runnable() {
+            @Override
+            public void run() {
+                sc.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
         
 
         // ProgressDialog 생성
@@ -286,6 +295,7 @@ public class Restaurant_Info extends AppCompatActivity {
                             itemManageMenus2.add(new ItemManageMenu(item, item4, item3, StringToBitmaps(item2)));
                             adpt2.notifyDataSetChanged();
                             adpt2.setItemManageMenus(itemManageMenus2);
+                            loadingDialogBar.HideDialog();
 
 
 
@@ -295,6 +305,7 @@ public class Restaurant_Info extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                             Log.v("작동실패", "안들어옴");
+                            loadingDialogBar.HideDialog();
                         }
                     }
 
@@ -303,6 +314,7 @@ public class Restaurant_Info extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    loadingDialogBar.HideDialog();
                 }
 
             }

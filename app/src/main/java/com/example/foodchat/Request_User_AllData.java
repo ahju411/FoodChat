@@ -17,8 +17,8 @@ import java.util.Map;
 
 public class Request_User_AllData extends StringRequest {
     //서버 url 설정(php파일 연동)
-    final static  private String URL="http://192.168.75.151:9090/load_user_alldata.php";
-    //final static  private String URL="http://218.236.123.14:9090/load_user_alldata.php";
+    //final static  private String URL="http://192.168.75.151:9090/load_user_alldata.php";
+    final static  private String URL="http://218.236.123.14:9090/load_user_alldata.php";
 
     private Map<String,String> map;
 
