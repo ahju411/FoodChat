@@ -25,7 +25,7 @@ public class NicknameActivity extends AppCompatActivity {
     private int userid;
     private String usernick;
     private UserDao mUserDao;
-    private String user_id,user_pw,user_nickname,user_favorites;
+    private String user_id,user_pw,user_nickname,user_favorites,user_get_nickname;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -36,6 +36,7 @@ public class NicknameActivity extends AppCompatActivity {
         Intent getintent = getIntent();
         user_id = getintent.getStringExtra("user_id");
         user_pw = getintent.getStringExtra("user_pw");
+
         System.out.println(user_id+user_pw);
 
 

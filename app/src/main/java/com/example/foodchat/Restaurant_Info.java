@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -35,14 +36,14 @@ public class Restaurant_Info extends AppCompatActivity {
     private RecyclerView rv2;
     private RecyclerView rv3;
     private int clicked_store_id;
-    private TextView res_name,res_address,res_time,res_image,res_mension;
+    private TextView res_name,res_address,res_time,res_image,res_mension,res_revisit;
     private ImageView imageView;
     LoadingDialogBar loadingDialogBar;
-    static RequestQueue requestQueue,queue,queue2;
+    static RequestQueue requestQueue,queue,queue2,queue6;
     private String logining_user_id,logining_user_nickname,clicked_store_name,clicked_store_address;
     private Button go_faq_btn;
     private ScrollView sc;
-
+    private TextView revisit;
 
 
     @Override
@@ -82,6 +83,11 @@ public class Restaurant_Info extends AppCompatActivity {
             loadingDialogBar.HideDialog();
 
         }
+        if(queue6 == null){
+            queue6 = Volley.newRequestQueue(getApplicationContext());
+            loadingDialogBar.HideDialog();
+
+        }
         Intent getintent = getIntent();
         clicked_store_id = getintent.getIntExtra("clicked_store_id",0);
         logining_user_id = getintent.getStringExtra("logining_user_id");
@@ -96,6 +102,7 @@ public class Restaurant_Info extends AppCompatActivity {
         res_time = findViewById(R.id.store_time);
         res_mension = findViewById(R.id.store_mension);
         imageView = findViewById(R.id.imageView2);
+        revisit = findViewById(R.id.store_revisit);
         go_faq_btn = findViewById(R.id.go_faq);
         go_faq_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +120,7 @@ public class Restaurant_Info extends AppCompatActivity {
         getItem_Menu();
         getReviewData();
         getItem_Review();
+        getRevisitData();
 
 
 
@@ -267,6 +275,48 @@ public class Restaurant_Info extends AppCompatActivity {
         Request_store_info requestRegister = new Request_store_info(clicked_store_id, responseListener);
         queue = Volley.newRequestQueue(Restaurant_Info.this);
         queue.add(requestRegister);
+
+
+    }
+
+    public void getRevisitData() {
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            int item = jsonObject.getInt("count");
+                            revisit.setText("재 방문수 : "+item+"회");
+                            loadingDialogBar.HideDialog();
+
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.v("작동실패","안들어옴");
+                            loadingDialogBar.HideDialog();
+                        }
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    loadingDialogBar.HideDialog();
+                }
+
+            }
+        }; // 서버로 Volley를 이용해서 요청을 함.
+        Request_revisit requestRegister = new Request_revisit(clicked_store_id, responseListener);
+        queue6 = Volley.newRequestQueue(Restaurant_Info.this);
+        queue6.add(requestRegister);
 
 
     }

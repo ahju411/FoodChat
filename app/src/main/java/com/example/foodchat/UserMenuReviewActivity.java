@@ -62,6 +62,14 @@ public class UserMenuReviewActivity extends AppCompatActivity {
         System.out.println("유저아이디:"+logining_user_id);
         System.out.println("유저닉네임:"+logining_user_nickname);
 
+        //////////// 액티비티 뒤로가기
+        back_btn= (ImageView) findViewById(R.id.myReview_backbtn);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        ////////////
 
         // ProgressDialog 생성
         //로딩창 객체 생성

@@ -78,7 +78,7 @@
         <activity android:name=".ManageReservationAcceptActivity"/>
         <activity android:name=".Menu_faq_activity_ceo"/>
         <activity android:name=".Restaurant_map"/>
-        <activity android:name=".Chatting_Window"/>
+        <activity android:name=".Chatting_Window" android:theme="@style/Theme.Design.NoActionBar"/>
         <activity android:name=".Fragment_chat_room"/>
 
     </application>

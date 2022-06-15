@@ -54,12 +54,17 @@ import kotlin.jvm.functions.Function2;
 public class MainActivity extends AppCompatActivity {
     Button loginbtn, registerbtn, guestloginbtn, registerstorebtn;
     ImageButton kakaologin;
+    private String checkNickname;
     private UserDao mUserDao;
     private ManagerDao mManagerDao;
     private final static String TAG = "유저";
     private EditText ed_id,ed_pw;
     private List<String>  user_nickname= new ArrayList<String>();
+    private List<String>  user_id_list= new ArrayList<String>();
     private List<String>  store_name= new ArrayList<String>();
+    private RequestQueue queue5;
+    private String kakaoId;
+    private LoadingDialogBar loadingDialogBar;
 
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -73,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.home);
+        loadingDialogBar = new LoadingDialogBar(this);
 
         getUserAlldata();
         getCEOAlldata();
+
 
 
 
@@ -86,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         loginbtn = findViewById(R.id.login);
         kakaologin = findViewById(R.id.kakao);
         registerbtn = findViewById(R.id.goregister);
-        guestloginbtn = findViewById(R.id.guestlogin);
         registerstorebtn = findViewById(R.id.registstore);
         ed_id = findViewById(R.id.id);
         ed_pw = findViewById(R.id.pwd);
@@ -158,14 +164,19 @@ public class MainActivity extends AppCompatActivity {
 
                 if (UserApiClient.getInstance().isKakaoTalkLoginAvailable(MainActivity.this)) {
                     UserApiClient.getInstance().loginWithKakaoTalk(MainActivity.this, callback);
+
                 } else {
                     UserApiClient.getInstance().loginWithKakaoAccount(MainActivity.this, callback);
+
                 }
 
 
             }
         });
         updateKakaoLoginUI();
+
+
+
 
         //로그인 버튼 클릭시 이벤트 설정
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -264,13 +275,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //게스트 로그인 버튼 클릭시 이벤트 설정
-        guestloginbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         //식당 등록 버튼 클릭시 이벤트 설정
         registerstorebtn.setOnClickListener(new View.OnClickListener() {
@@ -302,6 +307,8 @@ public class MainActivity extends AppCompatActivity {
                             // Pulling items from the array
                             String item = jsonObject.getString("user_nickname");
                             user_nickname.add(item);
+                            String item2 = jsonObject.getString("user_id");
+                            user_id_list.add(item2);
 
 
 
@@ -475,45 +482,66 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public Unit invoke(com.kakao.sdk.user.model.User user, Throwable throwable) {
                 if (user != null) {
+                    System.out.println("찍혔냐아아아아아아");
+
+
                     //잘 전달된 경우(로그인이 된 경우)
+                    int checkUser = 0;
+                    int checkIndex = 0;
+                    kakaoId = String.valueOf(user.getId());
                     Log.i(TAG, "id" + user.getId()); //유저의 고유 아이디 불러오기
                     Log.i(TAG, "nickname=" + user.getKakaoAccount().getProfile().getNickname());
+                    int total = user_id_list.size();// arrayList의 요소의 갯수를 구한다.
+                    for (int index = 0; index < total; index++) {
+                        if(String.valueOf(user.getId()).equals(user_id_list.get(index))){
+                            checkUser = 1;
+                            checkIndex = index;
+                            System.out.println("체크유저1이 됬써요");
 
+                        }
+                    }
                     //데이터 삽입 if문으로 이미 있으면 다시 안 되게 만들기
-                    if (mUserDao.SelectId(Long.valueOf(user.getId()).intValue())) {//이미 id가 있다면
-                        Log.d("Test","id가 있다면");
-                        //닉네임까지 설정한 경우
-                        if (mUserDao.UserNick(Long.valueOf(user.getId()).intValue()) > 0) {
-                            Log.d("Test","닉네임 설정 했을 때");
-                            Intent intent = new Intent(MainActivity.this, restaurant_list.class);
-                            startActivity(intent);
-                        } else {
+                    if (checkUser==1) {//이미 id가 있다면
+
+                        Log.d("Test", "id가 있다면");
+                        checkNickname = user_nickname.get(checkIndex);
+                        int check_nickname = 0;
+
+
+                        Intent intent = new Intent(MainActivity.this, Restaurant_List_test.class);
+                        intent.putExtra("logining_user_id", kakaoId);
+                        intent.putExtra("logining_user_pw", "1234");
+                        intent.putExtra("logining_user_nickname",checkNickname);
+
+                        startActivity(intent);
+                    }
+                    else {
                             Intent intent = new Intent(MainActivity.this, NicknameActivity.class);
-                            intent.putExtra("닉네임", user.getKakaoAccount().getProfile().getNickname());
-                            intent.putExtra("id",Long.valueOf(user.getId()).intValue());
-                            Log.d("Test","닉네임 설정 안 했을 때");
+//                            intent.putExtra("user_nickname", user.getKakaoAccount().getProfile().getNickname());
+                            System.out.println("카카오아디보내기전11"+kakaoId);
+                            intent.putExtra("user_id", kakaoId);
+                            intent.putExtra("user_pw", "1234");
+                            Log.d("Test", "닉네임 설정 안 했을 때");
 
 
                             startActivity(intent);
                         }
-                        //Boolean nick = mUserDao.UserNick(Long.valueOf(user.getId()).intValue());
-                        int nick = mUserDao.UserNick((Long.valueOf(user.getId()).intValue()));
-                        Log.d("TEst",String.valueOf(nick));
 
-                    } else {
-                        //처음 카카오 로그인한 경우
-                        User userdb = new User(); //객체 인스턴스 생성
-                        userdb.setId(Long.valueOf(user.getId()).intValue());
-                        //userdb.setName(user.getKakaoAccount().getProfile().getNickname());
-                        mUserDao.InsertUser(userdb);
+
+
+//                        //Boolean nick = mUserDao.UserNick(Long.valueOf(user.getId()).intValue());
+//                        int nick = mUserDao.UserNick((Long.valueOf(user.getId()).intValue()));
+//                        Log.d("TEst",String.valueOf(nick));
+
+                    }
+                else {
+
+                    System.out.println("띠용");
                     }
                     //후에 어떤 일을 할지 적기
                     //if문으로 db파서 이 유저가 이미 가입되어있으면 스킵하고 바로 메인으로 가기.
 
 
-                } else {//로그인 실패
-                    Log.d("loginfail","로그인 실패");
-                }
                 if (throwable != null) {
                     //오류 났을 때
                     Log.w(TAG, "invoke:" + throwable.getLocalizedMessage());
@@ -522,10 +550,106 @@ public class MainActivity extends AppCompatActivity {
                 return null;
             }
         });
-    }
 }
 
 
+
+
+    private void getUserNickname(){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                    for (int i=0; i < jsonArray.length(); i++)
+                    {
+                        try {
+                            jsonObject = jsonArray.getJSONObject(i);
+                            // Pulling items from the array
+                            String item = jsonObject.getString("user_nickname");
+
+                            System.out.println("체크닉네임있나요"+checkNickname);
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+
+
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+
+                }
+            }
+        };
+        Request_get_user_nickname loginRequest = new Request_get_user_nickname(
+                responseListener);
+        queue5 = Volley.newRequestQueue(MainActivity.this);
+        queue5.add(loginRequest);
+    }
+}
+
+//
+//    private void updateKakaoLoginUI() {
+//        //카카오 UI 가져오는 메소드
+//        UserApiClient.getInstance().me(new Function2<com.kakao.sdk.user.model.User, Throwable, Unit>() {
+//            @Override
+//            public Unit invoke(com.kakao.sdk.user.model.User user, Throwable throwable) {
+//                if (user != null) {
+//                    //잘 전달된 경우(로그인이 된 경우)
+//                    System.out.println("찍혔냐아아아아아아");
+//                    Log.i(TAG, "id" + user.getId()); //유저의 고유 아이디 불러오기
+//                    Log.i(TAG, "nickname=" + user.getKakaoAccount().getProfile().getNickname());
+//
+//                    //데이터 삽입 if문으로 이미 있으면 다시 안 되게 만들기
+//                    if (mUserDao.SelectId(Long.valueOf(user.getId()).intValue())) {//이미 id가 있다면
+//                        Log.d("Test","id가 있다면");
+//                        //닉네임까지 설정한 경우
+//                        if (mUserDao.UserNick(Long.valueOf(user.getId()).intValue()) > 0) {
+//                            Log.d("Test","닉네임 설정 했을 때");
+//                            Intent intent = new Intent(MainActivity.this, restaurant_list.class);
+//                            startActivity(intent);
+//                        } else {
+//                            Intent intent = new Intent(MainActivity.this, NicknameActivity.class);
+//                            intent.putExtra("닉네임", user.getKakaoAccount().getProfile().getNickname());
+//                            intent.putExtra("id",Long.valueOf(user.getId()).intValue());
+//                            Log.d("Test","닉네임 설정 안 했을 때");
+//
+//
+//                            startActivity(intent);
+//                        }
+//                        //Boolean nick = mUserDao.UserNick(Long.valueOf(user.getId()).intValue());
+//                        int nick = mUserDao.UserNick((Long.valueOf(user.getId()).intValue()));
+//                        Log.d("TEst",String.valueOf(nick));
+//
+//                    } else {
+//                        //처음 카카오 로그인한 경우
+//                        User userdb = new User(); //객체 인스턴스 생성
+//                        userdb.setId(Long.valueOf(user.getId()).intValue());
+//                        //userdb.setName(user.getKakaoAccount().getProfile().getNickname());
+//                        mUserDao.InsertUser(userdb);
+//                    }
+//                    //후에 어떤 일을 할지 적기
+//                    //if문으로 db파서 이 유저가 이미 가입되어있으면 스킵하고 바로 메인으로 가기.
+//
+//
+//                } else {//로그인 실패
+//                    Log.d("loginfail","로그인 실패");
+//                }
+//                if (throwable != null) {
+//                    //오류 났을 때
+//                    Log.w(TAG, "invoke:" + throwable.getLocalizedMessage());
+//                }
+//
+//                return null;
+//            }
+//        });
+//    }
 
 
 
