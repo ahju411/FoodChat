@@ -306,6 +306,7 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
         marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 기본 블루핀
         marker.setCustomImageResourceId(R.drawable.restaurantimg);
         marker.setCustomImageAutoscale(false);
+        marker.setCustomImageAnchor(0.5f,1.0f);
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); //클릭 시 레드핀
         mapView.addPOIItem(marker);
         mapView.moveCamera(CameraUpdateFactory.newMapPoint(mapPoint,2));
