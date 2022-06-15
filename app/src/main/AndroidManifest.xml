@@ -65,6 +65,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".NicknameActivity" />
         <activity android:name=".RegisterManagerActivity" />
+        <activity android:name=".UserFaqAcitivity" />
         <activity android:name=".ManagerhomeActivity" />
         <activity android:name=".UserMenuHomeActivity" />
         <activity android:name=".UserMenuFavoritesActivity" />

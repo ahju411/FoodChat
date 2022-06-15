@@ -1,10 +1,7 @@
 package com.example.foodchat;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +21,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class Menu_faq_activity_ceo extends AppCompatActivity implements Menu_dialog_faq.Menu_faq_dialogListener,Menu_faq_fix_dialog.Menu_faq_dialogListener {

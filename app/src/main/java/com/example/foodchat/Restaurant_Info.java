@@ -73,6 +73,13 @@ public class Restaurant_Info extends AppCompatActivity {
             loadingDialogBar.HideDialog();
 
         }
+        Intent getintent = getIntent();
+        clicked_store_id = getintent.getIntExtra("clicked_store_id",0);
+        logining_user_id = getintent.getStringExtra("logining_user_id");
+        logining_user_nickname = getintent.getStringExtra("logining_user_nickname");
+        System.out.println("상점아디값:"+clicked_store_id);
+        System.out.println("유저아이디:"+logining_user_id);
+        System.out.println("유저닉네임:"+logining_user_nickname);
 
 
         res_name = findViewById(R.id.store_name);
@@ -84,20 +91,13 @@ public class Restaurant_Info extends AppCompatActivity {
         go_faq_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), Menu_faq_activity_ceo.class);
+                Intent intent = new Intent(view.getContext(), UserFaqAcitivity.class);
                 intent.putExtra("clicked_store_id",clicked_store_id);
                 startActivity(intent);
 
             }
         });
 
-        Intent getintent = getIntent();
-        clicked_store_id = getintent.getIntExtra("clicked_store_id",0);
-        logining_user_id = getintent.getStringExtra("logining_user_id");
-        logining_user_nickname = getintent.getStringExtra("logining_user_nickname");       
-        System.out.println("상점아디값:"+clicked_store_id);
-        System.out.println("유저아이디:"+logining_user_id);
-        System.out.println("유저닉네임:"+logining_user_nickname);
 
         getData();
         getMenuData();

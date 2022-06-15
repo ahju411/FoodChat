@@ -20,17 +20,17 @@
 
     <TextView
         android:id="@+id/my_menu_text"
-        android:layout_width="166dp"
-        android:layout_height="83dp"
+        android:layout_width="157dp"
+        android:layout_height="88dp"
         android:text="My 메뉴"
         android:textColor="@color/black"
-        android:textSize="48sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintHorizontal_bias="0.937"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.186" />
+        app:layout_constraintVertical_bias="0.231" />
 
     <TextView
         android:id="@+id/my_review_text"

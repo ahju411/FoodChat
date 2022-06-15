@@ -19,6 +19,7 @@ public class Request_get_faq extends StringRequest {
 
         map=new HashMap<>();
         map.put("store_id",String.valueOf(store_id));
+        System.out.println("스토어아이디값은요@@"+store_id);
 
     }
 

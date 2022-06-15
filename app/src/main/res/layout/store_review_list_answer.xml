@@ -75,8 +75,8 @@
 
         <ImageView
             android:id="@+id/CEOReview_review_img"
-            android:layout_width="110dp"
-            android:layout_height="106dp"
+            android:layout_width="79dp"
+            android:layout_height="78dp"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:maxWidth="130dp"
@@ -90,8 +90,8 @@
 
         <ImageView
             android:id="@+id/CEOReview_review_img2"
-            android:layout_width="110dp"
-            android:layout_height="106dp"
+            android:layout_width="79dp"
+            android:layout_height="72dp"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:maxWidth="130dp"
@@ -105,8 +105,8 @@
 
         <ImageView
             android:id="@+id/CEOReview_review_img3"
-            android:layout_width="110dp"
-            android:layout_height="106dp"
+            android:layout_width="79dp"
+            android:layout_height="76dp"
             android:layout_marginTop="10dp"
             android:adjustViewBounds="true"
             android:maxWidth="130dp"
@@ -120,8 +120,8 @@
 
         <TextView
             android:id="@+id/CEOReview_review_user"
-            android:layout_width="343dp"
-            android:layout_height="79dp"
+            android:layout_width="282dp"
+            android:layout_height="57dp"
             android:layout_gravity="top"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/binggrae"
@@ -146,8 +146,8 @@
 
         <EditText
             android:id="@+id/CEOReview_ceo_mension"
-            android:layout_width="324dp"
-            android:layout_height="54dp"
+            android:layout_width="286dp"
+            android:layout_height="45dp"
             android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.468"
