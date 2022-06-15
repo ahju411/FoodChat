@@ -8,12 +8,14 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -50,7 +52,7 @@ public class Restaurant_List_test extends AppCompatActivity {
     private ArrayList<Restaurant_List_Item_test> res_items,res_items2;
     private ImageButton backbtn;
     private ImageView menubtn;
-    private Button address_text;
+    private Button LV;
     private ImageView IV;
     static String[] data1 = new String[20];
     static String[] data2 = new String[20];
@@ -240,7 +242,14 @@ public class Restaurant_List_test extends AppCompatActivity {
         });
 
 // 임시 식당 상세페이지 들어가기
-        address_text = (Button) findViewById(R.id.address);
+        LV = (Button) findViewById(R.id.address);
+        LV.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+//임시 식당 상세페이지 들어가기
+                Intent intent = new Intent(view.getContext(), Restaurant_Info.class);
+                startActivity(intent);
+            }
+        });
 
 // 임시 웹서버 DB연결테스트 삭제 예정
         IV = (ImageView) findViewById(R.id.searchbtn);
@@ -389,8 +398,8 @@ public class Restaurant_List_test extends AppCompatActivity {
         latitude = gpsTracker.getLatitude();
         longtitue = gpsTracker.getLongitude();
         String city = getCurrentAddress(latitude,longtitue);
-        address_text = findViewById(R.id.address);
-        address_text.setText(city);
+        LV = findViewById(R.id.address);
+        LV.setText(city);
     }
 
     public String getCurrentAddress(double latitude, double longitude) {
