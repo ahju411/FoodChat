@@ -2,6 +2,7 @@ package com.example.foodchat;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +46,7 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
     private Button button;
     private TextView editText;
     private String store_address_string;
+    private LocationManager lm;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,7 +106,14 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
         mapView = (MapView) findViewById(R.id.maptest2view);
         mapView.setCurrentLocationEventListener(this);
 
-        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithMarkerHeadingWithoutMapMoving);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithMarkerHeadingWithoutMapMoving);
+            }
+        },3000);
+
 
 
 
@@ -116,7 +126,7 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
         }else{
             checkRunTimePermission();
         }
-        //setMap();
+        setMap();
 
     }
 
@@ -290,10 +300,12 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
 
         MapPOIItem marker = new MapPOIItem();
         MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(latitude), Double.parseDouble(longtitude));
-        marker.setItemName("Default Makrer");
-        marker.setTag(0);
+        marker.setItemName("식당");
+        marker.setTag(1);
         marker.setMapPoint(mapPoint); //위에 mappoint 위도 경도를 따서 표시함
-        marker.setMarkerType(MapPOIItem.MarkerType.BluePin); // 기본 블루핀
+        marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 기본 블루핀
+        marker.setCustomImageResourceId(R.drawable.restaurantimg);
+        marker.setCustomImageAutoscale(false);
         marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); //클릭 시 레드핀
         mapView.addPOIItem(marker);
         mapView.moveCamera(CameraUpdateFactory.newMapPoint(mapPoint,2));
