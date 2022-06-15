@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="1" />
 
     <AutoCompleteTextView
-        android:id="@+id/address"
+        android:id="@+id/address_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bhannaair"
