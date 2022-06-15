@@ -58,8 +58,6 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
         Log.d("식당주소: ",store_address_string);
 
 
-        editText = findViewById(R.id.editTextmap);
-        editText.setText(store_address_string);
 
 
         //button = findViewById(R.id.buttonmap);
@@ -105,6 +103,8 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
 
         mapView = (MapView) findViewById(R.id.maptest2view);
         mapView.setCurrentLocationEventListener(this);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.44787309918712,126.65693271868403),true);
+
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -304,10 +304,10 @@ public class Restaurant_map extends AppCompatActivity implements MapView.Current
         marker.setTag(1);
         marker.setMapPoint(mapPoint); //위에 mappoint 위도 경도를 따서 표시함
         marker.setMarkerType(MapPOIItem.MarkerType.CustomImage); // 기본 블루핀
-        marker.setCustomImageResourceId(R.drawable.restaurantimg);
+        marker.setCustomImageResourceId(R.drawable.restaurant2);
         marker.setCustomImageAutoscale(false);
         marker.setCustomImageAnchor(0.5f,1.0f);
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); //클릭 시 레드핀
+        //marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin); //클릭 시 레드핀
         mapView.addPOIItem(marker);
         mapView.moveCamera(CameraUpdateFactory.newMapPoint(mapPoint,2));
     }

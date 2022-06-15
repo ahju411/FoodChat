@@ -67,9 +67,9 @@ public class Chatting_Window extends AppCompatActivity {
 
           // 그룹채팅방이 아닐때
             if (Chatting_room_info.id1.equals(Restaurant_List_test.logining_user_nickname)) {
-               this.getSupportActionBar().setTitle(Chatting_room_info.id2 + "님과의 대화방");
+               this.getSupportActionBar().setTitle(Chatting_room_info.id2);
             } else {
-                this.getSupportActionBar().setTitle(Chatting_room_info.id1 + "님과의 대화방");
+                this.getSupportActionBar().setTitle(Chatting_room_info.id1);
             }
 
 
