@@ -81,17 +81,22 @@ public class Restaurant_List_Home extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        ct = getApplicationContext();
+        ct = getApplicationContext(); //GPS에 쓸것
         setContentView(R.layout.restaurant_list2);
-        res_items = new ArrayList<>();
+        res_items = new ArrayList<>(); // DB에 가져온 식당및 식당정보를 담을곳
+
+        // 넘어온 로그인정보 받기
         Intent getintent = getIntent();
         logining_user_id = getintent.getStringExtra("logining_user_id");
         logining_user_pw = getintent.getStringExtra("logining_user_pw");
         logining_user_nickname = getintent.getStringExtra("logining_user_nickname");
         System.out.println("아이디 :"+logining_user_id +"비번 :"+logining_user_pw+"닉네임:"+logining_user_nickname);
-        startService(new Intent(getApplicationContext(),UI_update_service.class));
-        setAddress();
 
+
+        startService(new Intent(getApplicationContext(),UI_update_service.class));
+        setAddress(); // 상단에 표시할 주소세팅
+
+        // 데이터 받아올때 null이면 무한 대기상태 걸리므로 따로 처리해줘야함
         if(queue == null){
             queue = Volley.newRequestQueue(getApplicationContext());
         }
@@ -100,7 +105,7 @@ public class Restaurant_List_Home extends AppCompatActivity {
         loadingDialogBar = new LoadingDialogBar(this);
         loadingDialogBar.ShowDilaog("불러오는 중.");
 
-
+        // 데이터 받아올때 null이면 무한 대기상태 걸리므로 따로 처리해줘야함
         if(requestQueue == null){
             requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
@@ -455,10 +460,6 @@ public class Restaurant_List_Home extends AppCompatActivity {
                             System.out.println("겟페브리함수작동?ㅅ");
                             favorite_store_id.add(item);
                             favorite_store_check.add(item2);
-
-
-
-
 
                         } catch (JSONException e) {
                             e.printStackTrace();
