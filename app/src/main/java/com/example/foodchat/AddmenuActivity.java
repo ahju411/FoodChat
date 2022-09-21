@@ -41,7 +41,7 @@ public class AddmenuActivity extends AppCompatActivity implements Menu_dialog.Me
     public static String menu_image2="aa";
     private RequestQueue queue;
     LoadingDialogBar loadingDialogBar;
-
+    //ㅁㄴㅇ
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
