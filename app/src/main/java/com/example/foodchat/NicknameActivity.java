@@ -68,7 +68,7 @@ public class NicknameActivity extends AppCompatActivity {
                             boolean success = jsonObject.getBoolean("success");
                             if (success) { // 회원등록에 성공한 경우
                                 Toast.makeText(getApplicationContext(),"회원 등록에 성공하였습니다.",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(NicknameActivity.this, Restaurant_List_test.class);
+                                Intent intent = new Intent(NicknameActivity.this, Restaurant_List_Home.class);
                                 intent.putExtra("logining_user_id", user_id);
                                 intent.putExtra("logining_user_pw", user_pw);
                                 intent.putExtra("logining_user_nickname", user_nickname);

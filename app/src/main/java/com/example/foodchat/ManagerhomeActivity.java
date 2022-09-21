@@ -1,7 +1,6 @@
 package com.example.foodchat;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -113,7 +112,7 @@ public class ManagerhomeActivity extends AppCompatActivity {
                             int item = jsonObject.getInt("store_id");
                             String item2 = jsonObject.getString("store_name");
                             store_name = item2;
-                            Restaurant_List_test.logining_user_nickname = store_name;
+                            Restaurant_List_Home.logining_user_nickname = store_name;
                             System.out.println("스토어네임:"+store_name);
                             System.out.println("상점아이디:"+item);
                             logining_store_id=item;

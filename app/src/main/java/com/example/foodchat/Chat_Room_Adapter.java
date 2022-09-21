@@ -43,7 +43,7 @@ public class Chat_Room_Adapter extends RecyclerView.Adapter<Chat_Room_Adapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
 
-            if (chatting_room_list.get(position).id1.equals(Restaurant_List_test.logining_user_nickname)) {
+            if (chatting_room_list.get(position).id1.equals(Restaurant_List_Home.logining_user_nickname)) {
                 holder.friend_id.setText(chatting_room_list.get(position).id2);
             } else {
                 holder.friend_id.setText(chatting_room_list.get(position).id1);

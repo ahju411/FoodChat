@@ -1,20 +1,12 @@
 package com.example.foodchat;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,14 +17,8 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Constants;
 
 import com.kakao.sdk.auth.model.OAuthToken;
 import com.kakao.sdk.user.UserApiClient;
@@ -41,10 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import kotlin.Unit;
@@ -59,15 +42,15 @@ public class MainActivity extends AppCompatActivity {
     private ManagerDao mManagerDao;
     private final static String TAG = "유저";
     private EditText ed_id,ed_pw;
-    private List<String>  user_nickname= new ArrayList<String>();
-    private List<String>  user_id_list= new ArrayList<String>();
-    private List<String>  store_name= new ArrayList<String>();
+    private List<String>  user_nickname= new ArrayList<String>(); // (야매)채팅하기위해 모든유저의 개인정보 DB에서가져와 저장
+    private List<String>  user_id_list= new ArrayList<String>(); //
+    private List<String>  store_name= new ArrayList<String>();  //
     private RequestQueue queue5;
     private String kakaoId;
     private LoadingDialogBar loadingDialogBar;
 
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance(); // 파이어베이스 채팅용 이혜성이 만든거라 잘모름
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
 
@@ -78,18 +61,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.home);
-        loadingDialogBar = new LoadingDialogBar(this);
+        loadingDialogBar = new LoadingDialogBar(this); // 로딩바를 실행하는 파트인데 무시해도됨
 
-        getUserAlldata();
-        getCEOAlldata();
-
-
-
-
-        //일단 버튼 누르면 이동하게 정의하기
+       getUserAlldata(); // (야매) 채팅에 사용할 모든유저 정보를 가져오는파트 무시해도됨
+        getCEOAlldata(); // (야매) 채팅에 사용할 모든사장 정보를 가져오는파트 무시해도됨
 
 
 
+
+        //일단 버튼 누르면 이동하게 정의하
+
+        /**
+         위젯 세팅
+         */
         loginbtn = findViewById(R.id.login);
         kakaologin = findViewById(R.id.kakao);
         registerbtn = findViewById(R.id.goregister);
@@ -97,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
         ed_id = findViewById(R.id.id);
         ed_pw = findViewById(R.id.pwd);
 
-        //DB파트
+        /////////////////////////////////////////////////////
+
+        //DB파트 (이혜성)
         UserDB database = Room.databaseBuilder(getApplicationContext(), UserDB.class, "FoodChat_db")
                 .fallbackToDestructiveMigration() //스키마 버전 변경 가능
                 .allowMainThreadQueries() // Main Thread에서 DB에 IO를 가능하게 함
@@ -114,10 +100,13 @@ public class MainActivity extends AppCompatActivity {
 //        user.setAge("24");
 //        user.setPhone("01012341234");
 //        mUserDao.InsertUser(user);
+
         Manager manager = new Manager();
         manager.setId(1234);
         manager.setPw("1234");
         mManagerDao.InsertManager(manager);
+
+
 
 
         List<User> userList = mUserDao.getUserAll();
@@ -182,9 +171,14 @@ public class MainActivity extends AppCompatActivity {
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userID = ed_id.getText().toString();
-                String userPass = ed_pw.getText().toString();
-
+                String userID = ed_id.getText().toString();      // 입력한ID를 변수에 저장
+                String userPass = ed_pw.getText().toString();    // 입력한PW를 변수에 저장
+                /**
+                 *
+                 * 1.아래의 Request_User_Login을 통해 입력한 ID와 PW를 서버로 전송한다.
+                 * 2. 서버에서 입력한 ID와 PW가 DB에 있는지 체킹후 있다면 success이다.
+                 * 3. onResponse를 통해서 success인경우 로그인성공, 아닐경우 실패이다.
+                 */
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -193,18 +187,21 @@ public class MainActivity extends AppCompatActivity {
                             System.out.println("hongchul" + response);
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
-                            if (success) { // 유저로그인에 성공한 경우
+                            if (success) { // 유저로그인에 성공한 경우 DB에서 ID,PW,닉네임을 가저와 저장한다
                                 String user_id = jsonObject.getString("user_id");
                                 String user_pw = jsonObject.getString("user_pw");
                                 String user_nickname = jsonObject.getString("user_nickname");
 
                                 Toast.makeText(getApplicationContext(),"유저 로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MainActivity.this, Restaurant_List_test.class);
+
+
+                                Intent intent = new Intent(MainActivity.this, Restaurant_List_Home.class);
+                                // 다음액티비티에 ID,PW,닉네임을 전달
                                 intent.putExtra("logining_user_id", user_id);
                                 intent.putExtra("logining_user_pw", user_pw);
                                 intent.putExtra("logining_user_nickname", user_nickname);
 
-
+                                //이건뭐지;;
                                 SharedPreferences mPref = getSharedPreferences("LoginData", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = mPref.edit();
                                 editor.putString("LoginId", user_nickname);
@@ -221,13 +218,14 @@ public class MainActivity extends AppCompatActivity {
                                             System.out.println("hongchul" + response);
                                             JSONObject jsonObject = new JSONObject(response);
                                             boolean success = jsonObject.getBoolean("success");
-                                            if (success) { // 사장로그인에 성공한 경우
+                                            if (success) { // 사장로그인에 성공한 경우 사장ID PW 변수저장
                                                 String ceo_id = jsonObject.getString("ceo_id");
                                                 String ceo_pw = jsonObject.getString("ceo_pw");
-                                                Restaurant_List_test.logining_user_nickname = ceo_id;
+                                                Restaurant_List_Home.logining_user_nickname = ceo_id;
 
 
                                                 Toast.makeText(getApplicationContext(),"사장 로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                                                // 다음액티비티에 사장ID PW 전달
                                                 Intent intent = new Intent(MainActivity.this, ManagerhomeActivity.class);
                                                 intent.putExtra("logining_ceo_id", ceo_id);
                                                 intent.putExtra("logining_ceo_pw", ceo_pw);
@@ -255,7 +253,10 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 };
-
+                /**
+                 아래부터 작동한후 위 파트에서 작동한다.
+                 * 아래파트는 데이터 보내는역할 위쪽은 데이터 받기위해 대기하는 역할
+                 */
                 Request_User_Login requestUserLogin = new Request_User_Login(userID, userPass, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
                 queue.add(requestUserLogin);
@@ -508,7 +509,7 @@ public class MainActivity extends AppCompatActivity {
                         int check_nickname = 0;
 
 
-                        Intent intent = new Intent(MainActivity.this, Restaurant_List_test.class);
+                        Intent intent = new Intent(MainActivity.this, Restaurant_List_Home.class);
                         intent.putExtra("logining_user_id", kakaoId);
                         intent.putExtra("logining_user_pw", "1234");
                         intent.putExtra("logining_user_nickname",checkNickname);

@@ -72,10 +72,10 @@ public class UI_update_service extends Service {
                 Log.i("서비스", "변화!! : " +  chat_room_info.last_message);
 
                 //내가 현재 보고있는 채팅방의 아이디와 변화가 있는 채팅방의 아이디가 같으면 알림 안함
-                if (!chat_room_info.Chatting_room_id.equals(Restaurant_List_test.now_watching_chat_room_id)) {
+                if (!chat_room_info.Chatting_room_id.equals(Restaurant_List_Home.now_watching_chat_room_id)) {
 
                     // 마지막 메세지를 보낸 아이디가 내가 아니면 알림을 띄워준다.
-                    if(!chat_room_info.last_message_id.equals(Restaurant_List_test.logining_user_nickname)){
+                    if(!chat_room_info.last_message_id.equals(Restaurant_List_Home.logining_user_nickname)){
                         sendNotification(chat_room_info.last_message_id, chat_room_info.last_message, chat_room_info);
                     }
                 }
@@ -99,7 +99,7 @@ public class UI_update_service extends Service {
 
             }
         };
-        databaseReference.child("MemberData").child(Restaurant_List_test.logining_user_nickname).child("Chat_room_list").addChildEventListener(childEventListener);
+        databaseReference.child("MemberData").child(Restaurant_List_Home.logining_user_nickname).child("Chat_room_list").addChildEventListener(childEventListener);
 
 
 

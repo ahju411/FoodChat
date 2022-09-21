@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -53,7 +52,7 @@ public class Chatting_Window extends AppCompatActivity {
         chattingAdapter = new ChattingAdapter(chatting_message, new ChattingAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int postition) {
-                Intent intent = new Intent(getApplicationContext(), Restaurant_List_test.class);
+                Intent intent = new Intent(getApplicationContext(), Restaurant_List_Home.class);
                 intent.putExtra("Friend_Id",chatting_message.get(postition).getUserName());
                 startActivity(intent);
             }
@@ -66,7 +65,7 @@ public class Chatting_Window extends AppCompatActivity {
         Currentposition = getIntent().getIntExtra("currentposition", 0);
 
           // 그룹채팅방이 아닐때
-            if (Chatting_room_info.id1.equals(Restaurant_List_test.logining_user_nickname)) {
+            if (Chatting_room_info.id1.equals(Restaurant_List_Home.logining_user_nickname)) {
                this.getSupportActionBar().setTitle(Chatting_room_info.id2);
             } else {
                 this.getSupportActionBar().setTitle(Chatting_room_info.id1);
@@ -112,7 +111,7 @@ public class Chatting_Window extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                Intent intent = new Intent(getApplicationContext(), Restaurant_List_test.class);
+                Intent intent = new Intent(getApplicationContext(), Restaurant_List_Home.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
                 intent.putExtra("currentpositon", Currentposition);
@@ -149,7 +148,7 @@ public class Chatting_Window extends AppCompatActivity {
     }
 
     public void Sending_message(View view) {
-        ChatData chatData = new ChatData(Restaurant_List_test.logining_user_nickname, input_message.getText().toString());
+        ChatData chatData = new ChatData(Restaurant_List_Home.logining_user_nickname, input_message.getText().toString());
         Calendar calendar = Calendar.getInstance();
         String sending_time = String.format("%d.%d %d시 %d분", calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH),
                 calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
@@ -159,7 +158,7 @@ public class Chatting_Window extends AppCompatActivity {
         Log.d("채팅룸 Sending_message",Chatting_room_info.Chatting_room_id);
         Chatting_room_info.last_message_time = sending_time;
         Chatting_room_info.last_message = input_message.getText().toString();
-        Chatting_room_info.last_message_id = Restaurant_List_test.logining_user_nickname;
+        Chatting_room_info.last_message_id = Restaurant_List_Home.logining_user_nickname;
 
         // 그룹채팅방이 아닌 경우
         //databaseReference.child("MemberData").child(Restaurant_List_test.logining_user_nickname).child("Chat_room_list").child("채팅룸 아이디").setValue( Restaurant_List_test.logining_user_nickname); // 내 아이디에 채팅방정보 저장
@@ -172,7 +171,7 @@ public class Chatting_Window extends AppCompatActivity {
         databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("last_message_id").setValue(Chatting_room_info.last_message_id); // 내 아이디에 채팅방 정보 저장
         databaseReference.child("MemberData").child(Chatting_room_info.id1).child("Chat_room_list").child("last_message_time").setValue(Chatting_room_info.last_message_time); // 내 아이디에 채팅방 정보 저장
 
-        if (Chatting_room_info.id1.equals(Restaurant_List_test.logining_user_nickname)) {
+        if (Chatting_room_info.id1.equals(Restaurant_List_Home.logining_user_nickname)) {
             databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("Chatting_room_id").setValue(Chatting_room_info.Chatting_room_id); // 내 아이디에 채팅방 정보 저장
             databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("id1").setValue(Chatting_room_info.id1); // 내 아이디에 채팅방 정보 저장
             databaseReference.child("MemberData").child(Chatting_room_info.id2).child("Chat_room_list").child("id2").setValue(Chatting_room_info.id2); // 내 아이디에 채팅방 정보 저장
@@ -202,13 +201,13 @@ public class Chatting_Window extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Restaurant_List_test.now_watching_chat_room_id = Chatting_room_info.Chatting_room_id;
+        Restaurant_List_Home.now_watching_chat_room_id = Chatting_room_info.Chatting_room_id;
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Restaurant_List_test.now_watching_chat_room_id = null;
+        Restaurant_List_Home.now_watching_chat_room_id = null;
 
     }
 

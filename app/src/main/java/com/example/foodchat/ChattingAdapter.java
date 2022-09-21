@@ -1,7 +1,6 @@
 package com.example.foodchat;
 
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,10 +13,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.collection.LLRBNode;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ChattingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -69,7 +65,7 @@ public class ChattingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
         // 자신인 경우 - 오른쪽 정렬, 왼쪽이미지, 오른쪽 시간 안보임
-        if(chatting_message.get(position).getUserName().equals(Restaurant_List_test.logining_user_nickname)){
+        if(chatting_message.get(position).getUserName().equals(Restaurant_List_Home.logining_user_nickname)){
             viewHolder.mesg_text.setText(chatting_message.get(position).getMessage());
             viewHolder.mesg_text.setGravity(Gravity.END);
             viewHolder.message_line.setGravity(Gravity.END);

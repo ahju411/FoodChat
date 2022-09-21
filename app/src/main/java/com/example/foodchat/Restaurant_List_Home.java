@@ -12,7 +12,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -44,7 +43,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class Restaurant_List_test extends AppCompatActivity {
+public class Restaurant_List_Home extends AppCompatActivity {
     static RequestQueue requestQueue;
     private RecyclerView rv;
     private Restaurant_ListAdapter_test adpt;
@@ -476,7 +475,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         }; // 서버로 Volley를 이용해서 요청을 함.
         Request_get_favorite requestRegister = new Request_get_favorite(logining_user_id,
                 responseListener);
-        queue = Volley.newRequestQueue(Restaurant_List_test.this);
+        queue = Volley.newRequestQueue(Restaurant_List_Home.this);
         queue.add(requestRegister);
     }
 
@@ -563,7 +562,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         }; // 서버로 Volley를 이용해서 요청을 함.
         Request_delete_favorite requestRegister = new Request_delete_favorite(logining_user_id,clicked_store_id,
                 responseListener);
-        queue = Volley.newRequestQueue(Restaurant_List_test.this);
+        queue = Volley.newRequestQueue(Restaurant_List_Home.this);
         queue.add(requestRegister);
 
     }
@@ -605,7 +604,7 @@ public class Restaurant_List_test extends AppCompatActivity {
         }; // 서버로 Volley를 이용해서 요청을 함.
         Request_input_user_favorite requestRegister = new Request_input_user_favorite(logining_user_id,clicked_store_id,
                 responseListener);
-        queue = Volley.newRequestQueue(Restaurant_List_test.this);
+        queue = Volley.newRequestQueue(Restaurant_List_Home.this);
         queue.add(requestRegister);
 
     }

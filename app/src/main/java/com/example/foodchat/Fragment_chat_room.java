@@ -1,23 +1,17 @@
 package com.example.foodchat;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodchat.dummy.DummyContent;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -117,7 +111,7 @@ public class Fragment_chat_room extends AppCompatActivity {
 
         //Firebase 에서 저장된 정보 가져오기
 
-        databaseReference.child("MemberData").child(Restaurant_List_test.logining_user_nickname).child("Chat_room_list").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("MemberData").child(Restaurant_List_Home.logining_user_nickname).child("Chat_room_list").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Chat_room_info chat_room_info = snapshot.getValue(Chat_room_info.class);
